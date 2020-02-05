@@ -1,0 +1,80 @@
+ol,
+ul {
+	list-style: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html * {
+	box-sizing: border-box;
+}
+
+html *:before,
+html *:after {
+	box-sizing: border-box;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	position: relative;
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	position: relative;
+	min-width: 320px;
+	width: 100%;
+	font-family: Roboto, sans-serif;
+	letter-spacing: normal;
+	background-color: #edeff8;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100%;
+	min-height: 480px;
+}
