@@ -1,6 +1,6 @@
-import { Route, Switch, withRouter } from 'react-router-dom'
-
 import React from 'react'
+
+import { Route, Switch, withRouter } from 'react-router-dom'
 
 import Routing from './Routing'
 
@@ -12,16 +12,11 @@ class App extends React.Component {
 			<Route
 				path={route.path}
 				exact={route.exact}
-				render={() => <route.component history={this.props.history} location={this.props.location} />}
+				render={({ staticContext, ...props }) => <route.component {...props} />}
 				key={i}
 			/>
 		))
-
-		return (
-			<div className="app-box">
-				<Switch>{routes}</Switch>
-			</div>
-		)
+		return <Switch>{routes}</Switch>
 	}
 }
 

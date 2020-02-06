@@ -1,8 +1,8 @@
-const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = function(env, argv) {
 	return {
@@ -26,8 +26,8 @@ module.exports = function(env, argv) {
 			disableHostCheck: true,
 			setup(app) {
 				app.post('*', (req, res) => {
-					res.redirect(req.originalUrl);
-				});
+					res.redirect(req.originalUrl)
+				})
 			},
 		},
 		module: {
@@ -94,5 +94,5 @@ module.exports = function(env, argv) {
 		resolve: {
 			extensions: ['.js', '.jsx'],
 		},
-	};
-};
+	}
+}

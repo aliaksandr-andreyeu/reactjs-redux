@@ -30,7 +30,9 @@
 	"dependencies": {
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
+		"react-redux": "^7.1.3",
 		"react-router-dom": "^5.1.2",
+		"redux": "^4.0.5",
 		"rimraf": "^3.0.1"
 	},
 	"devDependencies": {
@@ -66,7 +68,11 @@
 	},
 	"lint-staged": {
 		"linters": {
-			"src/**/*.{js,scss}": [
+			"src/**/*.scss": [
+				"npm run format",
+				"git add"
+			],
+			"src/**/*.js": [
 				"npm run format",
 				"npm run lint:fix",
 				"git add"
