@@ -2,24 +2,20 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
+import { bindActionCreators } from 'redux'
+
+import { increment, decrement } from '../../actions'
+
 import './index.scss'
 
 class Home extends React.Component {
-	onIncrement = () => {
-		this.props.setIncrement()
-	}
-
-	onDecrement = () => {
-		this.props.setDecrement()
-	}
-
 	render() {
 		return (
 			<div className="home-page">
 				<button
 					className="button"
 					onClick={() => {
-						this.onDecrement()
+						this.props.decrement()
 					}}>
 					-
 				</button>
@@ -29,7 +25,7 @@ class Home extends React.Component {
 				<button
 					className="button"
 					onClick={() => {
-						this.onIncrement()
+						this.props.increment()
 					}}>
 					+
 				</button>
@@ -46,8 +42,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setIncrement: () => dispatch({ type: 'INCREMENT' }),
-		setDecrement: () => dispatch({ type: 'DECREMENT' }),
+		increment: bindActionCreators(increment, dispatch),
+		decrement: bindActionCreators(decrement, dispatch),
 	}
 }
 
