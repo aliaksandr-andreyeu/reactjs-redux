@@ -1,6 +1,19 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import reducer from '../reducers'
 
-const store = createStore(reducer)
+const initialState = {}
+
+const logger = ({ getState }) => {
+	return next => action => {
+		console.log('Store Logger. Dispatch action:', action)
+		const returnValue = next(action)
+		console.log('Store Logger. State after dispatch:', getState())
+		return returnValue
+	}
+}
+
+const middleware = [logger]
+
+const store = createStore(reducer, initialState, applyMiddleware(...middleware))
 
 export default store
