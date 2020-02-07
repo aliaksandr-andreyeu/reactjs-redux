@@ -1,25 +1,8 @@
-import { INCREMENT, DECREMENT } from '../constants'
+import { combineReducers } from 'redux'
+import home from './home'
 
-export const initialState = {
-	value: 0,
-}
+const reducer = combineReducers({
+	home,
+})
 
-export const reducer = (state = initialState, action) => {
-	let value = state.value ? state.value : 0
-	switch (action.type) {
-		case INCREMENT:
-			value = value + 1
-			return {
-				...state,
-				value,
-			}
-		case DECREMENT:
-			value = value - 1
-			return {
-				...state,
-				value,
-			}
-		default:
-			return state
-	}
-}
+export default reducer

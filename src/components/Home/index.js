@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import './index.scss'
 
-import { increment, decrement } from '../../actions'
-
 class Home extends React.Component {
 	onIncrement = () => {
 		this.props.setIncrement()
@@ -42,7 +40,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		value: state.value,
+		value: state.home.value,
 	}
 }
 
