@@ -1,20 +1,20 @@
 ol,
 ul {
-	list-style: none;
+    list-style: none;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 html * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html *:before,
 html *:after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body,
@@ -55,36 +55,36 @@ hgroup,
 menu,
 nav,
 section {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-	position: relative;
-	height: 100%;
-	min-height: 100%;
+    position: relative;
+    height: 100%;
+    min-height: 100%;
 }
 
 body {
-	position: relative;
-	display: flex;
+    position: relative;
+    display: flex;
 
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 
-	flex: 1;
+    flex: 1;
 
-	align-items: center;
-	justify-content: center;
+    align-items: center;
+    justify-content: center;
 
-	min-width: 320px;
-	min-height: 480px;
+    min-width: 320px;
+    min-height: 480px;
 
-	font-family: Roboto, sans-serif;
-	letter-spacing: normal;
-	background-color: #edeff8;
+    font-family: Roboto, sans-serif;
+    letter-spacing: normal;
+    background-color: #edeff8;
 
-	text-rendering: auto;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

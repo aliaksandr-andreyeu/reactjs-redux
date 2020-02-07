@@ -14,10 +14,10 @@ const history = createBrowserHistory()
 const app = document.getElementById('app')
 
 render(
-	<Provider store={store}>
-		<Router history={history}>
-			<App />
-		</Router>
-	</Provider>,
-	app
+    <Provider store={store}>
+        <Router history={history}>
+            <App />
+        </Router>
+    </Provider>,
+    app
 )

@@ -4,12 +4,12 @@ import reducer from '../reducers'
 const initialState = {}
 
 const logger = ({ getState }) => {
-	return next => action => {
-		console.log('Store Logger. Dispatch action:', action)
-		const returnValue = next(action)
-		console.log('Store Logger. State after dispatch:', getState())
-		return returnValue
-	}
+    return next => action => {
+        console.log('Store Logger. Dispatch action:', action)
+        const returnValue = next(action)
+        console.log('Store Logger. State after dispatch:', getState())
+        return returnValue
+    }
 }
 
 const middleware = [logger]
