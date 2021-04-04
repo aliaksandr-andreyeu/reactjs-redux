@@ -16,7 +16,7 @@
     "lint:style:fix": "stylelint \"./**/*.{css,scss}\" --fix",
     "lint:js": "eslint --ext .js,.json",
     "lint:js:fix": "eslint --fix --ext .js,.json",
-    "precommit": "lint-staged && npm run lint"
+    "precommit": "lint-staged"
   },
   "browserslist": [
     "last 10 major versions",
@@ -78,8 +78,7 @@
   "lint-staged": {
     "./**/*.{css,scss,js,json}": [
       "npm run format",
-      "npm run lint:fix",
-      "git add"
+      "npm run lint"
     ]
   },
   "husky": {
