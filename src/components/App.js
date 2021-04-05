@@ -6,48 +6,13 @@ import Routing from './Routing'
 
 import './App.scss'
 
-class 
-App 
-extends 
-React.Component {
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+class App extends React.Component {
   render() {
-
-
-
-
     const routes = Routing.map((route, i) => (
-    
       <Route
-      
-      
         path={route.path}
-        
-        
-        
         exact={route.exact}
-        
         render={({ staticContext, ...props }) => <route.component {...staticContext} {...props} />}
-        
         key={i}
       />
     ))

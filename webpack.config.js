@@ -9,7 +9,7 @@ module.exports = function (env, argv) {
     entry: ['@babel/polyfill', './src/index.js'],
     output: {
       path: path.join(__dirname, './build/'),
-      filename: 'js/script.js',
+      filename: './js/script.js',
       publicPath: '/'
     },
     module: {
@@ -29,7 +29,7 @@ module.exports = function (env, argv) {
           exclude: /node_modules/
         },
         {
-          test: /\.(sass|scss)$/,
+          test: /\.scss$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
         },
         {
@@ -37,7 +37,7 @@ module.exports = function (env, argv) {
           use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
         },
         {
-          test: /.js$/,
+          test: /\.js$/,
           use: ['source-map-loader'],
           enforce: 'pre'
         }
@@ -45,7 +45,7 @@ module.exports = function (env, argv) {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '.build/css/style.css'
+        filename: './css/style.css'
       })
     ],
     optimization: {
@@ -67,7 +67,8 @@ module.exports = function (env, argv) {
             output: {
               comments: false
             }
-          }
+          },
+          extractComments: false
         })
       ]
     },

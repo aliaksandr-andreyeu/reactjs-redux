@@ -2,7 +2,6 @@
 node_modules/
 *.LICENSE
 build/js/script.js
-build/js/script.js.LICENSE.txt
 build/css/style.css
 **/.DS_Store
 yarn.lock
