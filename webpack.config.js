@@ -12,24 +12,6 @@ module.exports = function (env, argv) {
       filename: 'js/script.js',
       publicPath: '/'
     },
-    devServer: {
-      index: 'index.html',
-      contentBase: path.resolve(__dirname, 'build/'),
-      publicPath: '/',
-      port: 8000,
-      host: 'localhost',
-      historyApiFallback: {
-        index: 'index.html'
-      },
-      open: true,
-      watchContentBase: true,
-      disableHostCheck: true,
-      setup(app) {
-        app.post('*', (req, res) => {
-          res.redirect(req.originalUrl)
-        })
-      }
-    },
     module: {
       rules: [
         {
@@ -63,8 +45,7 @@ module.exports = function (env, argv) {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        path: __dirname,
-        filename: './css/style.css'
+        filename: '.build/css/style.css'
       })
     ],
     optimization: {
@@ -78,7 +59,6 @@ module.exports = function (env, argv) {
           }
         }),
         new TerserPlugin({
-          cache: true,
           parallel: true,
           terserOptions: {
             ecma: 5,

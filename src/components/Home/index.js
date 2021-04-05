@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
@@ -8,7 +9,7 @@ import { increment, decrement } from '../../actions'
 
 import './index.scss'
 
-class Home extends React.Component {
+class Home extends Component {
   render() {
     return (
       <div className="home-page">
@@ -34,6 +35,12 @@ class Home extends React.Component {
       </div>
     )
   }
+}
+
+Home.propTypes = {
+  increment: PropTypes.func,
+  decrement: PropTypes.func,
+  value: PropTypes.number
 }
 
 const mapStateToProps = state => {

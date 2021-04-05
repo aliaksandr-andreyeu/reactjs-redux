@@ -10,11 +10,17 @@
       "jsx": true
     }
   },
+  "parser": "babel-eslint",
   "plugins": ["prettier", "react"],
   "rules": {},
   "overrides": [
     {
       "files": ["**/*.js"]
     }
-  ]
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
