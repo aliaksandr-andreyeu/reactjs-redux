@@ -1,0 +1,26 @@
+import { StyleSheet } from 'react-native';
+import colors from '../../../../constants/colors';
+import { fontSize, fontFamily } from '../../../../constants/fonts';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.brandColorBright,
+  },
+  optionContainer: {
+    height: 80,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    borderBottomColor: colors.borderLight,
+    borderBottomWidth: 1,
+  },
+  optionText: {
+    fontFamily: fontFamily.gothamMedium,
+    fontSize: fontSize.medium,
+    color: colors.basicLightText,
+  },
+});
+
+export default styles;

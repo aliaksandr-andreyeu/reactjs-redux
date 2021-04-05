@@ -1,0 +1,131 @@
+import { StyleSheet, Platform, Dimensions } from 'react-native';
+import colors from '../../../../constants/colors';
+import { fontSize, fontFamily } from '../../../../constants/fonts';
+
+const styles = StyleSheet.create({
+  dataMain: {},
+  leftButtonBox: {
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: 90,
+  },
+  leftButton: {
+    flex: 1,
+    width: 90,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingLeft: 8,
+  },
+  rightButtonBox: {
+    flex: 1,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    width: 90,
+  },
+  rightButton: {
+    flex: 1,
+    width: 90,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 8,
+  },
+  container: {
+    backgroundColor: colors.backgroundLight,
+  },
+  dataContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 13,
+    backgroundColor: colors.backgroundLight,
+  },
+  teaserText: {
+    fontSize: fontSize.extraLarge + 2,
+    color: colors.headingBasic,
+    fontFamily: fontFamily.gothamBold,
+  },
+  eventName: {
+    fontSize: fontSize.medium,
+    color: colors.headingBasic,
+    fontFamily: fontFamily.gothamBold,
+    textAlign: 'center',
+    lineHeight: 26,
+  },
+  venueName: {
+    fontSize: fontSize.small,
+    fontFamily: fontFamily.gothamMedium,
+    color: '#575756',
+  },
+  date: {
+    fontSize: fontSize.submedium,
+    color: colors.headingBasic,
+    fontFamily: fontFamily.gothamMedium,
+  },
+  buttonBox: {
+    marginTop: 5,
+  },
+  buttonText: {
+    backgroundColor: colors.themeColor,
+    fontFamily: fontFamily.gothamMedium,
+    fontSize: Dimensions.get('window').width <= 320 ? 12 : 16,
+    color: colors.basicLightText,
+    lineHeight: 32,
+    paddingLeft: 6,
+    paddingRight: 6,
+    // marginBottom: -5,
+    // marginTop: Platform.OS === 'ios' ? -8 : 0,
+    textTransform: 'uppercase',
+    // alignItems: "center",
+    // alignSelf: "center",
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    top: -30,
+  },
+  dot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: colors.passiveElement,
+    marginRight: 8,
+  },
+  dotSelected: {
+    backgroundColor: colors.activeElement,
+  },
+  triangle: {
+    position: 'absolute',
+    top: 85,
+    left: -50,
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderTopWidth: 0,
+    borderRightWidth: 80,
+    borderBottomWidth: 75,
+    borderLeftWidth: 80,
+    borderTopColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: '#c1c1c1',
+    borderLeftColor: 'transparent',
+    transform: [{ rotate: '90deg' }],
+    opacity: 0.65,
+  },
+  line: {
+    position: 'absolute',
+    top: 30,
+    right: -20,
+    opacity: 0.75,
+  },
+});
+
+export default styles;
