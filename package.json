@@ -76,15 +76,17 @@
     "webpack-cli": "^4.6.0"
   },
   "lint-staged": {
-    "./**/*.{css,scss,js}": [
-      "npm run format",
-      "npm run lint",
-      "git add"
-    ],
-    "./**/*.json": [
-      "npm run format",
-      "git add"
-    ]
+    "cccc": {
+      "./**/*.{css,scss,js}": [
+        "npm run format",
+        "npm run lint",
+        "git add"
+      ],
+      "./**/*.json": [
+        "npm run format",
+        "git add"
+      ]
+    }
   },
   "husky": {
     "hooks": {
