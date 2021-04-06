@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Button,
@@ -10,32 +10,32 @@ import {
   View,
   AppRegistry,
   TextInput,
-  Alert,
-} from 'react-native';
+  Alert
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Octicons from 'react-native-vector-icons/Octicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import Octicons from 'react-native-vector-icons/Octicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Feather from 'react-native-vector-icons/Feather'
 
-import Prompt from 'rn-prompt';
+import Prompt from 'rn-prompt'
 
-import { createIconSetFromFontello } from 'react-native-vector-icons';
-import fontelloConfig from '../assets/fonts/customicons-config.json';
+import { createIconSetFromFontello } from 'react-native-vector-icons'
+import fontelloConfig from '../assets/fonts/customicons-config.json'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
-const Icon = createIconSetFromFontello(fontelloConfig);
+const Icon = createIconSetFromFontello(fontelloConfig)
 
 export default class AboutScreen extends React.Component {
-  static navigationOptions = {};
+  static navigationOptions = {}
 
   state = {
     name: '',
@@ -46,12 +46,12 @@ export default class AboutScreen extends React.Component {
       isVisible: false,
       value: '',
       field: '',
-      title: '',
-    },
-  };
+      title: ''
+    }
+  }
 
   async componentDidMount() {
-    let storedValue = await AsyncStorage.getItem('app:user');
+    let storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue == null) {
       this.setState({
@@ -61,29 +61,29 @@ export default class AboutScreen extends React.Component {
           country: 0,
           language: 0,
           phone: '+0 (000) 0000000',
-          token: '',
-        },
-      });
+          token: ''
+        }
+      })
     } else {
-      storedValue = JSON.parse(storedValue);
+      storedValue = JSON.parse(storedValue)
 
       this.setState({
-        user: storedValue,
-      });
+        user: storedValue
+      })
     }
 
     this.setState({
-      isLoading: false,
-    });
+      isLoading: false
+    })
   }
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
     if (this.state.isLoading) {
-      return <View />;
+      return <View />
     }
     return (
       <View style={styles.container}>
@@ -93,13 +93,10 @@ export default class AboutScreen extends React.Component {
               textAlign: 'center',
               justifyContent: 'center',
               alignItems: 'center',
-              paddingTop: 40,
+              paddingTop: 40
             }}
           >
-            <Image
-              source={require('../assets/images/about_logo.png')}
-              style={{ marginBottom: 50 }}
-            />
+            <Image source={require('../assets/images/about_logo.png')} style={{ marginBottom: 50 }} />
 
             <Text
               style={{
@@ -107,7 +104,7 @@ export default class AboutScreen extends React.Component {
                 fontSize: 12,
                 fontFamily: 'HelveticaNeue',
                 paddingBottom: 6,
-                textAlign: 'center',
+                textAlign: 'center'
               }}
             >
               Version Number: 1.3
@@ -119,7 +116,7 @@ export default class AboutScreen extends React.Component {
                 fontSize: 12,
                 fontFamily: 'HelveticaNeue',
                 paddingBottom: 0,
-                textAlign: 'center',
+                textAlign: 'center'
               }}
             >
               {i18n.t('about.text')}
@@ -129,14 +126,14 @@ export default class AboutScreen extends React.Component {
           <View style={{ textAlign: 'center', paddingTop: 70 }}>
             <Text
               onPress={() => {
-                this.props.navigation.navigate('Privacy', {});
+                this.props.navigation.navigate('Privacy', {})
               }}
               style={{
                 color: '#2F8C83',
                 fontSize: 14,
                 fontFamily: FontBreeBold,
                 paddingBottom: 25,
-                textAlign: 'center',
+                textAlign: 'center'
               }}
             >
               {i18n.t('more.privacy_policy')}
@@ -144,14 +141,14 @@ export default class AboutScreen extends React.Component {
 
             <Text
               onPress={() => {
-                this.props.navigation.navigate('TOS', {});
+                this.props.navigation.navigate('TOS', {})
               }}
               style={{
                 color: '#2F8C83',
                 fontSize: 14,
                 fontFamily: FontBreeBold,
                 paddingBottom: 0,
-                textAlign: 'center',
+                textAlign: 'center'
               }}
             >
               {i18n.t('more.terms_of_use')}
@@ -159,20 +156,20 @@ export default class AboutScreen extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
     marginLeft: 50,
     marginRight: 50,
     paddingBottom: 30,
-    paddingTop: 30,
+    paddingTop: 30
   },
   greenButton: {
     alignItems: 'center',
@@ -183,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 10
   },
   greenButtonRegister: {
     alignItems: 'center',
@@ -195,18 +192,18 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     padding: 8,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 10
   },
   horizontalLine: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     marginBottom: 24,
     marginTop: 24,
-    opacity: 0.1,
+    opacity: 0.1
   },
   profileTextItem: {
     color: '#949494',
     fontFamily: FontBreeBold,
-    fontSize: 15,
-  },
-});
+    fontSize: 15
+  }
+})
