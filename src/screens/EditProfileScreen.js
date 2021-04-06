@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Button,
@@ -14,58 +14,52 @@ import {
   Alert,
   ImageBackground,
   SafeAreaView,
-  Modal,
-} from 'react-native';
+  Modal
+} from 'react-native'
 
-import axios from 'axios';
+import axios from 'axios'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import AsyncStorage from '@react-native-community/async-storage';
-import ImagePicker from 'react-native-image-crop-picker';
+import AsyncStorage from '@react-native-community/async-storage'
+import ImagePicker from 'react-native-image-crop-picker'
 
-import RNPickerSelect from 'react-native-picker-select';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import RNPickerSelect from 'react-native-picker-select'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'
 
-import Global from '../components/global';
+import Global from '../components/global'
 
-import env from '../config';
+import env from '../config'
 
-import {
-  LoginButton,
-  AccessToken,
-  LoginManager,
-  GraphRequest,
-  GraphRequestManager,
-} from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-import { axiosInstance } from '../constants/api';
-import { fontFamily } from '../constants/fonts';
-import Icon from '../components/Icon';
-import colors from '../constants/colors';
+import { axiosInstance } from '../constants/api'
+import { fontFamily } from '../constants/fonts'
+import Icon from '../components/Icon'
+import colors from '../constants/colors'
 
 export default class EditProfileScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   state = {
     form: {},
-    showDatePicker: false,
-  };
+    showDatePicker: false
+  }
 
-  user = {};
+  user = {}
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
     if (storedValue == null) {
       this.user = {
         name: '',
@@ -75,34 +69,34 @@ export default class EditProfileScreen extends React.Component {
         country: 0,
         language: 0,
         phone: '',
-        token: '',
-      };
+        token: ''
+      }
 
-      this.loadProfile();
+      this.loadProfile()
     } else {
-      this.user = JSON.parse(storedValue);
+      this.user = JSON.parse(storedValue)
 
-      this.loadProfile();
+      this.loadProfile()
     }
   }
 
   loadProfile() {
-    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
 
     if (this.user.token && this.user.token.length > 4) {
-      headers.Authorization = 'Bearer  ' + this.user.token;
+      headers.Authorization = 'Bearer  ' + this.user.token
     }
 
     fetch(`${env.api}api/account/details`, {
       method: 'GET',
-      headers,
+      headers
     })
       .then(response => response.json())
       .then(responseJson => {
         // console.log('resp', responseJson.Message);
         if (responseJson.Message) {
-          Alert.alert(responseJson.Message);
-          return;
+          Alert.alert(responseJson.Message)
+          return
         }
 
         if (responseJson) {
@@ -110,36 +104,36 @@ export default class EditProfileScreen extends React.Component {
 
           this.setState(
             {
-              form: responseJson,
+              form: responseJson
             },
             () => {
-              Global.user.firstName = responseJson.FirstName;
-              Global.user.lastName = responseJson.LastName;
-              Global.user.name = responseJson.FullName;
-              Global.user.avatar = responseJson.ImageThumbURL;
+              Global.user.firstName = responseJson.FirstName
+              Global.user.lastName = responseJson.LastName
+              Global.user.name = responseJson.FullName
+              Global.user.avatar = responseJson.ImageThumbURL
             }
-          );
+          )
         }
-      });
+      })
   }
 
   loadAvatar() {
-    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
 
     if (this.user.token && this.user.token.length > 4) {
-      headers.Authorization = 'Bearer  ' + this.user.token;
+      headers.Authorization = 'Bearer  ' + this.user.token
     }
 
     fetch(`${env.api}api/account/details`, {
       method: 'GET',
-      headers,
+      headers
     })
       .then(response => response.json())
       .then(responseJson => {
         // console.log('resp', responseJson.Message);
         if (responseJson.Message) {
-          Alert.alert(responseJson.Message);
-          return;
+          Alert.alert(responseJson.Message)
+          return
         }
 
         if (responseJson) {
@@ -148,92 +142,92 @@ export default class EditProfileScreen extends React.Component {
               form: {
                 ...this.state.form,
                 ImageURL: responseJson.ImageURL,
-                ImageThumbURL: responseJson.ImageThumbURL,
-              },
+                ImageThumbURL: responseJson.ImageThumbURL
+              }
             },
             () => {
-              Global.user.avatar = responseJson.ImageThumbURL;
+              Global.user.avatar = responseJson.ImageThumbURL
             }
-          );
+          )
         }
-      });
+      })
   }
 
   save() {
     // alert(JSON.stringify(this.state.form));
 
-    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    let headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.user.token && this.user.token.length > 4) {
-      headers.Authorization = 'Bearer  ' + this.user.token;
+      headers.Authorization = 'Bearer  ' + this.user.token
     }
 
     let payload = {
       ...this.state.form,
-      IsMale: this.state.form.Gender === 'Male' ? true : false,
-    };
+      IsMale: this.state.form.Gender === 'Male' ? true : false
+    }
 
     // console.log('PAYLOAD', payload);
 
-    const body = JSON.stringify(payload);
+    const body = JSON.stringify(payload)
 
     fetch(`${env.api}api/account/update-details`, {
       method: 'POST',
       headers,
-      body,
+      body
     })
       .then(response => response.json())
       .then(responseJson => {
         // console.log(responseJson);
 
-        this.loadProfile();
+        this.loadProfile()
 
-        Global.user.name = payload.FullName;
-        Global.user.avatar = payload.ImageThumbURL;
+        Global.user.name = payload.FullName
+        Global.user.avatar = payload.ImageThumbURL
 
         // console.log('PROFILE Global.user', Global.user);
 
-        this.props.navigation.navigate('More', {});
+        this.props.navigation.navigate('More', {})
       })
       .catch(error => {
-        console.log('error', error);
+        console.log('error', error)
         if (error && error.Message) {
-          Alert.alert(error.Message);
+          Alert.alert(error.Message)
         } else {
-          Alert.alert(error);
+          Alert.alert(error)
         }
-      });
+      })
   }
 
   uploadImage(image) {
-    const form = new FormData();
+    const form = new FormData()
 
     form.append('image', {
       name: 'image.jpg',
       type: 'multipart/form-data',
-      uri: Platform.OS === 'android' ? image.path : image.path.replace('file:/', ''),
-    });
+      uri: Platform.OS === 'android' ? image.path : image.path.replace('file:/', '')
+    })
 
     axios
       .create({
         timeout: 10000,
         headers: {
-          Authorization: 'Bearer  ' + this.user.token,
-        },
+          Authorization: 'Bearer  ' + this.user.token
+        }
       })
       .post(`${env.api}api/account/update-photo`, form)
       .then(({ data }) => {
-        this.loadAvatar();
+        this.loadAvatar()
 
-        this.props.navigation.navigate('EditProfile', {});
+        this.props.navigation.navigate('EditProfile', {})
       })
       .catch(error => {
-        console.log('error', error);
+        console.log('error', error)
         if (error && error.Message) {
-          Alert.alert(error.Message);
+          Alert.alert(error.Message)
         } else {
-          Alert.alert(error);
+          Alert.alert(error)
         }
-      });
+      })
   }
 
   selectPhoto = async () => {
@@ -241,25 +235,25 @@ export default class EditProfileScreen extends React.Component {
       ImagePicker.openPicker({
         width: 500,
         height: 500,
-        cropping: true,
+        cropping: true
       }).then(image => {
-        image.uri = image.path;
+        image.uri = image.path
 
-        this.uploadImage(image);
-      });
+        this.uploadImage(image)
+      })
     } else {
-      alert("Can't select photo: null;");
+      alert("Can't select photo: null;")
     }
-  };
+  }
 
   closeDatePicker() {
     this.setState({
-      showDatePicker: false,
-    });
+      showDatePicker: false
+    })
   }
 
   renderDatePicker() {
-    let isIOS = Platform.OS === 'ios';
+    let isIOS = Platform.OS === 'ios'
 
     return (
       <DateTimePicker
@@ -270,50 +264,49 @@ export default class EditProfileScreen extends React.Component {
             backgroundColor: '#ffffff',
             bottom: 0,
             left: 0,
-            right: 0,
-          }),
+            right: 0
+          })
         }}
         textColor={colors.basicText}
         mode="date"
         display="calendar"
         onChange={(event, date) => {
           // console.log(event, date)
-          console.log(date);
+          console.log(date)
           // console.log( moment( date ).format('YYYY-MM-DDTHH:mm:ss'))
-          if (Boolean(date)) {
+          if (date) {
             this.setState(
               prevState => {
-                let form = Object.assign({}, prevState.form);
-                form.DateOfBirth = moment(date).format('YYYY-MM-DDTHH:mm:ss');
+                let form = Object.assign({}, prevState.form)
+                form.DateOfBirth = moment(date).format('YYYY-MM-DDTHH:mm:ss')
                 return {
                   form: form,
-                  showDatePicker: false,
-                };
+                  showDatePicker: false
+                }
               },
               () => {}
-            );
+            )
           }
         }}
         value={
-          !Boolean(this.state.form.DateOfBirth) ||
-          Boolean(this.state.form.DateOfBirth === '1900-01-01T00:00:00')
+          !this.state.form.DateOfBirth || Boolean(this.state.form.DateOfBirth === '1900-01-01T00:00:00')
             ? new Date('1980-01-01T00:00:00')
             : new Date(this.state.form.DateOfBirth)
         }
       />
-    );
+    )
   }
 
   render() {
     // console.log('this.state.form', this.state.form);
 
-    let isIOS = Platform.OS === 'ios';
+    let isIOS = Platform.OS === 'ios'
 
     return (
       <View
         style={{
           backgroundColor: '#1b377e',
-          flex: 1,
+          flex: 1
         }}
       >
         <View style={styles.authHeader}>
@@ -325,17 +318,15 @@ export default class EditProfileScreen extends React.Component {
               <TouchableOpacity
                 style={{ flexDirection: 'row', width: '100%' }}
                 onPress={() => {
-                  this.props.navigation.navigate('More', {});
+                  this.props.navigation.navigate('More', {})
                 }}
               >
                 {Icon.getIcon(Icon.iconLibraries.fontAwesome, 'chevron-left', {
                   size: 18,
-                  color: '#FFFFFF',
+                  color: '#FFFFFF'
                 })}
 
-                <Text style={[styles.headerTitle, { marginLeft: 28 }]}>
-                  {i18n.t('profile.complete_profile')}
-                </Text>
+                <Text style={[styles.headerTitle, { marginLeft: 28 }]}>{i18n.t('profile.complete_profile')}</Text>
               </TouchableOpacity>
             </View>
           </SafeAreaView>
@@ -348,7 +339,7 @@ export default class EditProfileScreen extends React.Component {
               paddingTop: 32,
               width: '100%',
               alignItems: 'center',
-              textAlign: 'center',
+              textAlign: 'center'
             }}
           >
             <TouchableOpacity
@@ -361,14 +352,14 @@ export default class EditProfileScreen extends React.Component {
                 borderRadius: 255,
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflow: 'hidden',
+                overflow: 'hidden'
               }}
               onPress={this.selectPhoto}
             >
               {(!this.state.form.ImageURL || this.state.form.ImageURL.length < 5) &&
                 Icon.getIcon(Icon.iconLibraries.fontAwesome, 'camera', {
                   size: 38,
-                  color: '#FFFFFF',
+                  color: '#FFFFFF'
                 })}
               {this.state.form.ImageURL && this.state.form.ImageURL.length > 5 && (
                 <Image
@@ -379,17 +370,15 @@ export default class EditProfileScreen extends React.Component {
               )}
             </TouchableOpacity>
 
-            <Text style={[styles.addPhoto, { marginBottom: 20 }]}>
-              {i18n.t('profile.add_photo')}
-            </Text>
+            <Text style={[styles.addPhoto, { marginBottom: 20 }]}>{i18n.t('profile.add_photo')}</Text>
 
             <TextInput
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.FullName = text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.FullName = text
+                    return { form }
                   },
                   () => {}
                 )
@@ -397,7 +386,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.FullName}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.fullname')}
               placeholderTextColor={'#8C9091'}
@@ -410,7 +399,7 @@ export default class EditProfileScreen extends React.Component {
                 marginTop: 16,
 
                 width: '100%',
-                height: 40,
+                height: 40
               }}
             >
               <TouchableOpacity
@@ -422,12 +411,12 @@ export default class EditProfileScreen extends React.Component {
 
                   width: '100%',
                   height: 40,
-                  justifyContent: 'center',
+                  justifyContent: 'center'
                 }}
                 onPress={() => {
                   this.setState({
-                    showDatePicker: true,
-                  });
+                    showDatePicker: true
+                  })
                 }}
               >
                 <Text
@@ -436,11 +425,10 @@ export default class EditProfileScreen extends React.Component {
                     fontSize: 14,
                     color: '#8C9091',
                     lineHeight: 26,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }}
                 >
-                  {!Boolean(this.state.form.DateOfBirth) ||
-                  Boolean(this.state.form.DateOfBirth === '1900-01-01T00:00:00')
+                  {!this.state.form.DateOfBirth || Boolean(this.state.form.DateOfBirth === '1900-01-01T00:00:00')
                     ? moment('1980-01-01T00:00:00').format('D MMM YYYY')
                     : moment(this.state.form.DateOfBirth).format('D MMM YYYY')}
                 </Text>
@@ -460,11 +448,11 @@ export default class EditProfileScreen extends React.Component {
                   style={{
                     //borderWidth: 1,
                     //borderColor: '#ff0000',
-                    flex: 1,
+                    flex: 1
                   }}
                   activeOpacity={1}
                   onPress={() => {
-                    this.closeDatePicker();
+                    this.closeDatePicker()
                   }}
                 >
                   {this.renderDatePicker()}
@@ -479,9 +467,9 @@ export default class EditProfileScreen extends React.Component {
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.PhoneNumber = text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.PhoneNumber = text
+                    return { form }
                   },
                   () => {}
                 )
@@ -489,7 +477,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.PhoneNumber}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.phoneNumber')}
               placeholderTextColor={'#8C9091'}
@@ -504,14 +492,14 @@ export default class EditProfileScreen extends React.Component {
                 paddingRight: 16,
                 width: '100%',
                 height: 40,
-                justifyContent: 'center',
+                justifyContent: 'center'
               }}
             >
               <RNPickerSelect
                 Icon={() =>
                   Icon.getIcon(Icon.iconLibraries.fontAwesome, 'caret-down', {
                     size: 20,
-                    color: '#8C9091',
+                    color: '#8C9091'
                   })
                 }
                 useNativeAndroidPickerStyle={false}
@@ -522,15 +510,15 @@ export default class EditProfileScreen extends React.Component {
                     fontSize: 14,
                     color: '#8C9091',
                     lineHeight: 26,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   },
                   inputIOSContainer: {
                     alignItems: 'center',
-                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
                   },
                   inputAndroidContainer: {
                     alignItems: 'center',
-                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
                   },
                   inputIOS: {
                     padding: 0,
@@ -538,7 +526,7 @@ export default class EditProfileScreen extends React.Component {
                     fontSize: 14,
                     color: '#8C9091',
                     lineHeight: 26,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   },
                   inputAndroid: {
                     padding: 0,
@@ -546,26 +534,26 @@ export default class EditProfileScreen extends React.Component {
                     fontSize: 14,
                     color: '#8C9091',
                     lineHeight: 26,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-                  },
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
+                  }
                 }}
                 onValueChange={value => {
                   this.setState(
                     prevState => {
-                      let form = Object.assign({}, prevState.form);
-                      form.Gender = value;
-                      return { form };
+                      let form = Object.assign({}, prevState.form)
+                      form.Gender = value
+                      return { form }
                     },
                     () => {}
-                  );
+                  )
                 }}
                 value={this.state.form.Gender ? this.state.form.Gender : ''}
                 items={[
                   { label: i18n.t('profile.gender_male'), value: i18n.t('profile.gender_male') },
                   {
                     label: i18n.t('profile.gender_femalе'),
-                    value: i18n.t('profile.gender_femalе'),
-                  },
+                    value: i18n.t('profile.gender_femalе')
+                  }
                 ]}
               />
             </View>
@@ -575,9 +563,9 @@ export default class EditProfileScreen extends React.Component {
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.Weight = +text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.Weight = +text
+                    return { form }
                   },
                   () => {}
                 )
@@ -585,7 +573,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.Weight ? this.state.form.Weight.toString() : ''}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.weight')}
               placeholderTextColor={'#8C9091'}
@@ -596,9 +584,9 @@ export default class EditProfileScreen extends React.Component {
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.Height = +text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.Height = +text
+                    return { form }
                   },
                   () => {}
                 )
@@ -606,7 +594,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.Height ? this.state.form.Height.toString() : ''}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.height')}
               placeholderTextColor={'#8C9091'}
@@ -635,9 +623,9 @@ export default class EditProfileScreen extends React.Component {
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.Nationality = text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.Nationality = text
+                    return { form }
                   },
                   () => {}
                 )
@@ -645,7 +633,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.Nationality}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.nationality')}
               placeholderTextColor={'#8C9091'}
@@ -655,9 +643,9 @@ export default class EditProfileScreen extends React.Component {
               onChangeText={text =>
                 this.setState(
                   prevState => {
-                    let form = Object.assign({}, prevState.form);
-                    form.City = text;
-                    return { form };
+                    let form = Object.assign({}, prevState.form)
+                    form.City = text
+                    return { form }
                   },
                   () => {}
                 )
@@ -665,7 +653,7 @@ export default class EditProfileScreen extends React.Component {
               value={this.state.form.City}
               style={{
                 ...styles.input,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               placeholder={i18n.t('profile.residence')}
               placeholderTextColor={'#8C9091'}
@@ -676,7 +664,7 @@ export default class EditProfileScreen extends React.Component {
             <TouchableOpacity
               style={styles.loginButton}
               onPress={() => {
-                this.save();
+                this.save()
               }}
             >
               <Text style={styles.loginButtonText}>{i18n.t('profile.save')}</Text>
@@ -684,7 +672,7 @@ export default class EditProfileScreen extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -694,7 +682,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.gothamMedium,
     fontSize: 12,
     textTransform: 'uppercase',
-    marginTop: 12,
+    marginTop: 12
   },
   input: {
     backgroundColor: '#EEEFEF',
@@ -715,7 +703,7 @@ const styles = StyleSheet.create({
     color: '#8C9091',
     lineHeight: 26,
 
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   loginButton: {
     width: '100%',
@@ -723,17 +711,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 15,
     textAlign: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   loginButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontFamily: fontFamily.gothamMedium,
     textAlign: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   authHeader: {
-    backgroundColor: '#202873',
+    backgroundColor: '#202873'
   },
   authInHeader: {
     paddingTop: 22,
@@ -741,11 +729,11 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     minHeight: 62,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   headerTitle: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontFamily: fontFamily.gothamMedium,
-  },
-});
+    fontFamily: fontFamily.gothamMedium
+  }
+})
