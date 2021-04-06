@@ -1,19 +1,19 @@
-import { StyleSheet } from 'react-native';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
-import colors from '../../../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
+import colors from '../../../../constants/colors'
 
 const styles = StyleSheet.create({
   text: {
     fontSize: fontSize.medium,
     color: colors.basicText,
-    fontFamily: fontFamily.gothamMedium,
+    fontFamily: fontFamily.gothamMedium
   },
   priceText: {
     fontFamily: fontFamily.gothamMedium,
     color: '#FFFFFF',
     fontSize: 12,
     textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   priceContainer: {
     position: 'absolute',
@@ -22,42 +22,42 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#78BC4B',
     textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontFamily: fontFamily.gothamBold,
-    fontSize: fontSize.large,
+    fontSize: fontSize.large
   },
   lineContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 11,
+    marginBottom: 11
   },
   lineValue: {
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   button: {
     marginVertical: 8,
     flex: 1,
-    marginRight: 8,
+    marginRight: 8
   },
   buttonText: {
-    color: colors.brandColorBright,
+    color: colors.brandColorBright
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
     paddingBottom: 2,
-    paddingTop: 2,
+    paddingTop: 2
   },
   cancelButton: {
     backgroundColor: colors.brandColorBright,
-    marginRight: 0,
+    marginRight: 0
   },
   cancelButtonText: {
-    color: colors.basicLightText,
-  },
-});
+    color: colors.basicLightText
+  }
+})
 
-export default styles;
+export default styles

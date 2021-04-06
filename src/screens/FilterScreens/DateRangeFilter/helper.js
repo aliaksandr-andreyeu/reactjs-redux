@@ -1,24 +1,24 @@
 // Date range selection
 
-import React, { Component } from 'react';
-import { Calendar } from 'react-native-calendars';
-import moment from 'moment';
+import React, { Component } from 'react'
+import { Calendar } from 'react-native-calendars'
+import moment from 'moment'
 
 export default class DateRangePicker extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.calendarRef = React.createRef();
+    this.calendarRef = React.createRef()
 
     this.state = {
       isFromDatePicked: false,
       isToDatePicked: false,
-      markedDates: {},
-    };
+      markedDates: {}
+    }
   }
 
   componentDidMount() {
-    this.setupInitialRange();
+    this.setupInitialRange()
   }
 
   // componentDidUpdate() {
@@ -31,94 +31,90 @@ export default class DateRangePicker extends Component {
   // }
 
   onDayPress = day => {
-    const { isFromDatePicked, isToDatePicked, markedDates, fromDate } = this.state;
+    const { isFromDatePicked, isToDatePicked, markedDates, fromDate } = this.state
     if (!isFromDatePicked || (isFromDatePicked && isToDatePicked)) {
-      this.setupStartMarker(day);
+      this.setupStartMarker(day)
     } else if (!isToDatePicked) {
       // const markedDatesCopy = JSON.parse(JSON.stringify(markedDates));
-      const markedDatesCopy = { ...markedDates };
+      const markedDatesCopy = { ...markedDates }
 
-      const [mMarkedDates, range] = this.setupMarkedDates(
-        fromDate,
-        day.dateString,
-        markedDatesCopy
-      );
+      const [mMarkedDates, range] = this.setupMarkedDates(fromDate, day.dateString, markedDatesCopy)
       if (range >= 0) {
-        this.setState({ isFromDatePicked: true, isToDatePicked: true, markedDates: mMarkedDates });
+        this.setState({ isFromDatePicked: true, isToDatePicked: true, markedDates: mMarkedDates })
         // this.props.onSuccess(this.state.fromDate, day.dateString);
       } else {
-        this.setupStartMarker(day);
+        this.setupStartMarker(day)
       }
     }
-  };
+  }
 
   setupStartMarker = day => {
     const markedDates = {
       [day.dateString]: {
         startingDay: true,
         color: 'red',
-        textColor: 'white',
-      },
-    };
+        textColor: 'white'
+      }
+    }
     this.setState({
       isFromDatePicked: true,
       isToDatePicked: false,
       fromDate: day.dateString,
-      markedDates,
-    });
-  };
+      markedDates
+    })
+  }
 
   setupMarkedDates = (fromDate, toDate, markedDates) => {
     // let markedDatesCopy = JSON.parse(JSON.stringify(markedDates));
-    let markedDatesCopy = { ...markedDates };
+    let markedDatesCopy = { ...markedDates }
 
-    const mFromDate = moment(fromDate);
-    const mToDate = moment(toDate);
-    const range = mFromDate.diffDays(mToDate);
+    const mFromDate = moment(fromDate)
+    const mToDate = moment(toDate)
+    const range = mFromDate.diffDays(mToDate)
     if (range >= 0) {
       if (range === 0) {
         markedDatesCopy = {
           [toDate]: {
             color: 'red',
-            textColor: 'white',
-          },
-        };
+            textColor: 'white'
+          }
+        }
       } else {
         for (let i = 1; i <= range; i++) {
-          const tempDate = mFromDate.addDays(1).toString('yyyy-MM-dd');
+          const tempDate = mFromDate.addDays(1).toString('yyyy-MM-dd')
           if (i < range) {
             markedDatesCopy[tempDate] = {
               color: 'red',
-              textColor: 'white',
-            };
+              textColor: 'white'
+            }
           } else {
             markedDatesCopy[tempDate] = {
               endingDay: true,
               color: 'red',
-              textColor: 'white',
-            };
+              textColor: 'white'
+            }
           }
         }
       }
     }
-    return [markedDates, range];
-  };
+    return [markedDates, range]
+  }
 
   setupInitialRange = () => {
     if (!this.props.initialRange) {
-      return;
+      return
     }
-    const [fromDate, toDate] = this.props.initialRange;
+    const [fromDate, toDate] = this.props.initialRange
     const markedDates = {
       [fromDate]: {
         startingDay: true,
         color: this.props.theme.markColor,
-        textColor: this.props.theme.markTextColor,
-      },
-    };
-    const [mMarkedDates, range] = this.setupMarkedDates(fromDate, toDate, markedDates);
-    this.setState({ markedDates: mMarkedDates, fromDate });
-  };
+        textColor: this.props.theme.markTextColor
+      }
+    }
+    const [mMarkedDates, range] = this.setupMarkedDates(fromDate, toDate, markedDates)
+    this.setState({ markedDates: mMarkedDates, fromDate })
+  }
 
   render() {
     return (
@@ -130,13 +126,13 @@ export default class DateRangePicker extends Component {
         current={this.state.fromDate}
         markedDates={this.state.markedDates}
         onDayPress={day => {
-          this.onDayPress(day);
+          this.onDayPress(day)
         }}
       />
-    );
+    )
   }
 }
 
 DateRangePicker.defaultProps = {
-  theme: { markColor: '#00adf5', markTextColor: '#ffffff' },
-};
+  theme: { markColor: '#00adf5', markTextColor: '#ffffff' }
+}

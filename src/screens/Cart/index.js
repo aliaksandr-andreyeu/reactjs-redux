@@ -1,47 +1,45 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, FlatList, Image, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import moment from 'moment';
-import { connect } from 'react-redux';
+import React, { useEffect, useState, useCallback } from 'react'
+import { View, FlatList, Image, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import moment from 'moment'
+import { connect } from 'react-redux'
 
-import { apiUrls, axiosInstance } from '../../constants/api';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import i18n from '../../../i18n';
-import colors from '../../constants/colors';
-import styles from './styles';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import { getCart } from './actions';
+import { apiUrls, axiosInstance } from '../../constants/api'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import i18n from '../../../i18n'
+import colors from '../../constants/colors'
+import styles from './styles'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import { getCart } from './actions'
 
-import Global from '../../components/global';
+import Global from '../../components/global'
 
 const Cart = ({ navigation, cart, getCart }) => {
   useEffect(() => {
-    getCart();
-  }, []);
+    getCart()
+  }, [])
 
   const removeItem = itemId => {
     axiosInstance
       .delete(`${apiUrls.deleteCartItem}/${itemId}`)
       .then(getCart)
-      .catch(e => console.warn(e));
-  };
+      .catch(e => console.warn(e))
+  }
 
   const clearCart = () => {
-    axiosInstance.delete(apiUrls.clearCart).then(getCart).catch(console.warn);
-  };
+    axiosInstance.delete(apiUrls.clearCart).then(getCart).catch(console.warn)
+  }
 
   const checkName = () => {
-    let firstName =
-      Global.user && Boolean(Global.user.firstName) ? Global.user.firstName.toString().trim() : '';
-    let lastName =
-      Global.user && Boolean(Global.user.lastName) ? Global.user.lastName.toString().trim() : '';
+    let firstName = Global.user && Boolean(Global.user.firstName) ? Global.user.firstName.toString().trim() : ''
+    let lastName = Global.user && Boolean(Global.user.lastName) ? Global.user.lastName.toString().trim() : ''
 
     if (Boolean(firstName) && Boolean(lastName)) {
-      navigation.navigate('Payment');
+      navigation.navigate('Payment')
     } else {
-      navigation.navigate('PaymentNameCheck');
+      navigation.navigate('PaymentNameCheck')
     }
-  };
+  }
 
   const renderItem = ({ Title, DateTime, Price, Currency, ImageUrl, OrderItemId }) => (
     <View style={styles.itemContainer}>
@@ -52,12 +50,7 @@ const Cart = ({ navigation, cart, getCart }) => {
           {Title}
         </Text>
 
-        <EvilIcons
-          name="trash"
-          size={20}
-          style={styles.trashIcon}
-          onPress={() => removeItem(OrderItemId)}
-        />
+        <EvilIcons name="trash" size={20} style={styles.trashIcon} onPress={() => removeItem(OrderItemId)} />
 
         <View style={styles.itemDateContainer}>
           <EvilIcons name="calendar" size={20} style={styles.itemDateIcon} />
@@ -68,7 +61,7 @@ const Cart = ({ navigation, cart, getCart }) => {
         </Text>
       </View>
     </View>
-  );
+  )
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.secondaryBackgroundLight }}>
@@ -91,7 +84,7 @@ const Cart = ({ navigation, cart, getCart }) => {
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 10,
-              marginTop: 30,
+              marginTop: 30
             }}
             onPress={() => navigation.navigate('BookingsList')}
           >
@@ -99,7 +92,7 @@ const Cart = ({ navigation, cart, getCart }) => {
               style={{
                 color: '#fff',
                 fontFamily: fontFamily.gothamMedium,
-                fontSize: fontSize.medium,
+                fontSize: fontSize.medium
               }}
             >
               {i18n.t('nav.bookings')}
@@ -111,36 +104,29 @@ const Cart = ({ navigation, cart, getCart }) => {
       {cart.length ? (
         <View style={styles.buttonsContainer}>
           <TouchableHighlight onPress={clearCart} style={styles.clearAllButton}>
-            <Text style={styles.clearAllButtonText}>
-              {i18n.t('generic.buttons.clear_all').toUpperCase()}
-            </Text>
+            <Text style={styles.clearAllButtonText}>{i18n.t('generic.buttons.clear_all').toUpperCase()}</Text>
           </TouchableHighlight>
-          <TouchableHighlight
-            onPress={cart.length ? () => checkName() : null}
-            style={styles.nextButton}
-          >
-            <Text style={styles.nextButtonText}>
-              {i18n.t('generic.buttons.next').toUpperCase()}
-            </Text>
+          <TouchableHighlight onPress={cart.length ? () => checkName() : null} style={styles.nextButton}>
+            <Text style={styles.nextButtonText}>{i18n.t('generic.buttons.next').toUpperCase()}</Text>
           </TouchableHighlight>
         </View>
       ) : null}
     </View>
-  );
-};
+  )
+}
 
 Cart.navigationOptions = ({ navigation }) => {
   return {
     headerRight: <NavHeaderUser {...navigation} />,
-    title: i18n.t('events.your_cart'),
-  };
-};
+    title: i18n.t('events.your_cart')
+  }
+}
 
 export default connect(
   state => ({
-    cart: state.cart,
+    cart: state.cart
   }),
   {
-    getCart,
+    getCart
   }
-)(Cart);
+)(Cart)

@@ -1,34 +1,25 @@
-import React, { Component } from 'react';
-import {
-  Alert,
-  Image,
-  Dimensions,
-  Modal,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import propTypes from 'prop-types';
-import styles from './styles';
-import { axiosInstance, apiUrls } from '../../constants/api';
-import Dropdown from '../../components/UI/Dropdown';
-import SeatRows from './components/SeatRows';
-import ConfirmButtons from '../../components/UI/ConfirmButtons';
-import i18n from '../../../i18n';
-import isEqual from 'lodash.isequal';
+import React, { Component } from 'react'
+import { Alert, Image, Dimensions, Modal, ScrollView, View, Text, TouchableOpacity } from 'react-native'
+import propTypes from 'prop-types'
+import styles from './styles'
+import { axiosInstance, apiUrls } from '../../constants/api'
+import Dropdown from '../../components/UI/Dropdown'
+import SeatRows from './components/SeatRows'
+import ConfirmButtons from '../../components/UI/ConfirmButtons'
+import i18n from '../../../i18n'
+import isEqual from 'lodash.isequal'
 
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
-import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 
 class SeatReservationScreen extends Component {
   constructor(props) {
-    super(props);
-    const { navigation } = props;
+    super(props)
+    const { navigation } = props
 
     this.state = {
       sectors: [],
@@ -37,36 +28,36 @@ class SeatReservationScreen extends Component {
 
       dimensions: {
         window: Dimensions.get('window'),
-        screen: Dimensions.get('screen'),
+        screen: Dimensions.get('screen')
       },
 
-      tags: [],
-    };
+      tags: []
+    }
 
-    this.event = navigation.getParam('event', {});
-    this.dropdownRef = React.createRef();
+    this.event = navigation.getParam('event', {})
+    this.dropdownRef = React.createRef()
   }
 
   closeModalSeatMap() {
     this.setState({
-      modalVisible: false,
-    });
+      modalVisible: false
+    })
   }
 
   openModalSeatMap() {
     this.setState({
-      modalVisible: true,
-    });
+      modalVisible: true
+    })
   }
 
   modalSeatMap() {
-    const { modalVisible, dimensions } = this.state;
+    const { modalVisible, dimensions } = this.state
 
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    const eventItem = navigation.getParam('event', {});
+    const eventItem = navigation.getParam('event', {})
 
-    return Boolean(eventItem.SeatMapImageUrl) ? (
+    return eventItem.SeatMapImageUrl ? (
       <Modal
         transparent={true}
         animationType="fade"
@@ -77,7 +68,7 @@ class SeatReservationScreen extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.3)',
+            backgroundColor: 'rgba(0,0,0,0.3)'
           }}
         >
           <TouchableOpacity
@@ -88,7 +79,7 @@ class SeatReservationScreen extends Component {
               alignItems: 'center',
               justifyContent: 'center',
               textAlign: 'center',
-              padding: 16,
+              padding: 16
             }}
           >
             <View
@@ -97,7 +88,7 @@ class SeatReservationScreen extends Component {
                 borderRadius: 4,
                 overflow: 'hidden',
                 height: dimensions.window.height - 80,
-                width: dimensions.window.width - 40,
+                width: dimensions.window.width - 40
               }}
               onStartShouldSetResponder={event => true}
             >
@@ -110,18 +101,18 @@ class SeatReservationScreen extends Component {
                 bindToBorders={true}
                 movementSensibility={0.5}
                 style={{
-                  padding: 10,
+                  padding: 10
                 }}
               >
                 <Image
                   style={{
                     flex: 1,
                     width: null,
-                    height: '100%',
+                    height: '100%'
                   }}
                   // source={require('../../assets/images/__seatMapTest.png')}
                   source={{
-                    uri: eventItem.SeatMapImageUrl ? eventItem.SeatMapImageUrl : '',
+                    uri: eventItem.SeatMapImageUrl ? eventItem.SeatMapImageUrl : ''
                   }}
                   resizeMode="contain"
                 />
@@ -132,7 +123,7 @@ class SeatReservationScreen extends Component {
                 style={{
                   position: 'absolute',
                   top: 10,
-                  right: 12,
+                  right: 12
                 }}
               >
                 <FontAwesomeIcon name="close" color={colors.themeColor} size={32} />
@@ -141,65 +132,65 @@ class SeatReservationScreen extends Component {
           </TouchableOpacity>
         </View>
       </Modal>
-    ) : null;
+    ) : null
   }
 
   onChange = ({ window, screen }) => {
-    this.setState({ dimensions: { window, screen } });
-  };
+    this.setState({ dimensions: { window, screen } })
+  }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.onChange);
+    Dimensions.removeEventListener('change', this.onChange)
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props, prevProps)) {
-      this.checkSeat();
+      this.checkSeat()
     }
   }
 
   componentDidMount() {
-    Dimensions.addEventListener('change', this.onChange);
+    Dimensions.addEventListener('change', this.onChange)
 
-    this.checkSeat();
+    this.checkSeat()
 
     if (this.event.Id) {
       axiosInstance
         .post(apiUrls.postSeatMapById(this.event.Id))
         .then(({ data }) => {
-          const validSectors = data.Sectors.filter(sector => sector.Title);
+          const validSectors = data.Sectors.filter(sector => sector.Title)
 
           this.setState({
-            sectors: this.mapSectors(validSectors),
-          });
+            sectors: this.mapSectors(validSectors)
+          })
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
   }
 
   selectSector = (sectorId, dropdown) => {
     const requests = [
       axiosInstance.post(apiUrls.postCart),
-      axiosInstance(apiUrls.getSectorWithPricing(this.event.Id, sectorId)),
-    ];
+      axiosInstance(apiUrls.getSectorWithPricing(this.event.Id, sectorId))
+    ]
 
     Promise.all(requests).then(([cart, sector]) =>
       this.setState(
         {
           selectedSector: {
             ...sector.data.Sector,
-            Seats: this.mapRowsInSector(sector.data.Sector.Seats, cart.data.Cart),
-          },
+            Seats: this.mapRowsInSector(sector.data.Sector.Seats, cart.data.Cart)
+          }
         },
         () => {
           // console.log('selectedSector', this.state.selectedSector)
           if (!dropdown) {
-            this.dropdownRef.current.toggleDropdown();
+            this.dropdownRef.current.toggleDropdown()
           }
         }
       )
-    );
-  };
+    )
+  }
 
   mapSectors = sectors => {
     return sectors.map(({ Id, Uuid, Title, Color, SeatMapId }) => ({
@@ -207,40 +198,40 @@ class SeatReservationScreen extends Component {
       uuid: Uuid,
       title: Title,
       color: Color,
-      seatMapId: SeatMapId,
-    }));
-  };
+      seatMapId: SeatMapId
+    }))
+  }
 
   mapRowsInSector = (seats, cart) => {
     // console.log('seats', seats);
 
     const rowsWithSeats = seats.reduce((prev, next) => {
-      const prevCopy = { ...prev };
+      const prevCopy = { ...prev }
 
       if (next.AvailableQuantity > 0) {
         const nextCopy = {
           ...next,
-          isReserved: cart.Items.some(item => item.OriginalId === next.TicketCode),
-        };
+          isReserved: cart.Items.some(item => item.OriginalId === next.TicketCode)
+        }
 
         if (prev[nextCopy.Row]) {
-          prevCopy[nextCopy.Row].push(nextCopy);
+          prevCopy[nextCopy.Row].push(nextCopy)
         } else {
-          prevCopy[nextCopy.Row] = [nextCopy];
+          prevCopy[nextCopy.Row] = [nextCopy]
         }
       }
 
-      return prevCopy;
-    }, {});
+      return prevCopy
+    }, {})
 
-    return Object.entries(rowsWithSeats);
-  };
+    return Object.entries(rowsWithSeats)
+  }
 
   checkSeat(cb) {
-    const { tags, selectedSector } = this.state;
-    const { navigation } = this.props;
+    const { tags, selectedSector } = this.state
+    const { navigation } = this.props
 
-    const eventItem = navigation.getParam('event', {});
+    const eventItem = navigation.getParam('event', {})
 
     axiosInstance
       .get(apiUrls.getFullCart)
@@ -248,16 +239,16 @@ class SeatReservationScreen extends Component {
         this.setState(
           {
             tags: data.filter(item => {
-              return item.EventId == eventItem.Id;
-            }),
+              return item.EventId == eventItem.Id
+            })
           },
           () => {
             // console.log('tags', this.state.tags)
-            Boolean(cb) && cb();
+            Boolean(cb) && cb()
           }
-        );
+        )
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 
   removeTag(OriginalId) {
@@ -268,49 +259,49 @@ class SeatReservationScreen extends Component {
         {
           text: i18n.t('alerts.cancel_seat_yes'),
           onPress: () => {
-            const { selectedSector, tags } = this.state;
+            const { selectedSector, tags } = this.state
 
-            let seatsTags = tags;
+            let seatsTags = tags
 
             this.setState(
               {
                 tags: seatsTags.filter(item => {
-                  return item.OriginalId !== OriginalId;
-                }),
+                  return item.OriginalId !== OriginalId
+                })
               },
               () => {
                 const params = {
-                  TicketId: OriginalId,
-                };
+                  TicketId: OriginalId
+                }
                 axiosInstance.post(apiUrls.postDeleteSeat, params).then(res => {
                   if (!res.isError) {
                     this.checkSeat(() => {
                       //selectedSector && selectedSector.Id && this.selectSector(selectedSector.Id, true)
-                    });
+                    })
                   }
-                });
+                })
               }
-            );
-          },
+            )
+          }
         },
         {
           text: i18n.t('alerts.cancel_seat_no'),
-          style: 'cancel',
-        },
+          style: 'cancel'
+        }
       ],
       {
-        cancelable: false,
+        cancelable: false
       }
-    );
+    )
   }
 
   renderTags() {
-    const { tags } = this.state;
+    const { tags } = this.state
 
     return (
       <View
         style={{
-          marginBottom: 16,
+          marginBottom: 16
         }}
       >
         {tags.map((item, key) => {
@@ -330,7 +321,7 @@ class SeatReservationScreen extends Component {
                 // paddingLeft: i18n.locale.toLowerCase() == 'en' ? 16 : 8,
                 paddingLeft: 16,
                 // paddingRight: i18n.locale.toLowerCase() == 'en' ? 8 : 16,
-                paddingRight: 8,
+                paddingRight: 8
               }}
             >
               <View
@@ -339,7 +330,7 @@ class SeatReservationScreen extends Component {
                   // borderColor: colors.themeColor,
                   // flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                   flexDirection: 'row',
-                  alignItems: 'center',
+                  alignItems: 'center'
                 }}
               >
                 <Text
@@ -350,7 +341,7 @@ class SeatReservationScreen extends Component {
                     color: colors.themeColor,
                     fontSize: fontSize.regular,
                     lineHeight: fontSize.regular + 10,
-                    height: fontSize.regular + 10,
+                    height: fontSize.regular + 10
                   }}
                 >
                   Sector {item.Sector}
@@ -368,7 +359,7 @@ class SeatReservationScreen extends Component {
                     color: colors.themeColor,
                     fontSize: fontSize.regular,
                     lineHeight: fontSize.regular + 10,
-                    height: fontSize.regular + 10,
+                    height: fontSize.regular + 10
                   }}
                 >
                   {item.Currency} {item.Price}
@@ -377,30 +368,30 @@ class SeatReservationScreen extends Component {
               <View>
                 <TouchableOpacity
                   style={{
-                    padding: 2,
+                    padding: 2
                   }}
                   onPress={() => {
-                    this.removeTag(item.OriginalId);
+                    this.removeTag(item.OriginalId)
                   }}
                 >
                   <FontAwesomeIcon name="close" color={'#C30907'} size={24} />
                 </TouchableOpacity>
               </View>
             </View>
-          );
+          )
         })}
       </View>
-    );
+    )
   }
 
   render() {
-    const { selectedSector, sectors, tags } = this.state;
-    const { navigation } = this.props;
+    const { selectedSector, sectors, tags } = this.state
+    const { navigation } = this.props
 
     // console.log('selectedSector', selectedSector)
     // console.log('sectors', sectors)
 
-    const eventItem = navigation.getParam('event', {});
+    const eventItem = navigation.getParam('event', {})
 
     return (
       <>
@@ -411,7 +402,7 @@ class SeatReservationScreen extends Component {
             {Boolean(eventItem.SeatMapImageUrl) && (
               <TouchableOpacity
                 onPress={() => {
-                  this.openModalSeatMap();
+                  this.openModalSeatMap()
                 }}
                 style={{
                   backgroundColor: '#000066',
@@ -419,14 +410,14 @@ class SeatReservationScreen extends Component {
                   height: 50,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginBottom: 32,
+                  marginBottom: 32
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.gothamMedium,
                     color: '#ffffff',
-                    fontSize: 20,
+                    fontSize: 20
                   }}
                 >
                   {i18n.t('events.view_seatmap')}
@@ -445,7 +436,7 @@ class SeatReservationScreen extends Component {
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    this.selectSector(sector.id);
+                    this.selectSector(sector.id)
                   }}
                 >
                   <Text>{sector.title}</Text>
@@ -453,11 +444,7 @@ class SeatReservationScreen extends Component {
               ))}
             </Dropdown>
             {selectedSector && (
-              <SeatRows
-                selectedSector={selectedSector}
-                checkSeat={() => this.checkSeat()}
-                tags={tags}
-              />
+              <SeatRows selectedSector={selectedSector} checkSeat={() => this.checkSeat()} tags={tags} />
             )}
           </ScrollView>
           <ConfirmButtons
@@ -469,15 +456,15 @@ class SeatReservationScreen extends Component {
         </View>
         {this.modalSeatMap()}
       </>
-    );
+    )
   }
 }
 
 SeatReservationScreen.propTypes = {
   navigation: propTypes.shape({
     navigate: propTypes.func.isRequired,
-    getParam: propTypes.func.isRequired,
-  }),
-};
+    getParam: propTypes.func.isRequired
+  })
+}
 
-export default SeatReservationScreen;
+export default SeatReservationScreen

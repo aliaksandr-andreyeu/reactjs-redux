@@ -1,49 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { ScrollView, Alert, TouchableOpacity, Text, View, TextInput } from 'react-native';
+import { ScrollView, Alert, TouchableOpacity, Text, View, TextInput } from 'react-native'
 
-import axios from 'axios';
+import axios from 'axios'
 
-import env from '../../config';
+import env from '../../config'
 
-import { NavHeaderUser } from '../../components/NavHeaderUser';
+import { NavHeaderUser } from '../../components/NavHeaderUser'
 
-import Accordion from './components/Accordion';
+import Accordion from './components/Accordion'
 
-import { axiosInstance, apiUrls } from '../../constants/api';
+import { axiosInstance, apiUrls } from '../../constants/api'
 
-import styles from './styles';
+import styles from './styles'
 
-import i18n from '../../../i18n';
+import i18n from '../../../i18n'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
 const requestType = [
   {
     id: 'contactUs.refund',
-    value: 'Refund',
+    value: 'Refund'
   },
   {
     id: 'contactUs.enquiries',
-    value: 'Enquiries',
+    value: 'Enquiries'
   },
   {
     id: 'contactUs.events_venues',
-    value: 'EventsAndVenues',
+    value: 'EventsAndVenues'
   },
   {
     id: 'contactUs.marketing',
-    value: 'Marketing',
-  },
-];
+    value: 'Marketing'
+  }
+]
 
 export default class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('contactUs.title'),
-    };
-  };
+      title: i18n.t('contactUs.title')
+    }
+  }
 
   state = {
     faq: [],
@@ -53,16 +53,16 @@ export default class ContactUs extends Component {
     bookingReference: '',
     contactUsRequestType: i18n.t(requestType[0].id),
     contactUsRequestTypeId: requestType[0].value,
-    message: '',
-  };
+    message: ''
+  }
 
   componentDidMount() {
-    this.getFaq();
+    this.getFaq()
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props, prevProps)) {
-      this.getFaq();
+      this.getFaq()
     }
   }
 
@@ -72,22 +72,15 @@ export default class ContactUs extends Component {
       .then(({ data }) => {
         if (data && data.Data && data.Data.length > 0) {
           this.setState({
-            faq: data.Data,
-          });
+            faq: data.Data
+          })
         }
       })
-      .catch(e => console.log('Error at ' + apiUrls.getFaq + ': ' + e));
+      .catch(e => console.log('Error at ' + apiUrls.getFaq + ': ' + e))
   }
 
   sendContactForm() {
-    const {
-      firstName,
-      lastName,
-      email,
-      bookingReference,
-      contactUsRequestTypeId,
-      message,
-    } = this.state;
+    const { firstName, lastName, email, bookingReference, contactUsRequestTypeId, message } = this.state
 
     let model = {
       FirstName: firstName,
@@ -95,36 +88,36 @@ export default class ContactUs extends Component {
       Email: email,
       BookingReference: bookingReference,
       ContactUsRequestType: contactUsRequestTypeId,
-      Message: message,
-    };
+      Message: message
+    }
 
     axiosInstance
       .post(`${apiUrls.postContactForm}?langCode=${i18n.locale.toUpperCase()}`, model)
       .then(({ data }) => {
         if (data && data.Message) {
-          Alert.alert(i18n.t('contactUs.contactForm'), data.Message);
+          Alert.alert(i18n.t('contactUs.contactForm'), data.Message)
         }
       })
-      .catch(e => console.log('Error at ' + apiUrls.postContactForm + ': ' + e));
+      .catch(e => console.log('Error at ' + apiUrls.postContactForm + ': ' + e))
   }
 
   applyRequestType(item) {
-    console.log('applyRequestType', item);
+    console.log('applyRequestType', item)
 
     if (item && item.length > 0) {
-      let value = item[0];
+      let value = item[0]
 
-      let arr = requestType.filter((item, i) => item.value === value);
+      let arr = requestType.filter((item, i) => item.value === value)
 
       this.setState({
         contactUsRequestType: arr && arr.length > 0 ? i18n.t(arr[0].id) : i18n.t(requestType[0].id),
-        contactUsRequestTypeId: value,
-      });
+        contactUsRequestTypeId: value
+      })
     } else {
       this.setState({
         contactUsRequestType: i18n.t(requestType[0].id),
-        contactUsRequestTypeId: requestType[0].value,
-      });
+        contactUsRequestTypeId: requestType[0].value
+      })
     }
   }
 
@@ -137,9 +130,9 @@ export default class ContactUs extends Component {
       bookingReference,
       contactUsRequestType,
       contactUsRequestTypeId,
-      message,
-    } = this.state;
-    const { navigation } = this.props;
+      message
+    } = this.state
+    const { navigation } = this.props
 
     // console.log( 'faq', faq );
 
@@ -149,7 +142,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.title,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.faq')}
@@ -160,7 +153,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.title,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.title')}
@@ -169,7 +162,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.first_name')}
@@ -180,13 +173,13 @@ export default class ContactUs extends Component {
             returnKeyType="go"
             style={{
               ...styles.input,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
             onChange={e => {
-              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState({
-                firstName: value,
-              });
+                firstName: value
+              })
             }}
             value={firstName}
           />
@@ -194,7 +187,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.last_name')}
@@ -205,13 +198,13 @@ export default class ContactUs extends Component {
             returnKeyType="go"
             style={{
               ...styles.input,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
             onChange={e => {
-              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState({
-                lastName: value,
-              });
+                lastName: value
+              })
             }}
             value={lastName}
           />
@@ -219,7 +212,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.email')}
@@ -230,13 +223,13 @@ export default class ContactUs extends Component {
             returnKeyType="go"
             style={{
               ...styles.input,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
             onChange={e => {
-              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState({
-                email: value,
-              });
+                email: value
+              })
             }}
             value={email}
           />
@@ -244,7 +237,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.booking_reference')}
@@ -255,13 +248,13 @@ export default class ContactUs extends Component {
             returnKeyType="go"
             style={{
               ...styles.input,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
             onChange={e => {
-              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState({
-                bookingReference: value,
-              });
+                bookingReference: value
+              })
             }}
             value={bookingReference}
           />
@@ -269,7 +262,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.request_type')}
@@ -286,30 +279,30 @@ export default class ContactUs extends Component {
                 items: [
                   {
                     id: requestType[0].value,
-                    label: i18n.t(requestType[0].id),
+                    label: i18n.t(requestType[0].id)
                   },
                   {
                     id: requestType[1].value,
-                    label: i18n.t(requestType[1].id),
+                    label: i18n.t(requestType[1].id)
                   },
                   {
                     id: requestType[2].value,
-                    label: i18n.t(requestType[2].id),
+                    label: i18n.t(requestType[2].id)
                   },
                   {
                     id: requestType[3].value,
-                    label: i18n.t(requestType[3].id),
-                  },
+                    label: i18n.t(requestType[3].id)
+                  }
                 ],
-                screenTitle: i18n.t('contactUs.request_type'),
-              });
+                screenTitle: i18n.t('contactUs.request_type')
+              })
             }}
           >
             <View style={styles.dropdown}>
               <Text
                 style={{
                   ...styles.dropdownText,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {contactUsRequestType}
@@ -320,7 +313,7 @@ export default class ContactUs extends Component {
           <Text
             style={{
               ...styles.subTitle,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
           >
             {i18n.t('contactUs.message')}
@@ -333,13 +326,13 @@ export default class ContactUs extends Component {
             returnKeyType="go"
             style={{
               ...styles.textareaBox,
-              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
             }}
             onChange={e => {
-              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let value = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState({
-                message: value,
-              });
+                message: value
+              })
             }}
             value={message}
           />
@@ -347,7 +340,7 @@ export default class ContactUs extends Component {
           <TouchableOpacity
             style={styles.btnBox}
             onPress={() => {
-              this.sendContactForm();
+              this.sendContactForm()
             }}
           >
             <View style={styles.btn}>
@@ -356,6 +349,6 @@ export default class ContactUs extends Component {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    );
+    )
   }
 }

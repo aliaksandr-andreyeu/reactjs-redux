@@ -1,66 +1,66 @@
-import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { connect } from 'react-redux';
-import propTypes from 'prop-types';
-import Dropdown from '../../../components/UI/Dropdown';
-import styles from './styles';
-import colors from '../../../constants/colors';
-import SsaScreenTitle from '../components/SsaScreenTitle';
-import * as actions from '../../SsaMainScreen/actions';
-import { getValueById } from '../../../helpers/getValueById';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import i18n from '../../../../i18n';
-import isEqual from 'lodash.isequal';
+import React, { Component } from 'react'
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+import propTypes from 'prop-types'
+import Dropdown from '../../../components/UI/Dropdown'
+import styles from './styles'
+import colors from '../../../constants/colors'
+import SsaScreenTitle from '../components/SsaScreenTitle'
+import * as actions from '../../SsaMainScreen/actions'
+import { getValueById } from '../../../helpers/getValueById'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import i18n from '../../../../i18n'
+import isEqual from 'lodash.isequal'
 
 class SportsScreen extends Component {
   constructor(props) {
-    super(props);
-    const { sportCategoryId, navigation } = props;
+    super(props)
+    const { sportCategoryId, navigation } = props
 
     // console.log( 'sportCategoryId', sportCategoryId )
 
     this.state = {
-      selectedCategory: sportCategoryId,
-    };
+      selectedCategory: sportCategoryId
+    }
 
     //this.dropdownRef = React.createRef();
 
-    this.sportCategories = navigation.getParam('sportCategories', []);
+    this.sportCategories = navigation.getParam('sportCategories', [])
   }
 
   componentDidMount() {
-    const { sportCategoryId } = this.props;
+    const { sportCategoryId } = this.props
 
     // console.log( 'componentDidMount sportCategoryId', sportCategoryId )
 
     this.setState({
-      selectedCategory: sportCategoryId,
-    });
+      selectedCategory: sportCategoryId
+    })
   }
 
   componentDidUpdate(prevProps) {
-    const { sportCategoryId } = this.props;
+    const { sportCategoryId } = this.props
 
     // console.log( 'componentDidUpdate sportCategoryId', sportCategoryId )
 
     if (!isEqual(sportCategoryId, prevProps.sportCategoryId)) {
       this.setState({
-        selectedCategory: sportCategoryId,
-      });
+        selectedCategory: sportCategoryId
+      })
     }
   }
 
   selectCategory = id => {
     this.setState({
-      selectedCategory: id,
-    });
+      selectedCategory: id
+    })
 
     //}, () => this.dropdownRef.current.toggleDropdown()
-  };
+  }
 
   renderSportsItem = (sports, index) => {
-    const { selectedCategory } = this.state;
-    const isSelected = sports.Id === +selectedCategory;
+    const { selectedCategory } = this.state
+    const isSelected = sports.Id === +selectedCategory
 
     // console.log(sports.Id == +selectedCategory)
 
@@ -70,10 +70,10 @@ class SportsScreen extends Component {
         style={{
           ...styles.sportsItem,
           ...(isSelected && {
-            backgroundColor: colors.brandColorBright,
+            backgroundColor: colors.brandColorBright
           }),
           marginLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 10,
-          marginRight: i18n.locale.toLowerCase() == 'en' ? 10 : 0,
+          marginRight: i18n.locale.toLowerCase() == 'en' ? 10 : 0
         }}
         onPress={() => this.selectCategory(sports.Id)}
       >
@@ -81,27 +81,24 @@ class SportsScreen extends Component {
           style={{
             ...styles.sportsItemName,
             ...(isSelected && {
-              color: colors.basicLightText,
-            }),
+              color: colors.basicLightText
+            })
           }}
         >
           {sports.NameInPrimaryLang}
         </Text>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   render() {
-    const { selectedCategory } = this.state;
-    const { changeCategory } = this.props;
+    const { selectedCategory } = this.state
+    const { changeCategory } = this.props
 
     // console.log( 'render selectedCategory', selectedCategory )
 
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
-      >
+      <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
         <View style={styles.innerWrapper}>
           <SsaScreenTitle text={i18n.t('socialSportsActivity.sports')} />
           <View
@@ -110,7 +107,7 @@ class SportsScreen extends Component {
               flexDirection: 'row',
               flexWrap: 'wrap',
               alignItems: 'flex-start',
-              justifyContent: i18n.locale.toLowerCase() == 'en' ? 'flex-start' : 'flex-end',
+              justifyContent: i18n.locale.toLowerCase() == 'en' ? 'flex-start' : 'flex-end'
               // borderWidth: 1,
               // borderColor: "#ff0000",
             }}
@@ -146,7 +143,7 @@ class SportsScreen extends Component {
                 endTime: '',
                 venueId: '',
                 facilityId: '',
-                packageId: '',
+                packageId: ''
               })
             }
             handleSave={() =>
@@ -157,29 +154,29 @@ class SportsScreen extends Component {
                 endTime: '',
                 venueId: '',
                 facilityId: '',
-                packageId: '',
+                packageId: ''
               })
             }
           />
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  sportCategoryId: state.socialSportActivity.sportCategoryId,
-});
+  sportCategoryId: state.socialSportActivity.sportCategoryId
+})
 const mapDispatchToProps = {
-  changeCategory: actions.setData,
-};
+  changeCategory: actions.setData
+}
 
 SportsScreen.propTypes = {
   navigation: propTypes.shape({
-    getParam: propTypes.func.isRequired,
+    getParam: propTypes.func.isRequired
   }).isRequired,
   sportCategoryId: propTypes.string.isRequired,
-  changeCategory: propTypes.func.isRequired,
-};
+  changeCategory: propTypes.func.isRequired
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SportsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SportsScreen)

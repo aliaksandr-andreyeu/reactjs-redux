@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, ActivityIndicator, View, Linking, Text } from 'react-native';
-import env from '../../config';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import i18n from '../../../i18n';
-import colors from '../../constants/colors';
-import { fontFamily } from '../../constants/fonts';
-import { htmlStyles } from '../../constants/htmlRendering';
-import HTML from 'react-native-render-html';
+import React, { useEffect, useState } from 'react'
+import { ScrollView, ActivityIndicator, View, Linking, Text } from 'react-native'
+import env from '../../config'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import i18n from '../../../i18n'
+import colors from '../../constants/colors'
+import { fontFamily } from '../../constants/fonts'
+import { htmlStyles } from '../../constants/htmlRendering'
+import HTML from 'react-native-render-html'
 
 /**
  * @param {object} navigation
@@ -15,19 +15,19 @@ import HTML from 'react-native-render-html';
  */
 
 const PolicyScreen = ({ navigation }) => {
-  const [html, setHTML] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const constraint = navigation.getParam('constraint');
-  const language = i18n.locale;
+  const [html, setHTML] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  const constraint = navigation.getParam('constraint')
+  const language = i18n.locale
 
   useEffect(() => {
     fetch(`${env.api}/api/page/${constraint}?langCode=${language}`)
       .then(res => res.json())
       .then(res => {
-        setHTML(res.Content);
-        setIsLoading(false);
-      });
-  });
+        setHTML(res.Content)
+        setIsLoading(false)
+      })
+  })
 
   return isLoading ? (
     <ActivityIndicator size="large" style={{ flex: 1 }} />
@@ -46,7 +46,7 @@ const PolicyScreen = ({ navigation }) => {
 
           paddingHorizontal: 15,
           paddingTop: 16,
-          paddingBottom: 16,
+          paddingBottom: 16
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -62,30 +62,30 @@ const PolicyScreen = ({ navigation }) => {
                   >
                     {children}
                   </Text>
-                );
+                )
               }
-            },
+            }
           }}
           baseFontStyle={{
-            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
           }}
           tagsStyles={{
             ...htmlStyles,
             img: {
               maxWidth: '100%',
               marginTop: 4,
-              marginBottom: 4,
-            },
+              marginBottom: 4
+            }
           }}
         />
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
 PolicyScreen.navigationOptions = ({ navigation }) => {
-  const constraint = navigation.getParam('constraint');
-  const isSignUp = navigation.getParam('isSignUp');
+  const constraint = navigation.getParam('constraint')
+  const isSignUp = navigation.getParam('isSignUp')
 
   return {
     headerRight: isSignUp ? null : <NavHeaderUser {...navigation} />,
@@ -96,8 +96,8 @@ PolicyScreen.navigationOptions = ({ navigation }) => {
         ? i18n.t('more.privacy_policy')
         : constraint === 'refund-policy'
         ? i18n.t('more.refund_policy')
-        : '',
-  };
-};
+        : ''
+  }
+}
 
-export default PolicyScreen;
+export default PolicyScreen

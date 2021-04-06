@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.placeholderBackground,
     height: 180,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   boxShadow: {
     backgroundColor: colors.backgroundLight,
@@ -17,43 +17,43 @@ const styles = StyleSheet.create({
     shadowColor: colors.shadowDark,
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   contentWrapper: {
     padding: 15,
     paddingLeft: 20,
-    flex: 2,
+    flex: 2
   },
   background: {
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: colors.placeholderBackground,
-    flex: 1,
+    flex: 1
   },
   lineContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 10
   },
   lineText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular + 2,
     color: colors.basicText,
-    marginLeft: 15,
+    marginLeft: 15
   },
   title: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
     color: colors.brandGreen,
-    marginBottom: 10,
+    marginBottom: 10
   },
   locationText: {
-    color: colors.brandColorBright,
+    color: colors.brandColorBright
   },
   priceText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular,
-    color: colors.basicLightText,
-  },
-});
+    color: colors.basicLightText
+  }
+})
 
-export default styles;
+export default styles

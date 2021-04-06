@@ -1,78 +1,76 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import FilterOption from '../../../components/SortAndFilter/FilterOption';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../VenuesScreen/actions';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import Loading from '../../../components/Loading';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import styles from './styles'
+import FilterOption from '../../../components/SortAndFilter/FilterOption'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../VenuesScreen/actions'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import Loading from '../../../components/Loading'
+import i18n from '../../../../i18n'
 
 class VenuesFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       sportCategoriesList: [],
       distance: [],
-      isLoading: true,
-    };
+      isLoading: true
+    }
   }
 
   componentDidMount() {
-    const requests = [
-      axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`),
-    ];
+    const requests = [axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`)]
 
     Promise.all(requests).then(([sportCategories]) => {
       this.setState({
         sportCategoriesList: this.mapList(sportCategories.data, 'NameInPrimaryLang'),
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   mapList = (list, labelKey, idKey = 'Id') =>
     list.map(item => ({
       id: item[idKey],
-      label: item[labelKey],
-    }));
+      label: item[labelKey]
+    }))
 
   // applyFilters = () => {};
 
   handleCancel = () => {
-    const { clearFilter } = this.props;
+    const { clearFilter } = this.props
 
-    clearFilter();
-  };
+    clearFilter()
+  }
 
   applyFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update,
-    });
+      [itemKey]: update
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   applyRadioFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update.join(),
-    });
+      [itemKey]: update.join()
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   render() {
     // get data from redux store
-    const { categoryOfSports, distance } = this.props;
-    const { sportCategoriesList, isLoading } = this.state;
+    const { categoryOfSports, distance } = this.props
+    const { sportCategoriesList, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -85,7 +83,7 @@ class VenuesFilter extends Component {
               onApply: this.applyFilter('categoryOfSports'),
               selectedItems: categoryOfSports,
               items: sportCategoriesList,
-              screenTitle: i18n.t('filters.category_of_sports'),
+              screenTitle: i18n.t('filters.category_of_sports')
             }}
           />
           <FilterOption
@@ -101,9 +99,9 @@ class VenuesFilter extends Component {
                 { id: '15000', label: i18n.t('filters.15km') },
                 { id: '20000', label: i18n.t('filters.20km') },
                 { id: '25000', label: i18n.t('filters.25km') },
-                { id: '30000', label: i18n.t('filters.30km') },
+                { id: '30000', label: i18n.t('filters.30km') }
               ],
-              screenTitle: i18n.t('filters.select_distance'),
+              screenTitle: i18n.t('filters.select_distance')
             }}
           />
         </View>
@@ -114,19 +112,19 @@ class VenuesFilter extends Component {
           cancelLabel={i18n.t('generic.buttons.reset')}
         />
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   categoryOfSports: state.venues.filters.categoryOfSports,
-  distance: state.venues.filters.distance,
-});
+  distance: state.venues.filters.distance
+})
 
 const mapDispatchToProps = {
   updateStore: actions.setVenuesData,
   setFilter: actions.setVenuesFilter,
-  clearFilter: actions.clearVenuesFilter,
-};
+  clearFilter: actions.clearVenuesFilter
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(VenuesFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(VenuesFilter)

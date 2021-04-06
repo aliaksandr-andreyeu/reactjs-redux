@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import RadioButton from '../../../components/UI/RadioButton';
-import { playerLevels } from './constants';
-import styles from './styles';
-import SsaScreenTitle from '../components/SsaScreenTitle';
-import * as actions from '../../SsaMainScreen/actions';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import RadioButton from '../../../components/UI/RadioButton'
+import { playerLevels } from './constants'
+import styles from './styles'
+import SsaScreenTitle from '../components/SsaScreenTitle'
+import * as actions from '../../SsaMainScreen/actions'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import i18n from '../../../../i18n'
 
 class PlayerLevelScreen extends Component {
   state = {
-    selectedItem: this.props.playerLevel,
-  };
+    selectedItem: this.props.playerLevel
+  }
 
   handleSelect = index => {
-    const { selectedItem } = this.state;
+    const { selectedItem } = this.state
 
     if (index !== selectedItem) {
       this.setState({
-        selectedItem: index,
-      });
+        selectedItem: index
+      })
     }
-  };
+  }
 
   render() {
-    const { selectedItem } = this.state;
-    const { updateStore } = this.props;
+    const { selectedItem } = this.state
+    const { updateStore } = this.props
 
     return (
       <View style={styles.container}>
@@ -49,15 +49,15 @@ class PlayerLevelScreen extends Component {
           cancelLabel={i18n.t('generic.buttons.clear')}
         />
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  playerLevel: state.socialSportActivity.playerLevel,
-});
+  playerLevel: state.socialSportActivity.playerLevel
+})
 const mapDispatchToProps = {
-  updateStore: actions.setData,
-};
+  updateStore: actions.setData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerLevelScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerLevelScreen)

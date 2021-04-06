@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   View,
   FlatList,
@@ -10,43 +10,43 @@ import {
   Text,
   TextInput,
   ImageBackground,
-  PermissionsAndroid,
-} from 'react-native';
+  PermissionsAndroid
+} from 'react-native'
 
-import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
-import { axiosInstance, apiUrls } from '../../constants/api';
-import VenueItem, { VENUE_ITEM_HEIGHT, VENUE_ITEM_MARGIN_BOTTOM } from './components/VenueItem';
-import Loading from '../../components/Loading';
-import FilterAndSearchBar from '../../components/FilterAndSearchBar';
+import PropTypes from 'prop-types'
+import isEqual from 'lodash.isequal'
+import { axiosInstance, apiUrls } from '../../constants/api'
+import VenueItem, { VENUE_ITEM_HEIGHT, VENUE_ITEM_MARGIN_BOTTOM } from './components/VenueItem'
+import Loading from '../../components/Loading'
+import FilterAndSearchBar from '../../components/FilterAndSearchBar'
 
-import * as actions from './actions';
+import * as actions from './actions'
 
-import colors from '../../constants/colors';
-import styles from './styles';
+import colors from '../../constants/colors'
+import styles from './styles'
 
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation'
 
 // import { getAuthenticatedUser } from '../../helpers/miscHelpers';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import { getSortAndFilterModel } from '../../helpers/filters';
-import i18n from '../../../i18n';
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import { getSortAndFilterModel } from '../../helpers/filters'
+import i18n from '../../../i18n'
 
-import { fontFamily } from '../../constants/fonts';
+import { fontFamily } from '../../constants/fonts'
 
-import MapView from 'react-native-map-clustering';
-import { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView from 'react-native-map-clustering'
+import { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps' // remove PROVIDER_GOOGLE import if not using Google Maps
 
 export class Venues extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('venues.title'),
-    };
-  };
+      title: i18n.t('venues.title')
+    }
+  }
 
-  defaultMapMarkerImage = require('../../assets/images/markers/map-walking.png');
-  locationMarker = require('../../assets/images/location_marker.png');
+  defaultMapMarkerImage = require('../../assets/images/markers/map-walking.png')
+  locationMarker = require('../../assets/images/location_marker.png')
 
   markerImages = [
     null,
@@ -124,10 +124,10 @@ export class Venues extends Component {
     null,
     require('../../assets/images/markers/map-73.png'),
     require('../../assets/images/markers/map-74.png'),
-    null,
-  ];
+    null
+  ]
 
-  flatListRef = React.createRef();
+  flatListRef = React.createRef()
 
   state = {
     isListView: true,
@@ -148,10 +148,10 @@ export class Venues extends Component {
 
     location: {
       longitude: 0,
-      latitude: 0,
-    },
+      latitude: 0
+    }
     // isAuthenticatedUser: false,
-  };
+  }
 
   determineLocation() {
     setTimeout(() => {
@@ -160,52 +160,52 @@ export class Venues extends Component {
           //console.warn(position.coords);
           if (position.coords && position.coords.latitude && position.coords.longitude) {
             this.setState({
-              location: position.coords,
-            });
+              location: position.coords
+            })
           }
         },
         error => {},
         {
           enableHighAccuracy: false,
           timeout: 5000,
-          maximumAge: 10000,
+          maximumAge: 10000
         }
-      );
-    }, 500);
+      )
+    }, 500)
   }
 
   async componentDidMount() {
-    const { sortOptions, filterOptions, clearFiltersAndSorting } = this.props;
+    const { sortOptions, filterOptions, clearFiltersAndSorting } = this.props
 
-    this.determineLocation();
-    clearFiltersAndSorting();
+    this.determineLocation()
+    clearFiltersAndSorting()
 
     // const user = await getAuthenticatedUser();
 
-    let model = getSortAndFilterModel(sortOptions, filterOptions);
-    model.languageCode = i18n.locale.toUpperCase();
-    model.langCode = i18n.locale.toUpperCase();
+    let model = getSortAndFilterModel(sortOptions, filterOptions)
+    model.languageCode = i18n.locale.toUpperCase()
+    model.langCode = i18n.locale.toUpperCase()
 
     if (this.props.filterOptions.distance) {
-      model.distance = +this.props.filterOptions.distance;
+      model.distance = +this.props.filterOptions.distance
     }
 
     if (this.state.location.longitude && this.state.location.latitude) {
       model = {
         ...model,
-        ...this.state.location,
-      };
+        ...this.state.location
+      }
     }
 
-    console.log('model DidMount', model);
+    console.log('model DidMount', model)
 
     axiosInstance
       .post(apiUrls.postVenues, model)
       .then(({ data }) => {
-        let markers = [];
+        let markers = []
         for (let i = 0; i < data.length; i++) {
           if (data[i].Lat > 0 && data[i].Lon > 0) {
-            markers.push(data[i]);
+            markers.push(data[i])
           }
         }
 
@@ -213,104 +213,97 @@ export class Venues extends Component {
           {
             venues: data,
             isLoading: false,
-            markers: markers,
+            markers: markers
             // isAuthenticatedUser: user,
           },
           () => {
-            this.filterData();
+            this.filterData()
           }
-        );
+        )
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 
   componentDidUpdate(prevProps) {
-    const { sortOptions, filterOptions } = this.props;
+    const { sortOptions, filterOptions } = this.props
 
-    if (
-      !isEqual(sortOptions, prevProps.sortOptions) ||
-      !isEqual(filterOptions, prevProps.filterOptions)
-    ) {
-      this.fetchItemsWithParams(sortOptions, filterOptions);
+    if (!isEqual(sortOptions, prevProps.sortOptions) || !isEqual(filterOptions, prevProps.filterOptions)) {
+      this.fetchItemsWithParams(sortOptions, filterOptions)
     }
   }
 
   fetchItemsWithParams = (sortParams, filterParams) => {
-    let model = getSortAndFilterModel(sortParams, filterParams);
+    let model = getSortAndFilterModel(sortParams, filterParams)
 
-    model.languageCode = i18n.locale.toUpperCase();
-    model.langCode = i18n.locale.toUpperCase();
+    model.languageCode = i18n.locale.toUpperCase()
+    model.langCode = i18n.locale.toUpperCase()
 
     if (this.props.filterOptions.distance) {
-      model.distance = +this.props.filterOptions.distance;
+      model.distance = +this.props.filterOptions.distance
     }
 
     if (this.state.location.longitude && this.state.location.latitude) {
       model = {
         ...model,
-        ...this.state.location,
-      };
+        ...this.state.location
+      }
     }
 
-    console.log('model DidUpdate', model);
+    console.log('model DidUpdate', model)
 
     axiosInstance
       .post(apiUrls.postVenues, model)
       .then(({ data }) => {
-        let markers = [];
+        let markers = []
         for (let i = 0; i < data.length; i++) {
           if (data[i].Lat > 0 && data[i].Lon > 0) {
-            markers.push(data[i]);
+            markers.push(data[i])
           }
         }
 
         this.setState(
           {
             venues: data,
-            markers: markers,
+            markers: markers
           },
           () => {
-            this.filterData();
+            this.filterData()
           }
-        );
+        )
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   navigateToDetails = item => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    navigation.navigate('VenueDetails', { item });
-  };
+    navigation.navigate('VenueDetails', { item })
+  }
 
   handleMarkerPress(marker) {
-    this.navigateToDetails(marker);
+    this.navigateToDetails(marker)
   }
 
   renderVenueItem = (item, i) => {
     return (
-      <TouchableHighlight
-        key={i.toString()}
-        onPress={() => this.navigateToDetails(item)}
-        underlayColor="#ffffff00"
-      >
+      <TouchableHighlight key={i.toString()} onPress={() => this.navigateToDetails(item)} underlayColor="#ffffff00">
         <VenueItem key={i.toString()} venue={item} borderRadius={5} />
       </TouchableHighlight>
-    );
-  };
+    )
+  }
 
   changeState = () => {
     this.setState({
-      isListView: !this.state.isListView,
-    });
-  };
+      isListView: !this.state.isListView
+    })
+  }
 
   getMarkerSource(marker) {
     if (marker.Category > -1 && this.markerImages[marker.Category]) {
-      return this.markerImages[marker.Category];
+      return this.markerImages[marker.Category]
     }
 
-    return this.defaultMapMarkerImage;
+    return this.defaultMapMarkerImage
   }
 
   renderMarker(marker, index) {
@@ -322,7 +315,7 @@ export class Venues extends Component {
         tracksViewChanges={false}
         coordinate={{
           latitude: marker.Lat,
-          longitude: marker.Lon,
+          longitude: marker.Lon
         }}
         // centerOffset={{ x: -42, y: -60 }}
       >
@@ -334,46 +327,39 @@ export class Venues extends Component {
           />
         </View>
       </Marker>
-    );
+    )
   }
 
   filterData() {
-    const { markers, venues, checkList } = this.state;
+    const { markers, venues, checkList } = this.state
 
     let filteredMarkers = markers.filter(marker => {
-      let str = checkList ? checkList.toLowerCase() : '';
-      let title = marker.Title ? marker.Title.toLowerCase() : '';
-      let address = marker.FullAddress ? marker.FullAddress.toLowerCase() : '';
+      let str = checkList ? checkList.toLowerCase() : ''
+      let title = marker.Title ? marker.Title.toLowerCase() : ''
+      let address = marker.FullAddress ? marker.FullAddress.toLowerCase() : ''
 
-      return title.indexOf(str) >= 0 || address.indexOf(str) >= 0;
-    });
+      return title.indexOf(str) >= 0 || address.indexOf(str) >= 0
+    })
 
     let filteredVenues = venues.filter(venue => {
-      let str = checkList ? checkList.toLowerCase() : '';
-      let title = venue.Title ? venue.Title.toLowerCase() : '';
-      let address = venue.FullAddress ? venue.FullAddress.toLowerCase() : '';
+      let str = checkList ? checkList.toLowerCase() : ''
+      let title = venue.Title ? venue.Title.toLowerCase() : ''
+      let address = venue.FullAddress ? venue.FullAddress.toLowerCase() : ''
 
-      return title.indexOf(str) >= 0 || address.indexOf(str) >= 0;
-    });
+      return title.indexOf(str) >= 0 || address.indexOf(str) >= 0
+    })
 
     this.setState({
       filteredMarkers,
-      filteredVenues,
-    });
+      filteredVenues
+    })
   }
 
   render() {
-    const {
-      checkList,
-      filteredVenues,
-      isLoading,
-      isListView,
-      filteredMarkers,
-      location,
-    } = this.state;
+    const { checkList, filteredVenues, isLoading, isListView, filteredMarkers, location } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -381,7 +367,7 @@ export class Venues extends Component {
         style={{
           flex: 1,
           paddingBottom: !isListView ? 0 : 20,
-          backgroundColor: colors.primaryBgColor,
+          backgroundColor: colors.primaryBgColor
         }}
       >
         <FilterAndSearchBar
@@ -394,7 +380,7 @@ export class Venues extends Component {
         <View
           style={{
             flex: 1,
-            paddingHorizontal: !isListView ? 0 : 15,
+            paddingHorizontal: !isListView ? 0 : 15
           }}
         >
           {!isListView && (
@@ -410,8 +396,7 @@ export class Venues extends Component {
                 latitude: 25.061401,
                 longitude: 55.237319,
                 latitudeDelta: 0.5,
-                longitudeDelta:
-                  0.5 * (Dimensions.get('window').width / Dimensions.get('window').height),
+                longitudeDelta: 0.5 * (Dimensions.get('window').width / Dimensions.get('window').height)
               }}
             >
               {/*location.longitude !== 0 && (
@@ -442,30 +427,30 @@ export class Venues extends Component {
               isListView
                 ? {
                     ...styles.searchFieldList,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }
                 : {
                     ...styles.searchField,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }
             }
             onChange={e => {
-              let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+              let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
               this.setState(
                 {
-                  checkList,
+                  checkList
                 },
                 () => {
-                  this.filterData();
+                  this.filterData()
                 }
-              );
+              )
             }}
             value={checkList}
           />
           {isListView && filteredVenues && filteredVenues.length > 0 && (
             <FlatList
               ref={ref => {
-                this.flatListRef = ref;
+                this.flatListRef = ref
               }}
               extraData={this.state}
               // getItemLayout={(data, index) => ({
@@ -482,23 +467,23 @@ export class Venues extends Component {
           )}
         </View>
       </View>
-    );
+    )
   }
 }
 
 Venues.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
+    navigate: PropTypes.func.isRequired
+  }).isRequired
+}
 
 const mapStateToProps = state => ({
   filterOptions: state.venues.filters,
-  sortOptions: state.venues.sortOptions,
-});
+  sortOptions: state.venues.sortOptions
+})
 
 const mapDispatchToProps = {
-  clearFiltersAndSorting: actions.clearVenuesData,
-};
+  clearFiltersAndSorting: actions.clearVenuesData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Venues);
+export default connect(mapStateToProps, mapDispatchToProps)(Venues)

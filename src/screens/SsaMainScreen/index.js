@@ -1,51 +1,51 @@
-import React, { PureComponent } from 'react';
-import { Platform, View, ScrollView, Text, TextInput } from 'react-native';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import { apiUrls, axiosInstance } from '../../constants/api';
-import SsaOption from './components/SsaOption';
-import SsaSectionTitle from './components/SsaSectionTitle';
-import ActivityType from './components/ActivityType';
-import Terms from './components/Terms';
-import styles from './styles';
-import { playerLevels } from '../SsaOptionScreens/PlayerLevelScreen/constants';
-import { paymentOptions } from '../SsaOptionScreens/PaymentScreen/constants';
-import { getValueById } from '../../helpers/getValueById';
-import ConfirmButtons from '../../components/UI/ConfirmButtons';
-import { clearForm, setData } from './actions';
-import { formatISODate } from '../../helpers/miscHelpers';
-import ModalComponent from '../../components/UI/ModalComponent';
-import TimeScreen from '../SsaOptionScreens/TimeScreen';
-import Loading from '../../components/Loading';
-import { ssaPlayerLevel, ssaEventActivityType } from '../../constants/socialSportsActivity';
-import { defaultState } from './reducers';
-import { ssaMainScreenModes } from './constants';
-import { ScreenConfig } from './models';
-import i18n from '../../../i18n';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import ErrorMessage from '../../components/ErrorMessage';
+import React, { PureComponent } from 'react'
+import { Platform, View, ScrollView, Text, TextInput } from 'react-native'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import moment from 'moment'
+import { apiUrls, axiosInstance } from '../../constants/api'
+import SsaOption from './components/SsaOption'
+import SsaSectionTitle from './components/SsaSectionTitle'
+import ActivityType from './components/ActivityType'
+import Terms from './components/Terms'
+import styles from './styles'
+import { playerLevels } from '../SsaOptionScreens/PlayerLevelScreen/constants'
+import { paymentOptions } from '../SsaOptionScreens/PaymentScreen/constants'
+import { getValueById } from '../../helpers/getValueById'
+import ConfirmButtons from '../../components/UI/ConfirmButtons'
+import { clearForm, setData } from './actions'
+import { formatISODate } from '../../helpers/miscHelpers'
+import ModalComponent from '../../components/UI/ModalComponent'
+import TimeScreen from '../SsaOptionScreens/TimeScreen'
+import Loading from '../../components/Loading'
+import { ssaPlayerLevel, ssaEventActivityType } from '../../constants/socialSportsActivity'
+import { defaultState } from './reducers'
+import { ssaMainScreenModes } from './constants'
+import { ScreenConfig } from './models'
+import i18n from '../../../i18n'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import ErrorMessage from '../../components/ErrorMessage'
 
-import colors from '../../constants/colors';
-import { fontFamily, fontSize } from '../../constants/fonts';
+import colors from '../../constants/colors'
+import { fontFamily, fontSize } from '../../constants/fonts'
 
-import { getCart } from '../Cart/actions';
+import { getCart } from '../Cart/actions'
 
-import getLocaleDate from '../../helpers/getLocaleDate';
+import getLocaleDate from '../../helpers/getLocaleDate'
 
 class SsaMainScreen extends PureComponent {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('socialSportsActivity.create_event'),
-    };
-  };
+      title: i18n.t('socialSportsActivity.create_event')
+    }
+  }
 
   constructor(props) {
-    super(props);
-    const { navigation } = props;
+    super(props)
+    const { navigation } = props
 
-    const navigationProps = navigation.getParam('data');
+    const navigationProps = navigation.getParam('data')
 
     this.state = {
       venues: {},
@@ -58,68 +58,64 @@ class SsaMainScreen extends PureComponent {
       modalIsVisible: false,
       isPaymentMethodsShown: false,
       screenMode: navigationProps ? navigationProps.screenMode : ssaMainScreenModes.normal,
-      isUpdateRun: false,
-    };
+      isUpdateRun: false
+    }
   }
 
   componentDidMount() {
-    const { clearOptions } = this.props;
-    const { screenMode } = this.state;
+    const { clearOptions } = this.props
+    const { screenMode } = this.state
 
-    clearOptions();
-    const isEditMode = screenMode === ssaMainScreenModes.edit;
+    clearOptions()
+    const isEditMode = screenMode === ssaMainScreenModes.edit
 
     const requests = [
-      axiosInstance(
-        `${
-          apiUrls.getSportCategories
-        }?onlyInFfrInventory=true&langCode=${i18n.locale.toUpperCase()}`
-      ),
-    ];
+      axiosInstance(`${apiUrls.getSportCategories}?onlyInFfrInventory=true&langCode=${i18n.locale.toUpperCase()}`)
+    ]
 
     if (!isEditMode) {
-      requests.push(axiosInstance(apiUrls.getUserPaymentMethods));
+      requests.push(axiosInstance(apiUrls.getUserPaymentMethods))
     }
 
     Promise.all(requests).then(([sportCategories, paymentMethods]) => {
       this.setState(() => ({
         sportCategories: sportCategories.data,
         selectedPaymentMethodIndex: paymentMethods ? 0 : -1,
-        isLoading: screenMode !== ssaMainScreenModes.normal,
-      }));
-    });
+        isLoading: screenMode !== ssaMainScreenModes.normal
+      }))
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { sportCategoryId, packageId } = this.props;
-    const { sportCategories } = this.state;
+    const { sportCategoryId, packageId } = this.props
+    const { sportCategories } = this.state
 
     // console.log('sportCategoryId componentDidUpdate', sportCategoryId, typeof sportCategoryId)
 
     if (prevState.sportCategories.length !== sportCategories.length) {
-      this.updateStoreWithInitialParams();
+      this.updateStoreWithInitialParams()
     }
 
     if (prevProps.sportCategoryId !== sportCategoryId) {
-      this.getPackages(sportCategoryId);
+      this.getPackages(sportCategoryId)
     }
 
     if (packageId && prevProps.packageId !== packageId) {
-      this.getAvailableDates(packageId);
+      this.getAvailableDates(packageId)
     }
   }
 
   updateStoreWithInitialParams = () => {
-    const { navigation, updateStore } = this.props;
-    const passedData = navigation.getParam('data');
+    const { navigation, updateStore } = this.props
+    const passedData = navigation.getParam('data')
 
     if (passedData) {
       updateStore({
         ...defaultState,
-        ...passedData,
-      });
+        ...passedData
+      })
     }
-  };
+  }
 
   getPackages = sportCategoryId => {
     // console.log('sportCategoryId getPackages', sportCategoryId, typeof sportCategoryId)
@@ -128,47 +124,45 @@ class SsaMainScreen extends PureComponent {
       sp: sportCategoryId,
       from: moment().format('YYYY-MM-DD'),
       to: moment().add(2, 'months').format('YYYY-MM-DD'),
-      sat: 1,
-    };
+      sat: 1
+    }
 
     axiosInstance
       .get(apiUrls.getBookAndPlay, { params })
       .then(({ data }) => {
-        const { screenMode } = this.state;
-        const venues = this.reduceVenues(data.Items);
+        const { screenMode } = this.state
+        const venues = this.reduceVenues(data.Items)
 
-        const isEditMode = screenMode === ssaMainScreenModes.edit;
+        const isEditMode = screenMode === ssaMainScreenModes.edit
 
         this.setState(prevState => ({
           packages: data.Items,
           venues,
-          isLoading: isEditMode && prevState.isLoading,
-        }));
+          isLoading: isEditMode && prevState.isLoading
+        }))
       })
       .catch(() => {
         this.setState({
-          isLoading: false,
-        });
-      });
-  };
+          isLoading: false
+        })
+      })
+  }
 
   getAvailableDates = packageId => {
-    axiosInstance(
-      `${apiUrls.getSsaTimeslotsById(packageId)}?languageCode=${i18n.locale.toUpperCase()}`
-    )
+    axiosInstance(`${apiUrls.getSsaTimeslotsById(packageId)}?languageCode=${i18n.locale.toUpperCase()}`)
       .then(({ data }) => {
         this.setState({
           availableDates: data.Days,
-          isLoading: false,
-        });
+          isLoading: false
+        })
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   reduceVenues = venues =>
     venues.reduce((prev, item) => {
-      const { VenueId, VenueTitle, FacilityId, FacilityTitle } = item;
-      const reducedVenues = { ...prev };
+      const { VenueId, VenueTitle, FacilityId, FacilityTitle } = item
+      const reducedVenues = { ...prev }
 
       reducedVenues[VenueId] = reducedVenues[VenueId]
         ? {
@@ -177,9 +171,9 @@ class SsaMainScreen extends PureComponent {
               ...reducedVenues[VenueId].facilities,
               [FacilityId]: {
                 facilityId: FacilityId,
-                facilityTitle: FacilityTitle,
-              },
-            },
+                facilityTitle: FacilityTitle
+              }
+            }
           }
         : {
             venueId: VenueId,
@@ -187,52 +181,44 @@ class SsaMainScreen extends PureComponent {
             facilities: {
               [FacilityId]: {
                 facilityId: FacilityId,
-                facilityTitle: FacilityTitle,
-              },
-            },
-          };
+                facilityTitle: FacilityTitle
+              }
+            }
+          }
 
-      return reducedVenues;
-    }, {});
+      return reducedVenues
+    }, {})
 
   submitCreateSsaForm = () => {
-    const {
-      packageId,
-      date,
-      startTime,
-      numberOfParticipants,
-      timeSlotId,
-      subFacilityId,
-      getCart,
-    } = this.props;
-    const params = this.getCreateSsaParams();
+    const { packageId, date, startTime, numberOfParticipants, timeSlotId, subFacilityId, getCart } = this.props
+    const params = this.getCreateSsaParams()
 
-    const validatedFields = this.validateOnSubmit();
+    const validatedFields = this.validateOnSubmit()
 
-    console.log('params', params);
+    console.log('params', params)
 
     if (!validatedFields.hasErrors) {
       this.setState(
         {
-          isUpdateRun: true,
+          isUpdateRun: true
         },
         () => {
           axiosInstance({
             method: 'POST',
             url: apiUrls.createSsa,
-            data: params,
+            data: params
           })
             .then(createEventRes => {
-              console.log('createEventRes.data', createEventRes.data);
+              console.log('createEventRes.data', createEventRes.data)
 
               this.setState(
                 {
-                  isUpdateRun: false,
+                  isUpdateRun: false
                 },
                 () => {
-                  getCart();
+                  getCart()
 
-                  this.proceedToPayment();
+                  this.proceedToPayment()
 
                   // axiosInstance
                   // .post(apiUrls.postBookPackage, {
@@ -253,69 +239,69 @@ class SsaMainScreen extends PureComponent {
                   // });
                   // });
                 }
-              );
+              )
             })
             .catch(err => {
-              console.log(err);
+              console.log(err)
 
               this.setState({
-                isUpdateRun: false,
-              });
-            });
+                isUpdateRun: false
+              })
+            })
         }
-      );
+      )
     }
-  };
+  }
 
   proceedToPayment = () => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    navigation.navigate('Payment');
-  };
+    navigation.navigate('Payment')
+  }
 
   updateSsaEvent = (cb, options = {}) => {
-    const { navigation } = this.props;
-    const eventId = navigation.getParam('id') || options.Id;
+    const { navigation } = this.props
+    const eventId = navigation.getParam('id') || options.Id
 
-    console.log('eventId updateSsaEvent', eventId);
+    console.log('eventId updateSsaEvent', eventId)
 
     if (eventId) {
-      const params = this.getCreateSsaParams();
-      params.Id = eventId;
+      const params = this.getCreateSsaParams()
+      params.Id = eventId
 
-      console.log('DATA updateSsaEvent', { ...params, ...options });
+      console.log('DATA updateSsaEvent', { ...params, ...options })
 
       this.setState(
         {
-          isUpdateRun: true,
+          isUpdateRun: true
         },
         () => {
           axiosInstance({
             method: 'PUT',
             url: apiUrls.putUpdateSsa,
-            data: { ...params, ...options },
+            data: { ...params, ...options }
           })
             .then(() => {
               this.setState(
                 {
-                  isUpdateRun: false,
+                  isUpdateRun: false
                 },
                 () => {
-                  cb();
+                  cb()
                 }
-              );
+              )
             })
             .catch(err => {
-              console.log(err);
+              console.log(err)
 
               this.setState({
-                isUpdateRun: false,
-              });
-            });
+                isUpdateRun: false
+              })
+            })
         }
-      );
+      )
     }
-  };
+  }
 
   getCreateSsaParams = () => {
     const {
@@ -333,8 +319,8 @@ class SsaMainScreen extends PureComponent {
       subFacilityId,
       timeSlotId,
       title,
-      desc,
-    } = this.props;
+      desc
+    } = this.props
 
     // console.log('timeSlotId', timeSlotId)
     // console.log('activityType', activityType)
@@ -359,11 +345,11 @@ class SsaMainScreen extends PureComponent {
       ActivityDate: formatISODate(date, startTime),
       SubfacilityId: +subFacilityId,
       TimeSlotId: +timeSlotId,
-      BookedPackageId: null,
-    };
+      BookedPackageId: null
+    }
 
-    return params;
-  };
+    return params
+  }
 
   getValidatedFields = () => {
     const {
@@ -377,10 +363,10 @@ class SsaMainScreen extends PureComponent {
       timeSlotId,
       subFacilityId,
       title,
-      desc,
-    } = this.props;
+      desc
+    } = this.props
 
-    const { selectedPaymentMethodIndex } = this.state;
+    const { selectedPaymentMethodIndex } = this.state
 
     const validatedFields = {
       title: !title,
@@ -393,113 +379,103 @@ class SsaMainScreen extends PureComponent {
       time: !startTime || timeSlotId < 0,
       package: !packageId,
       paymentMethod: selectedPaymentMethodIndex < 0,
-      subFacility: subFacilityId < 0,
-    };
+      subFacility: subFacilityId < 0
+    }
 
-    validatedFields.hasErrors = Object.values(validatedFields).some(field => field);
+    validatedFields.hasErrors = Object.values(validatedFields).some(field => field)
 
-    return validatedFields;
-  };
+    return validatedFields
+  }
 
   validateOnSubmit = () => {
     this.setState({
-      isPristine: false,
-    });
+      isPristine: false
+    })
 
-    return this.getValidatedFields();
-  };
+    return this.getValidatedFields()
+  }
 
   toggleTimeModal = time => {
-    const { updateStore } = this.props;
-    const { startTime, endTime, timeSlotId } = time || {};
+    const { updateStore } = this.props
+    const { startTime, endTime, timeSlotId } = time || {}
 
     this.setState(
       prevState => ({
-        modalIsVisible: !prevState.modalIsVisible,
+        modalIsVisible: !prevState.modalIsVisible
       }),
       startTime && endTime !== undefined && timeSlotId >= 0
         ? () => updateStore({ startTime, endTime, timeSlotId })
         : () => false
-    );
-  };
+    )
+  }
 
   getVenueName = () => {
-    const { packages } = this.state;
-    const { venueId, facilityId } = this.props;
+    const { packages } = this.state
+    const { venueId, facilityId } = this.props
 
     if (!venueId || !facilityId) {
-      return '';
+      return ''
     }
 
-    const foundPackage = packages.find(
-      item => item.VenueId === +venueId && item.FacilityId === +facilityId
-    );
+    const foundPackage = packages.find(item => item.VenueId === +venueId && item.FacilityId === +facilityId)
 
     // console.log('foundPackage facilityId', foundPackage)
 
-    return foundPackage ? [foundPackage.VenueTitle, foundPackage.FacilityTitle].join(' - ') : '';
-  };
+    return foundPackage ? [foundPackage.VenueTitle, foundPackage.FacilityTitle].join(' - ') : ''
+  }
 
   getPackageName = () => {
-    const { packages } = this.state;
-    const { packageId } = this.props;
+    const { packages } = this.state
+    const { packageId } = this.props
 
     if (!packageId) {
-      return '';
+      return ''
     }
 
-    const foundPackage = packages.find(item => item.OfferId === +packageId);
+    const foundPackage = packages.find(item => item.OfferId === +packageId)
 
     // console.log('foundPackage packageId', foundPackage)
 
-    return foundPackage ? foundPackage.OfferTitle : '';
-  };
+    return foundPackage ? foundPackage.OfferTitle : ''
+  }
 
   getScreenConfig = () => {
-    const { screenMode } = this.state;
-    const { navigation } = this.props;
+    const { screenMode } = this.state
+    const { navigation } = this.props
 
     switch (screenMode) {
       case ssaMainScreenModes.edit: {
         return new ScreenConfig(i18n.t('socialSportsActivity.edit_event'), 'Save', () =>
           this.updateSsaEvent(navigation.goBack)
-        );
+        )
       }
       case ssaMainScreenModes.clone: {
-        return new ScreenConfig(
-          i18n.t('socialSportsActivity.clone_event'),
-          'Create',
-          this.submitCreateSsaForm
-        );
+        return new ScreenConfig(i18n.t('socialSportsActivity.clone_event'), 'Create', this.submitCreateSsaForm)
       }
       default:
-        return new ScreenConfig(
-          i18n.t('socialSportsActivity.create_event'),
-          'Create',
-          this.submitCreateSsaForm
-        );
+        return new ScreenConfig(i18n.t('socialSportsActivity.create_event'), 'Create', this.submitCreateSsaForm)
     }
-  };
+  }
 
   togglePaymentMethods = () => {
     this.setState(prevState => ({
-      isPaymentMethodsShown: !prevState.isPaymentMethodsShown,
-    }));
-  };
+      isPaymentMethodsShown: !prevState.isPaymentMethodsShown
+    }))
+  }
 
   changePaymentMethod = index => {
     this.setState({
       selectedPaymentMethodIndex: index,
-      isPaymentMethodsShown: false,
-    });
-  };
+      isPaymentMethodsShown: false
+    })
+  }
 
   getSubFacilities = () => {
-    const { date, timeSlotId } = this.props;
-    const { availableDates } = this.state;
+    const { date, timeSlotId } = this.props
+    const { availableDates } = this.state
 
     if (timeSlotId < 0) {
-      return [];
+      return []
     }
 
     // console.log('availableDates', Object.keys(availableDates).length > 0);
@@ -507,45 +483,43 @@ class SsaMainScreen extends PureComponent {
     const timeSlot =
       availableDates && Object.keys(availableDates).length > 0 && availableDates[date]
         ? availableDates[date].find(item => item.Id === timeSlotId)
-        : false;
+        : false
 
     if (timeSlot) {
-      return timeSlot.SubFacilities || [];
+      return timeSlot.SubFacilities || []
     }
 
-    return [];
-  };
+    return []
+  }
 
   getSubFacilityValue = () => {
-    const { subFacilityId } = this.props;
+    const { subFacilityId } = this.props
 
     if (subFacilityId < 0) {
-      return '';
+      return ''
     }
 
-    const subFacilities = this.getSubFacilities();
+    const subFacilities = this.getSubFacilities()
 
     // console.log(subFacilities)
 
     if (subFacilities && subFacilities.length) {
-      let subId = subFacilities.find(item => item.Id === subFacilityId);
-      return subId && subId.Title ? subId.Title : '';
+      let subId = subFacilities.find(item => item.Id === subFacilityId)
+      return subId && subId.Title ? subId.Title : ''
     }
 
-    return '';
-  };
+    return ''
+  }
 
   playersPriceDesc() {
-    const { numberOfParticipants, packagePrice } = this.props;
+    const { numberOfParticipants, packagePrice } = this.props
 
     const playersPrice =
-      Math.round(
-        (packagePrice / (numberOfParticipants ? numberOfParticipants : 1) + Number.EPSILON) * 100
-      ) / 100;
+      Math.round((packagePrice / (numberOfParticipants ? numberOfParticipants : 1) + Number.EPSILON) * 100) / 100
     const playersPriceDesc =
       playersPrice && numberOfParticipants
         ? i18n.t('socialSportsActivity.players_pay_desc').replace('{price}', playersPrice)
-        : false;
+        : false
 
     return playersPriceDesc ? (
       <Text
@@ -556,21 +530,21 @@ class SsaMainScreen extends PureComponent {
           fontSize: fontSize.small,
           color: colors.themeColor,
           lineHeight: fontSize.small * 1.6,
-          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
         }}
       >
         {i18n.t('socialSportsActivity.players_pay_desc').replace('{price}', playersPrice)}
       </Text>
-    ) : null;
+    ) : null
   }
 
   hostPriceDesc() {
-    const { packagePrice } = this.props;
+    const { packagePrice } = this.props
 
-    const hostPrice = Math.round((packagePrice + Number.EPSILON) * 100) / 100;
+    const hostPrice = Math.round((packagePrice + Number.EPSILON) * 100) / 100
     const hostPriceDesc = hostPrice
       ? i18n.t('socialSportsActivity.host_pays_desc').replace('{price}', hostPrice)
-      : false;
+      : false
 
     return hostPriceDesc ? (
       <Text
@@ -581,12 +555,12 @@ class SsaMainScreen extends PureComponent {
           fontSize: fontSize.small,
           color: colors.themeColor,
           lineHeight: fontSize.small * 1.6,
-          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
         }}
       >
         {i18n.t('socialSportsActivity.host_pays_desc').replace('{price}', hostPrice)}
       </Text>
-    ) : null;
+    ) : null
   }
 
   render() {
@@ -608,8 +582,8 @@ class SsaMainScreen extends PureComponent {
       timeSlotId,
       title,
       desc,
-      updateStore,
-    } = this.props;
+      updateStore
+    } = this.props
 
     // console.log('playerLevel', playerLevel)
     // console.log('payment', payment)
@@ -639,11 +613,11 @@ class SsaMainScreen extends PureComponent {
       packages,
       screenMode,
       isLoading,
-      isPristine,
-    } = this.state;
+      isPristine
+    } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // console.log('Object.keys availableDates', Object.keys(availableDates));
@@ -651,25 +625,25 @@ class SsaMainScreen extends PureComponent {
 
     const filteredPackages = venueId
       ? packages.filter(item => item.VenueId === +venueId && item.FacilityId === +facilityId)
-      : [];
+      : []
 
     // console.log('state', this.state );
     // console.log('props', this.props );
     // console.log('filteredPackages', filteredPackages );
 
-    const availableTimeslots = availableDates[date] || [];
+    const availableTimeslots = availableDates[date] || []
 
-    const isEditMode = screenMode === ssaMainScreenModes.edit;
+    const isEditMode = screenMode === ssaMainScreenModes.edit
 
-    const screenConfig = this.getScreenConfig();
+    const screenConfig = this.getScreenConfig()
 
-    const errors = isEditMode ? {} : this.getValidatedFields();
+    const errors = isEditMode ? {} : this.getValidatedFields()
 
-    const subFacilitiesData = this.getSubFacilities();
+    const subFacilitiesData = this.getSubFacilities()
 
-    let timeValue = '';
-    timeValue += startTime ? `${startTime}` : '';
-    timeValue += startTime && endTime ? ` - ${endTime}` : '';
+    let timeValue = ''
+    timeValue += startTime ? `${startTime}` : ''
+    timeValue += startTime && endTime ? ` - ${endTime}` : ''
 
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -678,7 +652,7 @@ class SsaMainScreen extends PureComponent {
             <View
               style={{
                 ...styles.inputBox,
-                ...(!isPristine && errors.title && { borderColor: colors.errorMain }),
+                ...(!isPristine && errors.title && { borderColor: colors.errorMain })
               }}
             >
               <TextInput
@@ -688,23 +662,21 @@ class SsaMainScreen extends PureComponent {
                 returnKeyType="go"
                 style={{
                   ...styles.inputValue,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
                 onChange={e => {
                   updateStore({
-                    title: e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '',
-                  });
+                    title: e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
+                  })
                 }}
                 value={title}
               />
             </View>
-            {!isPristine && errors.title && (
-              <ErrorMessage errorMessage={i18n.t('generic.errors.field_is_required')} />
-            )}
+            {!isPristine && errors.title && <ErrorMessage errorMessage={i18n.t('generic.errors.field_is_required')} />}
             <View
               style={{
                 ...styles.inputBox,
-                ...(!isPristine && errors.desc && { borderColor: colors.errorMain }),
+                ...(!isPristine && errors.desc && { borderColor: colors.errorMain })
               }}
             >
               <TextInput
@@ -714,19 +686,17 @@ class SsaMainScreen extends PureComponent {
                 returnKeyType="go"
                 style={{
                   ...styles.inputValue,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
                 onChange={e => {
                   updateStore({
-                    desc: e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '',
-                  });
+                    desc: e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
+                  })
                 }}
                 value={desc}
               />
             </View>
-            {!isPristine && errors.desc && (
-              <ErrorMessage errorMessage={i18n.t('generic.errors.field_is_required')} />
-            )}
+            {!isPristine && errors.desc && <ErrorMessage errorMessage={i18n.t('generic.errors.field_is_required')} />}
           </View>
 
           <SsaSectionTitle text={i18n.t('socialSportsActivity.category_of_sports')} />
@@ -773,9 +743,7 @@ class SsaMainScreen extends PureComponent {
             <SsaOption
               label={i18n.t('socialSportsActivity.facility_rental')}
               value={this.getPackageName()}
-              onPress={() =>
-                navigation.navigate('CreateSsaPackages', { packages: filteredPackages })
-              }
+              onPress={() => navigation.navigate('CreateSsaPackages', { packages: filteredPackages })}
               iconName="ticket"
               error={!isPristine && errors.package}
               errorMessage={i18n.t('generic.errors.field_is_required')}
@@ -784,9 +752,7 @@ class SsaMainScreen extends PureComponent {
             <SsaOption
               label={i18n.t('socialSportsActivity.date')}
               value={moment(date).isValid() ? getLocaleDate(date) : ''}
-              onPress={() =>
-                navigation.navigate('CreateSsaDate', { dates: Object.keys(availableDates) })
-              }
+              onPress={() => navigation.navigate('CreateSsaDate', { dates: Object.keys(availableDates) })}
               iconName="calendar"
               error={!isPristine && errors.date}
               errorMessage={i18n.t('generic.errors.field_is_required')}
@@ -804,9 +770,7 @@ class SsaMainScreen extends PureComponent {
             <SsaOption
               label={i18n.t('socialSportsActivity.subfacility')}
               value={this.getSubFacilityValue()}
-              onPress={() =>
-                navigation.navigate('SubFacilitiesScreen', { data: subFacilitiesData })
-              }
+              onPress={() => navigation.navigate('SubFacilitiesScreen', { data: subFacilitiesData })}
               iconName="star"
               error={!isPristine && errors.subFacility}
               errorMessage={i18n.t('generic.errors.field_is_required')}
@@ -848,7 +812,7 @@ class SsaMainScreen extends PureComponent {
           closeOnApply={false}
         />
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -856,7 +820,7 @@ SsaMainScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
-    getParam: PropTypes.func.isRequired,
+    getParam: PropTypes.func.isRequired
   }).isRequired,
   sportCategoryId: PropTypes.string.isRequired,
   venueId: PropTypes.string.isRequired,
@@ -875,8 +839,8 @@ SsaMainScreen.propTypes = {
   updateStore: PropTypes.func.isRequired,
   clearOptions: PropTypes.func.isRequired,
   timeSlotId: PropTypes.number.isRequired,
-  subFacilityId: PropTypes.number.isRequired,
-};
+  subFacilityId: PropTypes.number.isRequired
+}
 
 const mapStateToProps = state => ({
   sportCategoryId: state.socialSportActivity.sportCategoryId,
@@ -895,11 +859,11 @@ const mapStateToProps = state => ({
   endTime: state.socialSportActivity.endTime,
   isActive: state.socialSportActivity.isActive,
   timeSlotId: state.socialSportActivity.timeSlotId,
-  subFacilityId: state.socialSportActivity.subFacilityId,
-});
+  subFacilityId: state.socialSportActivity.subFacilityId
+})
 
 export default connect(mapStateToProps, {
   clearOptions: clearForm,
   updateStore: setData,
-  getCart: getCart,
-})(SsaMainScreen);
+  getCart: getCart
+})(SsaMainScreen)

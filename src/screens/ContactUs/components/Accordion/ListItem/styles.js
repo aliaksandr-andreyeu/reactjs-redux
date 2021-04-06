@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
-import { fontFamily, fontSize } from '../../../../../constants/fonts';
-import colors from '../../../../../constants/colors';
+import { fontFamily, fontSize } from '../../../../../constants/fonts'
+import colors from '../../../../../constants/colors'
 
 const styles = StyleSheet.create({
   itemBox: {
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexBasis: 'auto',
     justifyContent: 'space-between',
 
-    alignItems: 'center',
+    alignItems: 'center'
   },
   textAnswerBox: {
     minHeight: 40,
@@ -26,19 +26,19 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
 
     paddingLeft: 12,
-    paddingRight: 12,
+    paddingRight: 12
   },
   textAnswer: {
     fontFamily: fontFamily.gothamRegular,
     fontSize: fontSize.regular,
-    color: '#4F4F4F',
+    color: '#4F4F4F'
   },
   textQuestion: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular,
     color: '#202873',
-    flexShrink: 1,
-  },
-});
+    flexShrink: 1
+  }
+})
 
-export default styles;
+export default styles

@@ -1,47 +1,39 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 
-import {
-  Dimensions,
-  Alert,
-  FlatList,
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { Dimensions, Alert, FlatList, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
 
-import { ScrollView } from 'react-native-gesture-handler';
-import { apiUrls, axiosInstance } from '../../constants/api';
-import ScrollListContainer from '../../components/ScrollListContainer';
-import ScrollListItem from '../../components/ScrollListItem';
-import Loading from '../../components/Loading';
-import Slider from './components/Slider';
-import colors from '../../constants/colors';
-import EventCategoriesList from './components/EventCategoriesList';
+import { ScrollView } from 'react-native-gesture-handler'
+import { apiUrls, axiosInstance } from '../../constants/api'
+import ScrollListContainer from '../../components/ScrollListContainer'
+import ScrollListItem from '../../components/ScrollListItem'
+import Loading from '../../components/Loading'
+import Slider from './components/Slider'
+import colors from '../../constants/colors'
+import EventCategoriesList from './components/EventCategoriesList'
 
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import { NavLang } from '../../components/NavLang';
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import { NavLang } from '../../components/NavLang'
 
-import styles from './styles';
-import { EventType } from '../FilterScreens/EventsFilter/models';
-import { sportActivityTypes } from '../../constants/socialSportsActivity';
-import i18n from '../../../i18n';
-import moment from 'moment';
-import isEqual from 'lodash.isequal';
+import styles from './styles'
+import { EventType } from '../FilterScreens/EventsFilter/models'
+import { sportActivityTypes } from '../../constants/socialSportsActivity'
+import i18n from '../../../i18n'
+import moment from 'moment'
+import isEqual from 'lodash.isequal'
 
-import Global from '../../components/global';
+import Global from '../../components/global'
 
 class HomeScreen extends PureComponent {
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: <NavLang {...navigation} />,
       headerRight: <NavHeaderUser {...navigation} />,
-      title: 'Home',
-    };
-  };
+      title: 'Home'
+    }
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       cache: Date.now(),
       recommendedContent: [],
@@ -49,8 +41,8 @@ class HomeScreen extends PureComponent {
       newsAndFeatures: [],
       slides: [],
       eventCategories: [],
-      isLoading: true,
-    };
+      isLoading: true
+    }
   }
 
   getHomeItems() {
@@ -71,16 +63,16 @@ class HomeScreen extends PureComponent {
                   ? -1
                   : a.NameInPrimaryLang.toLowerCase() > b.NameInPrimaryLang.toLowerCase()
                   ? 1
-                  : 0;
+                  : 0
               })
             : [],
-          isLoading: false,
-        });
+          isLoading: false
+        })
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
 
     if (Global.user.token && Global.user.token.length > 5 && !Global.isFavoritesLoaded) {
-      Global.loadFavorites();
+      Global.loadFavorites()
     }
   }
 
@@ -88,66 +80,57 @@ class HomeScreen extends PureComponent {
     // IT'S WORKED !!!
     // throw new Error(' ************************************************************* Testing error boundary');
 
-    this.getHomeItems();
+    this.getHomeItems()
   }
 
   componentDidUpdate(prevProps) {
-    const { navigation } = this.props;
+    const { navigation } = this.props
     if (!isEqual(navigation, prevProps.navigation)) {
       this.setState(
         {
-          cache: Date.now(),
+          cache: Date.now()
         },
         () => {
-          this.getHomeItems();
+          this.getHomeItems()
         }
-      );
+      )
     }
   }
 
   onPressBookings(type) {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    let activityType = [];
+    let activityType = []
 
     if (type === 1) {
-      activityType.push(
-        new EventType(sportActivityTypes.TicketedEvents, i18n.t('more.free_spectating_events')).id
-      );
+      activityType.push(new EventType(sportActivityTypes.TicketedEvents, i18n.t('more.free_spectating_events')).id)
     }
 
     if (type === 2) {
-      activityType.push(1);
-      activityType.push(8);
-      activityType.push(16);
-      activityType.push(32);
-      activityType.push(64);
+      activityType.push(1)
+      activityType.push(8)
+      activityType.push(16)
+      activityType.push(32)
+      activityType.push(64)
     }
 
     // console.log('activityType', activityType)
 
-    navigation.popToTop();
+    navigation.popToTop()
     navigation.navigate('BookingsList', {
       cache: Date.now(),
       form: {
         activityType: activityType,
-        isBookingsHomeForm: true,
-      },
-    });
+        isBookingsHomeForm: true
+      }
+    })
   }
 
   render() {
-    const {
-      recommendedContent,
-      upcomingEvents,
-      newsAndFeatures,
-      isLoading,
-      slides,
-      eventCategories,
-    } = this.state;
+    const { recommendedContent, upcomingEvents, newsAndFeatures, isLoading, slides, eventCategories } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // console.log(moment().format('DD MMM'));
@@ -175,7 +158,7 @@ class HomeScreen extends PureComponent {
                     key={index.toString()}
                     navigationModel={{
                       targetScreen: 'EventDetail',
-                      data: { id: item.Id, object: item },
+                      data: { id: item.Id, object: item }
                     }}
                   />
                 )}
@@ -188,28 +171,24 @@ class HomeScreen extends PureComponent {
           <View
             style={{
               ...styles.bookAndPlaySection,
-              marginBottom: 16,
+              marginBottom: 16
             }}
           >
             <Text style={styles.bookPlaySectionTitle}>{i18n.t('bookingsLanding.title')}</Text>
-            <Text style={styles.bookPlaySectionSubtitle}>
-              {i18n.t('bookingsLanding.promo_subtitle')}
-            </Text>
+            <Text style={styles.bookPlaySectionSubtitle}>{i18n.t('bookingsLanding.promo_subtitle')}</Text>
             <View style={styles.bookAndPlaySectionButtons}>
               <TouchableOpacity
                 style={[styles.bookPlaySectionButton, styles.bookPlaySectionButtonLeft]}
                 onPress={() => {
-                  this.onPressBookings(0);
+                  this.onPressBookings(0)
                 }}
               >
-                <Text style={[styles.blueText, styles.bookPlaySectionButtonText]}>
-                  {i18n.t('bookingsLanding.all')}
-                </Text>
+                <Text style={[styles.blueText, styles.bookPlaySectionButtonText]}>{i18n.t('bookingsLanding.all')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.bookPlaySectionButton, styles.bookPlaySectionButtonCenter]}
                 onPress={() => {
-                  this.onPressBookings(1);
+                  this.onPressBookings(1)
                 }}
               >
                 <Text style={[styles.whiteText, styles.bookPlaySectionButtonText]}>
@@ -219,7 +198,7 @@ class HomeScreen extends PureComponent {
               <TouchableOpacity
                 style={[styles.bookPlaySectionButton, styles.bookPlaySectionButtonRight]}
                 onPress={() => {
-                  this.onPressBookings(2);
+                  this.onPressBookings(2)
                 }}
               >
                 <Text style={[styles.whiteText, styles.bookPlaySectionButtonText]}>
@@ -241,7 +220,7 @@ class HomeScreen extends PureComponent {
                     date={item.Date}
                     navigationModel={{
                       targetScreen: `${item.EntityName}Detail`,
-                      data: { id: item.Id, object: item },
+                      data: { id: item.Id, object: item }
                     }}
                   />
                 )}
@@ -267,7 +246,7 @@ class HomeScreen extends PureComponent {
                     key={index.toString()}
                     navigationModel={{
                       targetScreen: `${item.EntityName}Detail`,
-                      data: { id: item.Id, object: item },
+                      data: { id: item.Id, object: item }
                     }}
                   />
                 )}
@@ -279,8 +258,8 @@ class HomeScreen extends PureComponent {
           )}
         </ScrollView>
       </SafeAreaView>
-    );
+    )
   }
 }
 
-export default HomeScreen;
+export default HomeScreen

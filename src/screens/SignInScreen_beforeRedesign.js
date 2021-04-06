@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Button,
@@ -11,52 +11,42 @@ import {
   AppRegistry,
   TextInput,
   Alert,
-  ImageBackground,
-} from 'react-native';
+  ImageBackground
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'
 
-import {
-  LoginButton,
-  AccessToken,
-  LoginManager,
-  GraphRequest,
-  GraphRequestManager,
-} from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
 
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
-import i18n from '../../i18n';
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin'
+import i18n from '../../i18n'
 
-import AuthBgImage from '../assets/images/auth-bg.png';
-import { axiosInstance } from '../constants/api';
-import { fontFamily } from '../constants/fonts';
+import AuthBgImage from '../assets/images/auth-bg.png'
+import { axiosInstance } from '../constants/api'
+import { fontFamily } from '../constants/fonts'
 
-import env from '../config';
+import env from '../config'
 
 export default class SignInScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   state = {
     email: '',
-    password: '',
-  };
+    password: ''
+  }
 
-  user = {};
+  user = {}
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
     if (storedValue == null) {
       this.user = {
         name: '',
@@ -64,25 +54,25 @@ export default class SignInScreen extends React.Component {
         country: 0,
         language: 0,
         phone: '',
-        token: '',
-      };
+        token: ''
+      }
     } else {
-      this.user = JSON.parse(storedValue);
+      this.user = JSON.parse(storedValue)
     }
 
-    signupUser = this.props.navigation.getParam('object', {});
+    signupUser = this.props.navigation.getParam('object', {})
     if (signupUser && signupUser.email) {
-      this.setState({ email: signupUser.email });
+      this.setState({ email: signupUser.email })
     }
     if (signupUser && signupUser.password) {
-      this.setState({ password: signupUser.password });
+      this.setState({ password: signupUser.password })
     }
 
     GoogleSignin.configure({
       // It is mandatory to call this method before attempting to call signIn()
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-      webClientId: '970814518409-4vl92cmc481k2kvegevsdmnju9q62ofl.apps.googleusercontent.com',
-    });
+      webClientId: '970814518409-4vl92cmc481k2kvegevsdmnju9q62ofl.apps.googleusercontent.com'
+    })
   }
 
   _authGoogle = async () => {
@@ -91,61 +81,61 @@ export default class SignInScreen extends React.Component {
       await GoogleSignin.hasPlayServices({
         // Check if device has Google Play Services installed.
         // Always resolves to true on iOS.
-        showPlayServicesUpdateDialog: true,
-      });
-      const userInfo = await GoogleSignin.signIn();
+        showPlayServicesUpdateDialog: true
+      })
+      const userInfo = await GoogleSignin.signIn()
 
       // alert(JSON.stringify(userInfo));
 
-      console.log('User Info --> ', userInfo);
+      console.log('User Info --> ', userInfo)
 
-      this._externalSignIn('Google', userInfo.user.id, userInfo.idToken);
+      this._externalSignIn('Google', userInfo.user.id, userInfo.idToken)
     } catch (error) {
-      console.log('Message', error.message);
+      console.log('Message', error.message)
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('User Cancelled the Login Flow');
+        console.log('User Cancelled the Login Flow')
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('Signing In');
+        console.log('Signing In')
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('Play Services Not Available or Outdated');
+        console.log('Play Services Not Available or Outdated')
       } else {
-        console.log('Some Other Error Happened');
+        console.log('Some Other Error Happened')
       }
     }
-  };
+  }
 
   _getCurrentUser = async () => {
     // May be called eg. in the componentDidMount of your main component.
     // This method returns the current user
     // if they already signed in and null otherwise.
     try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo });
+      const userInfo = await GoogleSignin.signInSilently()
+      this.setState({ userInfo })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   _signOut = async () => {
     // Remove user session from the device.
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      this.setState({ user: null }); // Remove the user from your app's state as well
+      await GoogleSignin.revokeAccess()
+      await GoogleSignin.signOut()
+      this.setState({ user: null }) // Remove the user from your app's state as well
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   _revokeAccess = async () => {
     // Remove your application from the user authorized applications.
     try {
-      await GoogleSignin.revokeAccess();
-      console.log('deleted');
+      await GoogleSignin.revokeAccess()
+      console.log('deleted')
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   render() {
     return (
@@ -160,7 +150,7 @@ export default class SignInScreen extends React.Component {
                   fontSize: 18,
                   color: '#6D6E71',
                   alignSelf: 'center',
-                  marginBottom: 15,
+                  marginBottom: 15
                 }}
               >
                 Sign In
@@ -194,19 +184,17 @@ export default class SignInScreen extends React.Component {
                   textAlign: 'center',
                   marginLeft: 120,
                   marginBottom: 15,
-                  marginTop: -5,
+                  marginTop: -5
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate('RecoverPassword', {});
+                  this.props.navigation.navigate('RecoverPassword', {})
                 }}
               >
                 {i18n.t('signin.forgot_password')}
               </Text>
 
               <TouchableOpacity onPress={this._signIn} style={styles.authButton}>
-                <Text
-                  style={{ fontFamily: fontFamily.gothamMedium, fontSize: 14, color: '#F7F7F7' }}
-                >
+                <Text style={{ fontFamily: fontFamily.gothamMedium, fontSize: 14, color: '#F7F7F7' }}>
                   {i18n.t('signin.sign_in')}
                 </Text>
               </TouchableOpacity>
@@ -217,10 +205,10 @@ export default class SignInScreen extends React.Component {
                     fontFamily: fontFamily.gothamMedium,
                     fontSize: 10,
                     color: '#6D6E71',
-                    alignSelf: 'center',
+                    alignSelf: 'center'
                   }}
                   onPress={() => {
-                    this.props.navigation.navigate('SignUp', {});
+                    this.props.navigation.navigate('SignUp', {})
                   }}
                 >
                   {i18n.t('signup.not_yet_registered')}
@@ -228,7 +216,7 @@ export default class SignInScreen extends React.Component {
                     style={{
                       fontFamily: fontFamily.gothamBold,
                       textDecorationLine: 'underline',
-                      textDecorationStyle: 'solid',
+                      textDecorationStyle: 'solid'
                     }}
                   >
                     {' '}
@@ -238,7 +226,7 @@ export default class SignInScreen extends React.Component {
               </View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Home', {});
+                  this.props.navigation.navigate('Home', {})
                 }}
                 style={styles.askMeLaterButton}
               >
@@ -247,7 +235,7 @@ export default class SignInScreen extends React.Component {
                     fontFamily: 'Helvetica Neue',
                     fontWeight: 'bold',
                     fontSize: 10,
-                    color: '#6D6E71',
+                    color: '#6D6E71'
                   }}
                 >
                   {i18n.t('signin.skip_sign_in')}
@@ -268,15 +256,10 @@ export default class SignInScreen extends React.Component {
             shadowOffset: { width: 0, height: -2 },
             shadowColor: '#c1c1c1',
             elevation: 1,
-            shadowOpacity: 0.7,
+            shadowOpacity: 0.7
           }}
         >
-          <LinearGradient
-            colors={['#3ea4d3', '#1d4296']}
-            style={{ flex: 1 }}
-            start={[0, 0]}
-            end={[1, 1]}
-          >
+          <LinearGradient colors={['#3ea4d3', '#1d4296']} style={{ flex: 1 }} start={[0, 0]} end={[1, 1]}>
             <TouchableOpacity onPress={this._authFacebook}>
               <View style={{ flex: 5, padding: 16, textAlign: 'center' }}>
                 <Text
@@ -285,7 +268,7 @@ export default class SignInScreen extends React.Component {
                     fontSize: 20,
                     color: '#ffffff',
                     textAlign: 'center',
-                    fontWeight: 'bold',
+                    fontWeight: 'bold'
                   }}
                 >
                   facebook
@@ -294,12 +277,7 @@ export default class SignInScreen extends React.Component {
             </TouchableOpacity>
           </LinearGradient>
 
-          <LinearGradient
-            colors={['#e66362', '#bc3a57']}
-            style={{ flex: 1 }}
-            start={[0, 0]}
-            end={[1, 1]}
-          >
+          <LinearGradient colors={['#e66362', '#bc3a57']} style={{ flex: 1 }} start={[0, 0]} end={[1, 1]}>
             <TouchableOpacity onPress={this._authGoogle}>
               <View style={{ flex: 5, padding: 16, textAlign: 'center' }}>
                 <Text
@@ -308,7 +286,7 @@ export default class SignInScreen extends React.Component {
                     fontSize: 20,
                     color: '#ffffff',
                     textAlign: 'center',
-                    fontWeight: 'bold',
+                    fontWeight: 'bold'
                   }}
                 >
                   Google+
@@ -318,7 +296,7 @@ export default class SignInScreen extends React.Component {
           </LinearGradient>
         </View>
       </ImageBackground>
-    );
+    )
   }
 
   _authFacebook = () => {
@@ -330,126 +308,126 @@ export default class SignInScreen extends React.Component {
           // array result.grantedPermissions
 
           AccessToken.getCurrentAccessToken().then(data => {
-            this._externalSignIn('Facebook', data.userID, data.accessToken);
+            this._externalSignIn('Facebook', data.userID, data.accessToken)
 
             // this._loadFbUser(data);
-          });
+          })
         }
       },
       error => {
-        alert(`Login fail with error: ${error}`);
+        alert(`Login fail with error: ${error}`)
       }
-    );
-  };
+    )
+  }
 
   _loadFbUser = data => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
 
     fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`, {
       method: 'GET',
-      headers,
+      headers
     })
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson) {
           // .id, .name., .email
-          alert(responseJson.name);
+          alert(responseJson.name)
         }
-      });
-  };
+      })
+  }
 
   _externalSignIn = (provider, key, token) => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     // if (this.user.token && this.user.token.length > 4) headers['auth-token'] = this.user.token;
 
     const body = JSON.stringify({
       Provider: provider,
       ProviderKey: key,
-      ExternalAccessToken: token,
-    });
+      ExternalAccessToken: token
+    })
 
     // alert(body);
-    console.log(body);
+    console.log(body)
 
     fetch(`${env.api}api/account/external/signin`, {
       method: 'POST',
       headers,
-      body,
+      body
     })
       .then(response => response.json())
       .then(responseJson => {
         // console.log(responseJson);
         if (responseJson.Token) {
-          this.user.token = responseJson.Token;
-          this.user.name = responseJson.SignedInUser.FullName;
-          this.user.email = responseJson.SignedInUser.Email;
-          this.user.country = responseJson.SignedInUser.CountryId;
-          this.user.language = responseJson.SignedInUser.LanguageId;
-          this.user.phone = responseJson.SignedInUser.Phone;
-          this.user.image = responseJson.SignedInUser.ImageThumbURL;
+          this.user.token = responseJson.Token
+          this.user.name = responseJson.SignedInUser.FullName
+          this.user.email = responseJson.SignedInUser.Email
+          this.user.country = responseJson.SignedInUser.CountryId
+          this.user.language = responseJson.SignedInUser.LanguageId
+          this.user.phone = responseJson.SignedInUser.Phone
+          this.user.image = responseJson.SignedInUser.ImageThumbURL
 
-          AsyncStorage.setItem('app:user', JSON.stringify(this.user));
+          AsyncStorage.setItem('app:user', JSON.stringify(this.user))
 
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home')
         } else {
-          Alert.alert(responseJson.Message);
+          Alert.alert(responseJson.Message)
         }
       })
       .catch(error => {
-        console.log('error', error);
+        console.log('error', error)
         if (error && error.Message) {
-          Alert.alert(error.Message);
+          Alert.alert(error.Message)
         } else {
-          Alert.alert(error);
+          Alert.alert(error)
         }
-      });
-  };
+      })
+  }
 
   _signIn = () => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.user.token && this.user.token.length > 4) {
-      headers['auth-token'] = this.user.token;
+      headers['auth-token'] = this.user.token
     }
 
-    console.log(this.state.email);
-    console.log(this.state.password);
+    console.log(this.state.email)
+    console.log(this.state.password)
 
     axiosInstance
       .post(`${env.api}api/account/signin`, {
         Email: this.state.email,
-        Password: this.state.password,
+        Password: this.state.password
       })
       .then(({ data }) => {
         if (data.Token) {
-          this.user.token = data.Token;
-          this.user.name = data.SignedInUser.FullName;
-          this.user.email = data.SignedInUser.Email;
-          this.user.country = data.SignedInUser.CountryId;
-          this.user.language = data.SignedInUser.LanguageId;
-          this.user.phone = data.SignedInUser.Phone;
-          this.user.image = data.SignedInUser.ImageThumbURL;
+          this.user.token = data.Token
+          this.user.name = data.SignedInUser.FullName
+          this.user.email = data.SignedInUser.Email
+          this.user.country = data.SignedInUser.CountryId
+          this.user.language = data.SignedInUser.LanguageId
+          this.user.phone = data.SignedInUser.Phone
+          this.user.image = data.SignedInUser.ImageThumbURL
 
-          AsyncStorage.setItem('app:user', JSON.stringify(this.user));
+          AsyncStorage.setItem('app:user', JSON.stringify(this.user))
 
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home')
         } else {
-          Alert.alert(data.Message);
+          Alert.alert(data.Message)
         }
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   _signUpFacebook = () => {
-    console.log(this.state);
+    console.log(this.state)
 
-    this.props.navigation.navigate('Home');
-  };
+    this.props.navigation.navigate('Home')
+  }
 
   _signUpGoogle = () => {
-    console.log(this.state);
+    console.log(this.state)
 
-    this.props.navigation.navigate('Home');
-  };
+    this.props.navigation.navigate('Home')
+  }
 }
 
 const styles = StyleSheet.create({
@@ -464,7 +442,7 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     paddingLeft: 10,
     paddingRight: 10,
-    width: 100,
+    width: 100
   },
   authButton: {
     padding: 8,
@@ -477,22 +455,22 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
     paddingRight: 25,
     width: 120,
-    marginBottom: 25,
+    marginBottom: 25
   },
   container: {
     flex: 1,
     //    backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   input: {
     padding: 10,
@@ -508,6 +486,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: '#000000',
     fontSize: 14,
-    fontFamily: fontFamily.gothamMedium,
-  },
-});
+    fontFamily: fontFamily.gothamMedium
+  }
+})

@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import RadioButton from '../../../../components/UI/RadioButton';
-import styles from './styles';
-import { activityTypes } from './constants';
-import * as actions from '../../actions';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import RadioButton from '../../../../components/UI/RadioButton'
+import styles from './styles'
+import { activityTypes } from './constants'
+import * as actions from '../../actions'
 
 class Terms extends Component {
   state = {
-    selectedItem: 0,
-  };
+    selectedItem: 0
+  }
 
   selectItem = selectedItem => {
-    const { updateStore } = this.props;
+    const { updateStore } = this.props
 
     this.setState(
       {
-        selectedItem,
+        selectedItem
       },
       () => updateStore({ payment: selectedItem })
-    );
-  };
+    )
+  }
 
   render() {
-    const { selectedItem } = this.state;
-    const { isDisabled } = this.props;
+    const { selectedItem } = this.state
+    const { isDisabled } = this.props
 
     return (
       <View style={styles.container}>
@@ -39,15 +39,15 @@ class Terms extends Component {
           </View>
         ))}
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  payment: state.socialSportActivity.payment,
-});
+  payment: state.socialSportActivity.payment
+})
 const mapDispatchToProps = {
-  updateStore: actions.setData,
-};
+  updateStore: actions.setData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Terms);
+export default connect(mapStateToProps, mapDispatchToProps)(Terms)

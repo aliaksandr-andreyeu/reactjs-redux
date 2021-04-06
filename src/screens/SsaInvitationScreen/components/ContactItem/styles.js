@@ -1,54 +1,54 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
-import colors from '../../../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
+import colors from '../../../../constants/colors'
 
-const imageSide = 40;
+const imageSide = 40
 
 const styles = StyleSheet.create({
   contactContainer: {
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: 15
   },
   imageContainer: {
     height: imageSide,
     width: imageSide,
     borderRadius: imageSide / 2,
     backgroundColor: colors.placeholderBackground,
-    marginRight: 18,
+    marginRight: 18
   },
   imageWrapper: {
     borderRadius: imageSide / 2,
     height: imageSide,
     width: imageSide,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   selected: {
     borderRadius: imageSide / 2,
     height: imageSide,
     width: imageSide,
-    backgroundColor: 'rgba(8, 146, 147, 0.6)',
+    backgroundColor: 'rgba(8, 146, 147, 0.6)'
   },
   text: {
     fontFamily: fontFamily.gothamMedium,
-    color: colors.basicText,
+    color: colors.basicText
   },
   contactTextConatiner: {
     marginLeft: 17,
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   contactName: {
     fontSize: fontSize.regular + 2,
-    color: colors.basicText,
+    color: colors.basicText
   },
   contactLevel: {
     fontSize: fontSize.regular,
-    color: colors.lightTitleText,
+    color: colors.lightTitleText
   },
   checkIcon: {
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    justifyContent: 'center'
+  }
+})
 
-export default styles;
+export default styles

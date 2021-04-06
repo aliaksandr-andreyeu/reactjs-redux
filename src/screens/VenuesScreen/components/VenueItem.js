@@ -1,38 +1,38 @@
-import React, { Fragment, PureComponent } from 'react';
-import { Image, View, Text, Platform } from 'react-native';
-import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
-import styles from '../styles';
-import VenueMenu from './VenueMenu';
-import colors from '../../../constants/colors';
-import { fontSize, fontFamily } from '../../../constants/fonts';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import Icon from '../../../components/Icon';
-import SkewedContainer from '../../../components/SkewedContainer';
+import React, { Fragment, PureComponent } from 'react'
+import { Image, View, Text, Platform } from 'react-native'
+import PropTypes from 'prop-types'
+import { withNavigation } from 'react-navigation'
+import styles from '../styles'
+import VenueMenu from './VenueMenu'
+import colors from '../../../constants/colors'
+import { fontSize, fontFamily } from '../../../constants/fonts'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import Icon from '../../../components/Icon'
+import SkewedContainer from '../../../components/SkewedContainer'
 
-import Global from '../../../components/global';
+import Global from '../../../components/global'
 
-import i18n from '../../../../i18n';
+import i18n from '../../../../i18n'
 
-export const VENUE_ITEM_HEIGHT = 120;
-export const VENUE_ITEM_MARGIN_BOTTOM = 10;
+export const VENUE_ITEM_HEIGHT = 120
+export const VENUE_ITEM_MARGIN_BOTTOM = 10
 
 class VenueItem extends PureComponent {
   state = {
     isBookmarked: false,
     isSignedInUser: false,
 
-    linesNum: 0,
-  };
+    linesNum: 0
+  }
 
   setTitleLines = e => {
-    let eLines = e.nativeEvent.layout.height;
+    let eLines = e.nativeEvent.layout.height
     if (eLines !== undefined) {
       this.setState({
-        linesNum: eLines <= 48 ? 2 : 1,
-      });
+        linesNum: eLines <= 48 ? 2 : 1
+      })
     }
-  };
+  }
 
   // getDescription = desc => {
   // const { linesNum } = this.state;
@@ -58,58 +58,54 @@ class VenueItem extends PureComponent {
 
   async componentDidMount() {
     const {
-      venue: { Id },
-    } = this.props;
-    const { isSignedInUser } = this.state;
+      venue: { Id }
+    } = this.props
+    const { isSignedInUser } = this.state
 
     if (isSignedInUser) {
       axiosInstance(apiUrls.getBookmarks).then(({ data }) => {
         this.setState({
-          isBookmarked: !!data.find(
-            item => item.EntityName.toLowerCase() === 'venue' && item.Eid === Id
-          ),
-        });
-      });
+          isBookmarked: !!data.find(item => item.EntityName.toLowerCase() === 'venue' && item.Eid === Id)
+        })
+      })
     }
   }
 
   toggleBookmark = () => {
-    const { isBookmarked } = this.state;
+    const { isBookmarked } = this.state
     const {
-      venue: { Id },
-    } = this.props;
+      venue: { Id }
+    } = this.props
 
     const params = {
       Id,
-      Entity: 'venue',
-    };
+      Entity: 'venue'
+    }
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
         this.setState(() => ({
-          isBookmarked: false,
-        }));
-      });
+          isBookmarked: false
+        }))
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(() => {
         this.setState(() => ({
-          isBookmarked: true,
-        }));
-      });
+          isBookmarked: true
+        }))
+      })
     }
-  };
+  }
 
   render() {
     const {
-      venue: { ImageThumbUrl, Title, FullAddress, Description, IsFeatured },
-    } = this.props;
-    const { isBookmarked, linesNum } = this.state;
+      venue: { ImageThumbUrl, Title, FullAddress, Description, IsFeatured }
+    } = this.props
+    const { isBookmarked, linesNum } = this.state
 
-    const isSignedInUser = Boolean(
-      Global.user && Global.user.token && Global.user.token.length > 5
-    );
+    const isSignedInUser = Boolean(Global.user && Global.user.token && Global.user.token.length > 5)
 
-    const { getIcon, iconLibraries } = Icon;
+    const { getIcon, iconLibraries } = Icon
 
     return (
       <View
@@ -120,7 +116,7 @@ class VenueItem extends PureComponent {
           flexDirection: 'row',
           overflow: 'hidden',
           // height: VENUE_ITEM_HEIGHT,
-          height: 120,
+          height: 120
         }}
         // onLayout={event => console.log(event.nativeEvent.layout.height)}
       >
@@ -130,19 +126,14 @@ class VenueItem extends PureComponent {
             // height: 120,
             height: 120,
             borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
+            borderBottomLeftRadius: 10
           }}
           resizeMode="cover"
           source={{ uri: ImageThumbUrl }}
         />
         {IsFeatured && (
           <View style={styles.featuredContainer}>
-            <SkewedContainer
-              backgroundColor={colors.orangeBackground}
-              rightSkewType="asc"
-              width={24}
-              height={24}
-            >
+            <SkewedContainer backgroundColor={colors.orangeBackground} rightSkewType="asc" width={24} height={24}>
               <View style={styles.featuredBox}>
                 <Text style={styles.featured}>Featured</Text>
               </View>
@@ -154,7 +145,7 @@ class VenueItem extends PureComponent {
             style={{
               flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
               justifyContent: 'space-between',
-              marginBottom: 9,
+              marginBottom: 9
             }}
           >
             <Text
@@ -165,7 +156,7 @@ class VenueItem extends PureComponent {
                 fontSize: fontSize.regular,
                 fontFamily: fontFamily.gothamBold,
                 lineHeight: fontSize.regular + 10,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 // flexBasis: 'auto',
                 // flexGrow: 0,
                 // flexShrink: 1,
@@ -196,17 +187,17 @@ class VenueItem extends PureComponent {
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'flex-start',
-                alignItems: 'flex-start',
+                alignItems: 'flex-start'
               }}
             >
               <View
                 style={{
-                  marginTop: 2,
+                  marginTop: 2
                 }}
               >
                 {getIcon(iconLibraries.fontAwesome5, 'map-marker-alt', {
                   size: fontSize.small,
-                  color: colors.darkIcon,
+                  color: colors.darkIcon
                 })}
               </View>
               <Text
@@ -220,7 +211,7 @@ class VenueItem extends PureComponent {
                   lineHeight: fontSize.regular + 8,
                   marginLeft: i18n.locale.toLowerCase() == 'en' ? 8 : 0,
                   marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {FullAddress}
@@ -230,13 +221,13 @@ class VenueItem extends PureComponent {
           {/*this.getDescription(Description)*/}
         </View>
       </View>
-    );
+    )
   }
 }
 
 VenueItem.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
   }).isRequired,
   borderRadius: PropTypes.number,
   venue: PropTypes.shape({
@@ -249,12 +240,12 @@ VenueItem.propTypes = {
     ImageThumbUrl: PropTypes.string.isRequired,
     ImageAltText: PropTypes.string,
     GeoLatitude: PropTypes.number,
-    GeoLongitude: PropTypes.number,
-  }).isRequired,
-};
+    GeoLongitude: PropTypes.number
+  }).isRequired
+}
 
 VenueItem.defaultProps = {
-  borderRadius: 0,
-};
+  borderRadius: 0
+}
 
-export default withNavigation(VenueItem);
+export default withNavigation(VenueItem)

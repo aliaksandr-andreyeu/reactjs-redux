@@ -1,17 +1,13 @@
-import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import styles from './styles';
-import DateTag from '../DateTag';
+import React from 'react'
+import { View, Text, ImageBackground, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
+import styles from './styles'
+import DateTag from '../DateTag'
 
 const VenueDetailsListItem = ({ withDate, tagLabel, onPress, title, imageUri, date }) => (
   <TouchableOpacity style={styles.container} onPress={onPress}>
     <View style={styles.boxShadow} elevation={5}>
-      <ImageBackground
-        source={{ uri: imageUri }}
-        style={[styles.background, { zIndex: 2 }]}
-        resizeMode="cover"
-      >
+      <ImageBackground source={{ uri: imageUri }} style={[styles.background, { zIndex: 2 }]} resizeMode="cover">
         <View style={[styles.topSection, withDate && styles.containerWithDate]}>
           {withDate && <DateTag date={date} />}
           <View style={styles.tagContainer}>
@@ -24,7 +20,7 @@ const VenueDetailsListItem = ({ withDate, tagLabel, onPress, title, imageUri, da
       </ImageBackground>
     </View>
   </TouchableOpacity>
-);
+)
 
 VenueDetailsListItem.propTypes = {
   withDate: PropTypes.bool,
@@ -32,11 +28,11 @@ VenueDetailsListItem.propTypes = {
   onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   imageUri: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-};
+  date: PropTypes.string.isRequired
+}
 
 VenueDetailsListItem.defaultProps = {
-  withDate: false,
-};
+  withDate: false
+}
 
-export default VenueDetailsListItem;
+export default VenueDetailsListItem

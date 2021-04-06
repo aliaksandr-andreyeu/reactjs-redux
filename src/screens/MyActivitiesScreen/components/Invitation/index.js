@@ -1,53 +1,44 @@
-import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import propTypes from 'prop-types';
-import moment from 'moment';
-import ActivityData from '../ActivityData';
-import Wrapper from '../Wrapper';
-import ButtonComponent from '../../../../components/UI/ButtonComponent';
-import styles from './styles';
-import colors from '../../../../constants/colors';
-import { axiosInstance, apiUrls } from '../../../../constants/api';
-import NewButton from '../../../../components/UI/NewButtonComponent';
-import i18n from '../../../../../i18n';
-import { withNavigation } from 'react-navigation';
+import React, { Component } from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import propTypes from 'prop-types'
+import moment from 'moment'
+import ActivityData from '../ActivityData'
+import Wrapper from '../Wrapper'
+import ButtonComponent from '../../../../components/UI/ButtonComponent'
+import styles from './styles'
+import colors from '../../../../constants/colors'
+import { axiosInstance, apiUrls } from '../../../../constants/api'
+import NewButton from '../../../../components/UI/NewButtonComponent'
+import i18n from '../../../../../i18n'
+import { withNavigation } from 'react-navigation'
 
 class Invitation extends Component {
-  state = {};
+  state = {}
 
   handleAccept = () => {
-    const { handleInvitation, code } = this.props;
+    const { handleInvitation, code } = this.props
 
     axiosInstance({
       method: 'POST',
-      url: apiUrls.postAcceptInvitation(code),
+      url: apiUrls.postAcceptInvitation(code)
     }).then(() => {
-      handleInvitation(code);
-    });
-  };
+      handleInvitation(code)
+    })
+  }
 
   handleDecline = () => {
-    const { handleInvitation, code } = this.props;
+    const { handleInvitation, code } = this.props
 
     axiosInstance({
       method: 'POST',
-      url: apiUrls.postRejectInvitation(code),
+      url: apiUrls.postRejectInvitation(code)
     }).then(() => {
-      handleInvitation(code);
-    });
-  };
+      handleInvitation(code)
+    })
+  }
 
   render() {
-    const {
-      navigation,
-      id,
-      activityId,
-      creatorName,
-      creationDate,
-      image,
-      isCreatedByUser,
-      fee,
-    } = this.props;
+    const { navigation, id, activityId, creatorName, creationDate, image, isCreatedByUser, fee } = this.props
 
     return (
       <Wrapper>
@@ -55,7 +46,7 @@ class Invitation extends Component {
           style={{ flex: 1, flexDirection: 'row' }}
           onPress={() =>
             navigation.navigate('SsaEventDetailsScreen', {
-              params: { id: activityId, isCreatedByUser },
+              params: { id: activityId, isCreatedByUser }
             })
           }
         >
@@ -65,7 +56,7 @@ class Invitation extends Component {
                 width: 128,
                 height: 184,
                 borderTopLeftRadius: 8,
-                borderBottomRightRadius: 0,
+                borderBottomRightRadius: 0
               }}
               resizeMode="cover"
               source={{ uri: image }}
@@ -101,7 +92,7 @@ class Invitation extends Component {
           />
         </View>
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -111,7 +102,7 @@ Invitation.propTypes = {
   creatorName: propTypes.string.isRequired,
   image: propTypes.string,
   isCreatedByUser: propTypes.any,
-  fee: propTypes.number,
-};
+  fee: propTypes.number
+}
 
-export default withNavigation(Invitation);
+export default withNavigation(Invitation)

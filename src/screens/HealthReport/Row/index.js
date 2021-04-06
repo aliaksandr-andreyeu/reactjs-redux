@@ -1,9 +1,9 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import PropTypes from 'prop-types';
-import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome5';
+import React from 'react'
+import { Text, View } from 'react-native'
+import PropTypes from 'prop-types'
+import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome5'
 
-import styles from './styles';
+import styles from './styles'
 
 const HealthReportRow = ({ iconName, title, value }) => (
   <View style={styles.container}>
@@ -13,12 +13,12 @@ const HealthReportRow = ({ iconName, title, value }) => (
     </View>
     <Text style={styles.value}>{value}</Text>
   </View>
-);
+)
 
 HealthReportRow.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  iconName: PropTypes.string.isRequired,
-};
+  iconName: PropTypes.string.isRequired
+}
 
-export default HealthReportRow;
+export default HealthReportRow

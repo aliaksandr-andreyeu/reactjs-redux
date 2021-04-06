@@ -1,30 +1,28 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import FilterOption from '../../../components/SortAndFilter/FilterOption';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../BookingsScreen/actions';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import { EventType } from './models';
-import { sportActivityTypes } from '../../../constants/socialSportsActivity';
-import Loading from '../../../components/Loading';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import styles from './styles'
+import FilterOption from '../../../components/SortAndFilter/FilterOption'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../BookingsScreen/actions'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import { EventType } from './models'
+import { sportActivityTypes } from '../../../constants/socialSportsActivity'
+import Loading from '../../../components/Loading'
+import i18n from '../../../../i18n'
 
 class BookingsFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     const eventType =
-      sportActivityTypes.TicketedEvents +
-      sportActivityTypes.FreeEvents +
-      sportActivityTypes.GeneralAdmission;
+      sportActivityTypes.TicketedEvents + sportActivityTypes.FreeEvents + sportActivityTypes.GeneralAdmission
 
     const venueType =
       sportActivityTypes.FullFacilityRental +
       sportActivityTypes.SingleEntry +
       sportActivityTypes.Membership +
-      sportActivityTypes.GeneralPackage;
+      sportActivityTypes.GeneralPackage
 
     this.state = {
       sportCategoriesList: [],
@@ -34,64 +32,64 @@ class BookingsFilter extends Component {
         new EventType(sportActivityTypes.all, i18n.t('bookPlay.all')),
         new EventType(eventType, i18n.t('bookPlay.events')),
         new EventType(venueType, i18n.t('bookPlay.play')),
-        new EventType(sportActivityTypes.SocialSportsActivities, i18n.t('bookPlay.join_match')),
-      ],
-    };
+        new EventType(sportActivityTypes.SocialSportsActivities, i18n.t('bookPlay.join_match'))
+      ]
+    }
   }
 
   componentDidMount() {
     const requests = [
       axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`),
-      axiosInstance.post(apiUrls.postVenues, {}),
-    ];
+      axiosInstance.post(apiUrls.postVenues, {})
+    ]
 
     Promise.all(requests).then(([sportCategories, venues]) => {
       this.setState({
         // venuesList: this.mapList(venues.data, 'Title'),
         sportCategoriesList: this.mapList(sportCategories.data, 'NameInPrimaryLang'),
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   mapList = (list, labelKey, idKey = 'Id') =>
     list.map(item => ({
       id: item[idKey],
-      label: item[labelKey],
-    }));
+      label: item[labelKey]
+    }))
 
   handleCancel = () => {
-    const { clearFilter } = this.props;
+    const { clearFilter } = this.props
 
-    clearFilter();
-  };
+    clearFilter()
+  }
 
   applyFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update,
-    });
+      [itemKey]: update
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   applyRadioFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update.join(),
-    });
+      [itemKey]: update.join()
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   render() {
-    const { eventType, categoryOfSports, dateRange, distance } = this.props;
-    const { sportCategoriesList, isLoading } = this.state;
+    const { eventType, categoryOfSports, dateRange, distance } = this.props
+    const { sportCategoriesList, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -104,7 +102,7 @@ class BookingsFilter extends Component {
               onApply: this.applyFilter('categoryOfSports'),
               selectedItems: categoryOfSports,
               items: sportCategoriesList,
-              screenTitle: i18n.t('filters.category_of_sports'),
+              screenTitle: i18n.t('filters.category_of_sports')
             }}
           />
           <FilterOption
@@ -120,9 +118,9 @@ class BookingsFilter extends Component {
                 { id: '15000', label: i18n.t('filters.15km') },
                 { id: '20000', label: i18n.t('filters.20km') },
                 { id: '25000', label: i18n.t('filters.25km') },
-                { id: '30000', label: i18n.t('filters.30km') },
+                { id: '30000', label: i18n.t('filters.30km') }
               ],
-              screenTitle: i18n.t('filters.select_distance'),
+              screenTitle: i18n.t('filters.select_distance')
             }}
           />
           <FilterOption
@@ -131,7 +129,7 @@ class BookingsFilter extends Component {
             navigationData={{
               onApply: this.applyFilter('dateRange'),
               selectedItems: dateRange,
-              screenTitle: i18n.t('filters.daterange'),
+              screenTitle: i18n.t('filters.daterange')
             }}
           />
           <FilterOption
@@ -141,7 +139,7 @@ class BookingsFilter extends Component {
               onApply: this.applyFilter('eventType'),
               selectedItems: eventType,
               items: this.state.eventTypesList,
-              screenTitle: i18n.t('filters.activity_type'),
+              screenTitle: i18n.t('filters.activity_type')
             }}
           />
         </View>
@@ -152,7 +150,7 @@ class BookingsFilter extends Component {
           cancelLabel={i18n.t('generic.buttons.reset')}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -160,12 +158,12 @@ const mapStateToProps = state => ({
   eventType: state.bookings.filters.eventType,
   categoryOfSports: state.bookings.filters.categoryOfSports,
   dateRange: state.bookings.filters.dateRange,
-  distance: state.bookings.filters.distance,
-});
+  distance: state.bookings.filters.distance
+})
 const mapDispatchToProps = {
   updateStore: actions.setBookingsData,
   setFilter: actions.setBookingsFilter,
-  clearFilter: actions.clearBookingsFilter,
-};
+  clearFilter: actions.clearBookingsFilter
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingsFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(BookingsFilter)

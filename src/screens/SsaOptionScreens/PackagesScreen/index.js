@@ -1,46 +1,46 @@
-import React, { Component } from 'react';
-import { ScrollView, FlatList, View, Text } from 'react-native';
-import propTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Package from './components/Package';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../SsaMainScreen/actions';
-import styles from './styles';
-import i18n from '../../../../i18n';
-import colors from '../../../constants/colors';
+import React, { Component } from 'react'
+import { ScrollView, FlatList, View, Text } from 'react-native'
+import propTypes from 'prop-types'
+import { connect } from 'react-redux'
+import Package from './components/Package'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../SsaMainScreen/actions'
+import styles from './styles'
+import i18n from '../../../../i18n'
+import colors from '../../../constants/colors'
 
 class PackagesScreen extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    const { navigation, packageId, packagePrice } = props;
+    const { navigation, packageId, packagePrice } = props
 
     this.state = {
       selectedPackageId: packageId,
-      selectedPackagePrice: packagePrice,
-    };
+      selectedPackagePrice: packagePrice
+    }
 
-    this.packages = navigation.getParam('packages', []);
+    this.packages = navigation.getParam('packages', [])
   }
 
   selectPackage = (selectedPackageId, selectedPackagePrice) => {
     this.setState({
       selectedPackageId: selectedPackageId.toString(),
-      selectedPackagePrice,
-    });
-  };
+      selectedPackagePrice
+    })
+  }
 
   getVenueName = () => {
-    const { selectedPackageId } = this.state;
+    const { selectedPackageId } = this.state
 
-    const foundPackage = this.packages.find(item => item.OfferId === +selectedPackageId);
+    const foundPackage = this.packages.find(item => item.OfferId === +selectedPackageId)
 
-    return (foundPackage && foundPackage.OfferTitle) || '';
-  };
+    return (foundPackage && foundPackage.OfferTitle) || ''
+  }
 
   render() {
-    const { updateStore, packageId, packagePrice } = this.props;
-    const { selectedPackageId, selectedPackagePrice } = this.state;
+    const { updateStore, packageId, packagePrice } = this.props
+    const { selectedPackageId, selectedPackagePrice } = this.state
 
     // console.log( 'packageId: ', packageId )
     // console.log( 'packagePrice: ', packagePrice )
@@ -49,16 +49,14 @@ class PackagesScreen extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView>
           <View style={styles.titleBox}>
-            <Text style={styles.title}>
-              {i18n.t('socialSportsActivity.select_facility_rental')}
-            </Text>
+            <Text style={styles.title}>{i18n.t('socialSportsActivity.select_facility_rental')}</Text>
           </View>
           <FlatList
             ref={ref => {
-              this.flatListRef = ref;
+              this.flatListRef = ref
             }}
             style={{
-              marginHorizontal: 15,
+              marginHorizontal: 15
             }}
             data={this.packages}
             keyExtractor={(item, index) => item.OfferId.toString()}
@@ -82,32 +80,32 @@ class PackagesScreen extends Component {
                   packagePrice: selectedPackagePrice,
                   date: '',
                   startTime: '',
-                  endTime: '',
+                  endTime: ''
                 })
               }
             />
           </View>
         )}
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   packageId: state.socialSportActivity.packageId,
-  packagePrice: state.socialSportActivity.packagePrice,
-});
+  packagePrice: state.socialSportActivity.packagePrice
+})
 const mapDispatchToProps = {
-  updateStore: actions.setData,
-};
+  updateStore: actions.setData
+}
 
 PackagesScreen.propTypes = {
   navigation: propTypes.shape({
-    getParam: propTypes.func.isRequired,
+    getParam: propTypes.func.isRequired
   }).isRequired,
   updateStore: propTypes.func.isRequired,
   packageId: propTypes.string.isRequired,
-  packagePrice: propTypes.number.isRequired,
-};
+  packagePrice: propTypes.number.isRequired
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PackagesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PackagesScreen)

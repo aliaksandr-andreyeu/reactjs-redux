@@ -1,6 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import colors from '../constants/colors';
-import { fontFamily, fontSize } from '../constants/fonts';
+import { Dimensions, StyleSheet } from 'react-native'
+import colors from '../constants/colors'
+import { fontFamily, fontSize } from '../constants/fonts'
 
 export default function getStyles() {
   return StyleSheet.create({
@@ -13,47 +13,47 @@ export default function getStyles() {
       borderRightWidth: 100,
       borderTopWidth: 100,
       borderRightColor: 'transparent',
-      borderTopColor: 'red',
+      borderTopColor: 'red'
     },
     triangleCornerBottomLeft: {
-      transform: [{ rotate: '270deg' }],
+      transform: [{ rotate: '270deg' }]
     },
     text: {
       color: '#202873',
       fontSize: 14,
-      fontFamily: fontFamily.gothamMedium,
+      fontFamily: fontFamily.gothamMedium
     },
     linksText: {
       color: '#202873',
       fontSize: 12,
-      fontFamily: fontFamily.gothamBold,
+      fontFamily: fontFamily.gothamBold
     },
     authText: {
       color: '#FFFFFF',
       fontSize: 12,
       fontFamily: fontFamily.gothamLight,
-      textAlign: 'center',
+      textAlign: 'center'
     },
     buttonText: {
       color: '#FFFFFF',
       fontSize: 16,
       fontFamily: fontFamily.gothamMedium,
-      textAlign: 'center',
+      textAlign: 'center'
     },
     authButton: {
       width: '100%',
       padding: 15,
       borderRadius: 4,
-      marginTop: 16,
+      marginTop: 16
     },
     buttonTeal: {
-      backgroundColor: '#00B5DF',
+      backgroundColor: '#00B5DF'
     },
     buttonRed: {
-      backgroundColor: '#EE3124',
+      backgroundColor: '#EE3124'
     },
     buttonGreen: {
-      backgroundColor: '#78BC4B',
+      backgroundColor: '#78BC4B'
     },
     choiceContainer: {
       position: 'absolute',
@@ -63,21 +63,21 @@ export default function getStyles() {
       paddingLeft: 16,
       paddingRight: 16,
       textAlign: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     container: {
       flex: 1,
       //    backgroundColor: '#fff',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     contentContainer: {
-      paddingTop: 30,
+      paddingTop: 30
     },
     authButtonText: {
       color: '#FFFFFF',
       fontSize: 14,
       fontFamily: fontFamily.gothamLight,
-      padding: 8,
-    },
-  });
+      padding: 8
+    }
+  })
 }

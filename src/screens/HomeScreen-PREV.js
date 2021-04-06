@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
@@ -10,41 +10,41 @@ import {
   TextInput,
   StatusBar,
   FlatList,
-  ImageBackground,
-} from 'react-native';
+  ImageBackground
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Moment from 'moment';
+import Moment from 'moment'
 
-import FullWidthImage from 'react-native-fullwidth-image';
+import FullWidthImage from 'react-native-fullwidth-image'
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
-import { LinearGradient } from 'expo-linear-gradient';
-import DeviceInfo from 'react-native-device-info';
-import SkewedContainer from '../components/SkewedContainer';
-import SwipeGesture from '../components/SwipeGesture';
+import { LinearGradient } from 'expo-linear-gradient'
+import DeviceInfo from 'react-native-device-info'
+import SkewedContainer from '../components/SkewedContainer'
+import SwipeGesture from '../components/SwipeGesture'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-import env from '../config';
+import env from '../config'
 
-import { NavHeaderUser } from '../components/NavHeaderUser';
+import { NavHeaderUser } from '../components/NavHeaderUser'
 
-const FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-const FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+const FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+const FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
+    const { params } = navigation.state
 
     return {
       // title: params ? params.otherParam : 'A Nested Details Screen',
-      headerRight: <NavHeaderUser {...navigation} />,
-    };
-  };
+      headerRight: <NavHeaderUser {...navigation} />
+    }
+  }
 
   state = {
     isTopSliderLoaded: false,
@@ -60,77 +60,74 @@ export default class HomeScreen extends React.Component {
       UpcomingEvents: [{ Id: 0 }, { Id: 1 }, { Id: 2 }, { Id: 3 }, { Id: 4 }, { Id: 5 }],
       RecommendedEvents: [{ Id: 0 }, { Id: 1 }, { Id: 2 }, { Id: 3 }, { Id: 4 }, { Id: 5 }],
       SliderEvents: [],
-      DynamicSlides: [{ Id: 0 }, { Id: 1 }, { Id: 2 }],
+      DynamicSlides: [{ Id: 0 }, { Id: 1 }, { Id: 2 }]
     },
-    topSliderIndex: 0,
-  };
+    topSliderIndex: 0
+  }
 
   onSwipePerformed = action => {
     switch (action) {
       case 'left': {
-        this._scrollSlider('left');
-        break;
+        this._scrollSlider('left')
+        break
       }
       case 'right': {
-        this._scrollSlider('right');
-        break;
+        this._scrollSlider('right')
+        break
       }
       case 'down': {
-        this.props.navigation.push(
-          `${this.state.homeItems.DynamicSlides[this.state.topSliderIndex].LinkEnity}Detail`,
-          {
-            id: this.state.homeItems.DynamicSlides[this.state.topSliderIndex].LinkEnityId,
-            object: this.state.homeItems.DynamicSlides[this.state.topSliderIndex],
-          }
-        );
-        break;
+        this.props.navigation.push(`${this.state.homeItems.DynamicSlides[this.state.topSliderIndex].LinkEnity}Detail`, {
+          id: this.state.homeItems.DynamicSlides[this.state.topSliderIndex].LinkEnityId,
+          object: this.state.homeItems.DynamicSlides[this.state.topSliderIndex]
+        })
+        break
       }
     }
-  };
+  }
 
   _scrollSlider(direction) {
-    const slideIndex = this.state.topSliderIndex;
-    let newIndex = '';
+    const slideIndex = this.state.topSliderIndex
+    let newIndex = ''
 
     if (direction == 'right' && this.state.homeItems.DynamicSlides[slideIndex + 1]) {
-      newIndex = slideIndex + 1;
+      newIndex = slideIndex + 1
     }
     if (direction == 'right' && !this.state.homeItems.DynamicSlides[slideIndex + 1]) {
-      newIndex = 0;
+      newIndex = 0
     }
 
     if (direction == 'left' && this.state.homeItems.DynamicSlides[slideIndex - 1]) {
-      newIndex = slideIndex - 1;
+      newIndex = slideIndex - 1
     }
     if (direction == 'left' && !this.state.homeItems.DynamicSlides[slideIndex - 1]) {
-      newIndex = this.state.homeItems.DynamicSlides.length - 1;
+      newIndex = this.state.homeItems.DynamicSlides.length - 1
     }
 
     this.setState(
       {
         isTopSliderLoaded: true,
-        isSwiped: true,
+        isSwiped: true
       },
       () => {
         this.setState({
-          topSliderIndex: newIndex,
-        });
+          topSliderIndex: newIndex
+        })
       }
-    );
+    )
   }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
   }
 
   async componentWillMount() {
-    this._getHomeItems();
+    this._getHomeItems()
 
     // this._getCache();
   }
@@ -139,75 +136,75 @@ export default class HomeScreen extends React.Component {
     AsyncStorage.getItem('app:home').then(value => {
       if (value) {
         this.setState({
-          homeItems: JSON.parse(value),
-        });
+          homeItems: JSON.parse(value)
+        })
       } else {
-        this._getCache();
+        this._getCache()
       }
-    });
+    })
   }
 
   _getHomeItems = () => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.state.user.token && this.state.user.token.length > 4) {
-      headers['auth-token'] = this.state.user.token;
+      headers['auth-token'] = this.state.user.token
     }
 
     fetch(`${env.api}api/home`, {
       method: 'GET',
-      headers,
+      headers
     })
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.EventCategories) {
-          responseJson.isLoading = false;
+          responseJson.isLoading = false
 
           if (responseJson.DynamicSlides.length > 10) {
-            responseJson.DynamicSlides = responseJson.DynamicSlides.slice(0, 10);
+            responseJson.DynamicSlides = responseJson.DynamicSlides.slice(0, 10)
           }
           if (responseJson.SliderEvents.length > 25) {
-            responseJson.SliderEvents = responseJson.SliderEvents.slice(0, 25);
+            responseJson.SliderEvents = responseJson.SliderEvents.slice(0, 25)
           }
           if (responseJson.RecommendedEvents.length > 25) {
-            responseJson.RecommendedEvents = responseJson.RecommendedEvents.slice(0, 25);
+            responseJson.RecommendedEvents = responseJson.RecommendedEvents.slice(0, 25)
           }
           if (responseJson.UpcomingEvents.length > 25) {
-            responseJson.UpcomingEvents = responseJson.UpcomingEvents.slice(0, 25);
+            responseJson.UpcomingEvents = responseJson.UpcomingEvents.slice(0, 25)
           }
           if (responseJson.Features.length > 25) {
-            responseJson.Features = responseJson.Features.slice(0, 25);
+            responseJson.Features = responseJson.Features.slice(0, 25)
           }
           if (responseJson.EventCategories.length > 6) {
-            responseJson.EventCategoriesOriginal = responseJson.EventCategories;
-            responseJson.EventCategories = responseJson.EventCategories.slice(0, 6);
+            responseJson.EventCategoriesOriginal = responseJson.EventCategories
+            responseJson.EventCategories = responseJson.EventCategories.slice(0, 6)
           }
 
-          const dslides = [];
+          const dslides = []
 
           for (let i = 0; i < responseJson.DynamicSlides.length; i++) {
             responseJson.DynamicSlides[i].ImageSquareThumbURL = responseJson.DynamicSlides[
               i
-            ].ImageSquareThumbURL.replace('q_auto:eco', 'q_auto:low');
-            dslides.push(responseJson.DynamicSlides[i].ImageSquareThumbURL);
+            ].ImageSquareThumbURL.replace('q_auto:eco', 'q_auto:low')
+            dslides.push(responseJson.DynamicSlides[i].ImageSquareThumbURL)
           }
 
           this.setState({
             dslides,
             homeItems: responseJson,
             EventCategories: responseJson.EventCategories,
-            EventCategoriesOriginal: responseJson.EventCategoriesOriginal,
-          });
+            EventCategoriesOriginal: responseJson.EventCategoriesOriginal
+          })
         }
-      });
-  };
+      })
+  }
 
   _renderItemCategory = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
         this.props.navigation.navigate('CategoryDetail', {
           id: item.NameInPrimaryLang,
-          object: item,
-        });
+          object: item
+        })
       }}
     >
       <View
@@ -215,7 +212,7 @@ export default class HomeScreen extends React.Component {
           width: 200,
           height: 90,
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <FullWidthImage
@@ -225,28 +222,28 @@ export default class HomeScreen extends React.Component {
         <Text style={styles.itemCategoryName}>{item.NameInPrimaryLang}</Text>
       </View>
     </TouchableOpacity>
-  );
+  )
 
-  _listDividerCategory = () => <View style={styles.dividerContainer} />;
+  _listDividerCategory = () => <View style={styles.dividerContainer} />
 
   _renderItemRecommended = ({ item, index }) => {
-    let title = item.Title;
+    let title = item.Title
     if (item.TitleInPrimaryLang && item.TitleInPrimaryLang.length > 0) {
-      title = item.TitleInPrimaryLang;
+      title = item.TitleInPrimaryLang
     }
 
-    let entityType = 'EventDetail';
+    let entityType = 'EventDetail'
     if (item.TitleInPrimaryLang && item.TitleInPrimaryLang.length > 0) {
-      entityType = 'FeatureDetail';
+      entityType = 'FeatureDetail'
     }
     if (item.EntityName) {
-      entityType = `${item.EntityName}Detail`;
+      entityType = `${item.EntityName}Detail`
     }
 
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate(entityType, { id: item.Id, object: item });
+          this.props.navigation.navigate(entityType, { id: item.Id, object: item })
         }}
         style={{}}
       >
@@ -277,7 +274,7 @@ export default class HomeScreen extends React.Component {
                   marginLeft: 11,
                   color: '#6D6E71',
                   fontSize: 11,
-                  fontFamily: FontBreeRegular,
+                  fontFamily: FontBreeRegular
                 }}
               >
                 {item.Excerpt}
@@ -290,7 +287,7 @@ export default class HomeScreen extends React.Component {
                   position: 'absolute',
                   left: 0,
                   top: 0,
-                  zIndex: 3,
+                  zIndex: 3
                 }}
               >
                 <Image source={require('../assets/images/date-bg.png')} />
@@ -303,7 +300,7 @@ export default class HomeScreen extends React.Component {
                     fontFamily: FontBreeBold,
                     position: 'absolute',
                     top: 0,
-                    left: 0,
+                    left: 0
                   }}
                 >
                   {Moment(item.EventDateTime).format('D[\n]MMM[\n]YYYY')}
@@ -313,16 +310,16 @@ export default class HomeScreen extends React.Component {
           </LinearGradient>
         </View>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
-  _listDividerRecommended = () => <View style={styles.dividerContainerRecommended} />;
+  _listDividerRecommended = () => <View style={styles.dividerContainerRecommended} />
 
   _renderItem = ({ item, index }) => {
-    item.illustration = item.ImageSquareThumbURL;
-    item.title = item.Title;
+    item.illustration = item.ImageSquareThumbURL
+    item.title = item.Title
 
-    even = (index + 1) % 2 === 0;
+    even = (index + 1) % 2 === 0
 
     return (
       <TouchableOpacity
@@ -331,21 +328,14 @@ export default class HomeScreen extends React.Component {
         onPress={() => {
           this.props.navigation.navigate(`${item.LinkEnity}Detail`, {
             id: item.LinkEnityId,
-            object: item,
-          });
+            object: item
+          })
         }}
       >
         <View style={stylesSliderEntry.shadow} />
-        <View
-          style={[
-            stylesSliderEntry.imageContainer,
-            even ? stylesSliderEntry.imageContainerEven : {},
-          ]}
-        >
+        <View style={[stylesSliderEntry.imageContainer, even ? stylesSliderEntry.imageContainerEven : {}]}>
           <Image source={{ uri: item.ImageSquareThumbURL }} style={stylesSliderEntry.image} />
-          <View
-            style={[stylesSliderEntry.radiusMask, even ? stylesSliderEntry.radiusMaskEven : {}]}
-          />
+          <View style={[stylesSliderEntry.radiusMask, even ? stylesSliderEntry.radiusMaskEven : {}]} />
         </View>
         <Text numberOfLines={3} ellipsizeMode="tail" style={styles.renderItemTitle}>
           {item.Title}
@@ -363,7 +353,7 @@ export default class HomeScreen extends React.Component {
                 fontFamily: FontBreeBold,
                 position: 'absolute',
                 top: 0,
-                left: 10,
+                left: 10
               }}
             >
               {Moment(item.EventDateTime).format('D[\n]MMM[\n]YYYY')}
@@ -376,7 +366,7 @@ export default class HomeScreen extends React.Component {
               position: 'absolute',
               right: 8,
               top: 0,
-              marginTop: -1,
+              marginTop: -1
             }}
           >
             <Image
@@ -392,7 +382,7 @@ export default class HomeScreen extends React.Component {
                 fontFamily: FontBreeBold,
                 position: 'absolute',
                 top: 0,
-                right: 0,
+                right: 0
               }}
             >
               {Moment(item.EventDateTime).format('D[\n]MMM[\n]YYYY')}
@@ -400,11 +390,11 @@ export default class HomeScreen extends React.Component {
           </View>
         )}
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   render() {
-    Moment.locale('en');
+    Moment.locale('en')
 
     return (
       <View style={styles.container}>
@@ -417,7 +407,7 @@ export default class HomeScreen extends React.Component {
               paddingTop: 0,
               marginTop: 0,
               paddingBottom: 10,
-              elevation: 0,
+              elevation: 0
             }}
           >
             <View
@@ -427,7 +417,7 @@ export default class HomeScreen extends React.Component {
                 flex: 1,
                 paddingBottom: 0,
                 paddingTop: 0,
-                marginTop: 0,
+                marginTop: 0
               }}
             >
               <View style={{ marginTop: 5, flex: 1 }}>
@@ -437,8 +427,8 @@ export default class HomeScreen extends React.Component {
                   onChangeText={text => this.setState({ searchText: text })}
                   onSubmitEditing={() => {
                     this.props.navigation.navigate('Search', {
-                      searchText: this.state.searchText,
-                    });
+                      searchText: this.state.searchText
+                    })
                   }}
                 />
               </View>
@@ -446,18 +436,11 @@ export default class HomeScreen extends React.Component {
           </View>
 
           {this.state.homeItems.DynamicSlides && this.state.homeItems.DynamicSlides.length > 0 && (
-            <SwipeGesture
-              gestureStyle={styles.swipesGestureContainer}
-              onSwipePerformed={this.onSwipePerformed}
-            >
+            <SwipeGesture gestureStyle={styles.swipesGestureContainer} onSwipePerformed={this.onSwipePerformed}>
               <View>
                 <ImageBackground
                   source={require('../assets/images/event-slider.png')}
-                  imageStyle={[
-                    this.state.isTopSliderLoaded
-                      ? styles.background_slide
-                      : styles.background_slide_empty,
-                  ]}
+                  imageStyle={[this.state.isTopSliderLoaded ? styles.background_slide : styles.background_slide_empty]}
                   style={[DeviceInfo.isTablet() ? styles.tablet_slide : styles.phone_slide]}
                 >
                   <View style={{ flex: 1, marginBottom: 10, minHeight: 310 }}>
@@ -466,11 +449,11 @@ export default class HomeScreen extends React.Component {
                         <Image
                           onLoadEnd={() =>
                             this.setState({
-                              isTopSliderLoaded: true,
+                              isTopSliderLoaded: true
                             })
                           }
                           source={{
-                            uri: this.state.dslides[this.state.topSliderIndex],
+                            uri: this.state.dslides[this.state.topSliderIndex]
                           }}
                           style={[DeviceInfo.isTablet() ? styles.tablet_slide : styles.phone_slide]}
                         />
@@ -481,7 +464,7 @@ export default class HomeScreen extends React.Component {
                         position: 'absolute',
                         left: 0,
                         top: 0,
-                        zIndex: 4,
+                        zIndex: 4
                       }}
                     >
                       <Image source={require('../assets/images/date-bg.png')} />
@@ -494,13 +477,12 @@ export default class HomeScreen extends React.Component {
                           fontFamily: FontBreeBold,
                           position: 'absolute',
                           top: 0,
-                          left: 0,
+                          left: 0
                         }}
                       >
-                        {Moment(
-                          this.state.homeItems.DynamicSlides[this.state.topSliderIndex]
-                            .EventDateTime
-                        ).format('D[\n]MMM[\n]YYYY')}
+                        {Moment(this.state.homeItems.DynamicSlides[this.state.topSliderIndex].EventDateTime).format(
+                          'D[\n]MMM[\n]YYYY'
+                        )}
                       </Text>
                     </View>
 
@@ -509,7 +491,7 @@ export default class HomeScreen extends React.Component {
                         position: 'absolute',
                         bottom: 1,
                         width: '100%',
-                        zIndex: 4,
+                        zIndex: 4
                       }}
                     >
                       <View
@@ -519,7 +501,7 @@ export default class HomeScreen extends React.Component {
                           borderRadius: 60,
                           borderColor: '#ffffff',
                           borderWidth: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#ffffff'
                         }}
                       >
                         <Text
@@ -530,7 +512,7 @@ export default class HomeScreen extends React.Component {
                             fontFamily: FontBreeBold,
                             padding: 12,
                             paddingTop: 3,
-                            paddingBottom: 3,
+                            paddingBottom: 3
                           }}
                         >
                           {this.state.homeItems.DynamicSlides[this.state.topSliderIndex].LinkEnity}
@@ -547,7 +529,7 @@ export default class HomeScreen extends React.Component {
                           color: '#ffffff',
                           paddingBottom: 6,
                           paddingTop: 5,
-                          zIndex: 4,
+                          zIndex: 4
                         }}
                       >
                         {this.state.homeItems.DynamicSlides[this.state.topSliderIndex].Title}
@@ -559,15 +541,10 @@ export default class HomeScreen extends React.Component {
                           marginLeft: 25,
                           flex: 1,
                           flexDirection: 'row',
-                          zIndex: 4,
+                          zIndex: 4
                         }}
                       >
-                        <EvilIcons
-                          name="location"
-                          size={18}
-                          color="#ffffff"
-                          style={{ marginTop: 3 }}
-                        />
+                        <EvilIcons name="location" size={18} color="#ffffff" style={{ marginTop: 3 }} />
                         <View style={{ flex: 1 }}>
                           <Text
                             numberOfLines={1}
@@ -576,7 +553,7 @@ export default class HomeScreen extends React.Component {
                               fontFamily: FontBreeBold,
                               fontSize: 14,
                               color: '#ffffff',
-                              marginLeft: 3,
+                              marginLeft: 3
                             }}
                           >
                             {this.state.homeItems.DynamicSlides[this.state.topSliderIndex].Venue}
@@ -591,7 +568,7 @@ export default class HomeScreen extends React.Component {
                           flex: 1,
                           flexDirection: 'row',
                           alignItems: 'center',
-                          justifyContent: 'center',
+                          justifyContent: 'center'
                         }}
                       >
                         {this.state.homeItems.DynamicSlides.map((slide, i) => (
@@ -610,17 +587,9 @@ export default class HomeScreen extends React.Component {
               </View>
             </SwipeGesture>
           )}
-          <SkewedContainer
-            leftSkewType="full"
-            rightSkewType="full"
-            backgroundColor="red"
-            width={20}
-          >
+          <SkewedContainer leftSkewType="full" rightSkewType="full" backgroundColor="red" width={20}>
             <View style={{ flex: 1, height: 150, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={{ alignItems: 'center', justifyContent: 'center' }}>
-                {' '}
-                Awesome textAwesome{' '}
-              </Text>
+              <Text style={{ alignItems: 'center', justifyContent: 'center' }}> Awesome textAwesome </Text>
             </View>
           </SkewedContainer>
 
@@ -629,7 +598,7 @@ export default class HomeScreen extends React.Component {
               marginLeft: 15,
               marginRight: 0,
               flex: 1,
-              paddingBottom: 0,
+              paddingBottom: 0
             }}
           >
             <Text
@@ -638,7 +607,7 @@ export default class HomeScreen extends React.Component {
                 marginBottom: 5,
                 color: '#707070',
                 fontSize: 18,
-                fontFamily: FontBreeBold,
+                fontFamily: FontBreeBold
               }}
             >
               {i18n.t('home.recommended_for_you')}
@@ -659,7 +628,7 @@ export default class HomeScreen extends React.Component {
                 marginBottom: 5,
                 color: '#707070',
                 fontSize: 18,
-                fontFamily: FontBreeBold,
+                fontFamily: FontBreeBold
               }}
             >
               {i18n.t('home.upcoming_events')}
@@ -680,7 +649,7 @@ export default class HomeScreen extends React.Component {
                 marginBottom: 5,
                 color: '#707070',
                 fontSize: 18,
-                fontFamily: FontBreeBold,
+                fontFamily: FontBreeBold
               }}
             >
               {i18n.t('home.features_news')}
@@ -709,23 +678,23 @@ export default class HomeScreen extends React.Component {
               onEndReachedThreshold={0.5}
               onEndReached={() => {
                 if (this.state.isCategoryFullyLoaded) {
-                  return;
+                  return
                 }
                 this.setState({
-                  EventCategories: this.state.homeItems.EventCategoriesOriginal,
-                });
+                  EventCategories: this.state.homeItems.EventCategoriesOriginal
+                })
               }}
             />
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   background_slide: {
-    opacity: 0,
+    opacity: 0
   },
   boxShadow: {
     backgroundColor: '#ffffff',
@@ -737,7 +706,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   boxShadowNoLeftMargin: {
     backgroundColor: '#ffffff',
@@ -750,23 +719,23 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   container: {
     backgroundColor: '#fff',
     elevation: 0,
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
-    paddingTop: 0,
+    paddingTop: 0
   },
   dividerContainer: {
     height: 1,
-    width: 15,
+    width: 15
   },
   dividerContainerRecommended: {
     height: 1,
-    width: 0,
+    width: 0
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -774,10 +743,10 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   hidden_slide: {
-    opacity: 0,
+    opacity: 0
   },
   input: {
     alignSelf: 'stretch',
@@ -785,13 +754,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   itemCategoryName: {
     color: '#FFFFFF',
     fontFamily: FontBreeBold,
     fontSize: 18,
-    position: 'absolute',
+    position: 'absolute'
   },
   itemRecommendTitle: {
     color: '#6D6E71',
@@ -799,13 +768,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 11,
     marginTop: 11,
-    maxWidth: 245,
+    maxWidth: 245
   },
   phone_slide: {
     flex: 1,
     height: undefined,
     width: undefined,
-    zIndex: 3,
+    zIndex: 3
   },
   renderItemTitle: {
     bottom: 24,
@@ -813,7 +782,7 @@ const styles = StyleSheet.create({
     fontFamily: FontBreeBold,
     fontSize: 22,
     left: 30,
-    position: 'absolute',
+    position: 'absolute'
   },
   searchInput: {
     backgroundColor: '#ffffff',
@@ -824,21 +793,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: Platform.OS === 'ios' ? 7 : 5,
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
   sliderAndroid: {
     // marginTop: 15,
     marginTop: 0,
     overflow: 'visible', // for custom animations
-    marginRight: -80,
+    marginRight: -80
   },
   swipesGestureContainer: {
-    width: '100%',
+    width: '100%'
   },
   tablet_slide: {
     flex: 1,
     minHeight: 600,
     width: undefined,
-    zIndex: 3,
-  },
-});
+    zIndex: 3
+  }
+})

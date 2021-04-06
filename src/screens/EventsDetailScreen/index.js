@@ -1,5 +1,5 @@
 /* eslint-disable react/sort-comp */
-import React from 'react';
+import React from 'react'
 import {
   Alert,
   Image,
@@ -12,84 +12,84 @@ import {
   FlatList,
   Dimensions,
   Linking,
-  TextInput,
-} from 'react-native';
+  TextInput
+} from 'react-native'
 
-import Loading from '../../components/Loading';
+import Loading from '../../components/Loading'
 
-import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import * as AddCalendarEvent from 'react-native-add-calendar-event'
 
-import debounce from 'lodash.debounce';
+import debounce from 'lodash.debounce'
 
-import axios from 'axios';
+import axios from 'axios'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Moment from 'moment';
+import Moment from 'moment'
 
-import FullWidthImage from 'react-native-fullwidth-image';
+import FullWidthImage from 'react-native-fullwidth-image'
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import getLocaleDate from '../../helpers/getLocaleDate';
+import getLocaleDate from '../../helpers/getLocaleDate'
 
-import env from '../../config';
+import env from '../../config'
 
-import { createIconSetFromFontello } from 'react-native-vector-icons';
-import HTML from 'react-native-render-html';
-import IconCreator from '../../components/Icon';
-import { externalLinks, axiosInstance, apiUrls } from '../../constants/api';
-import decodeHtmlEntities from '../../helpers/decodeHtmlEntities';
-import fontelloConfig from '../../assets/fonts/customicons-config.json';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import styles from './styles';
-import colors from '../../constants/colors';
-import ActionButton from '../../components/Details/ActionButton';
-import DataBox from '../../components/Details/DataBox';
-import SectionTitle from '../../components/Details/SectionTitle';
-import { htmlStyles } from '../../constants/htmlRendering';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import Ads from '../../components/UI/Ads';
-import Tweet from '../../components/Tweet';
-import YouTube from '../../components/YouTube';
-import GeneralAdmission from './components/GeneralAdmission';
-import i18n from '../../../i18n';
+import { createIconSetFromFontello } from 'react-native-vector-icons'
+import HTML from 'react-native-render-html'
+import IconCreator from '../../components/Icon'
+import { externalLinks, axiosInstance, apiUrls } from '../../constants/api'
+import decodeHtmlEntities from '../../helpers/decodeHtmlEntities'
+import fontelloConfig from '../../assets/fonts/customicons-config.json'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import styles from './styles'
+import colors from '../../constants/colors'
+import ActionButton from '../../components/Details/ActionButton'
+import DataBox from '../../components/Details/DataBox'
+import SectionTitle from '../../components/Details/SectionTitle'
+import { htmlStyles } from '../../constants/htmlRendering'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import Ads from '../../components/UI/Ads'
+import Tweet from '../../components/Tweet'
+import YouTube from '../../components/YouTube'
+import GeneralAdmission from './components/GeneralAdmission'
+import i18n from '../../../i18n'
 
-import openExternalLink from '../../helpers/openExternalLink';
+import openExternalLink from '../../helpers/openExternalLink'
 
-import extractTweets from '../../helpers/extractTweets';
+import extractTweets from '../../helpers/extractTweets'
 
-import Global from '../../components/global';
-import ScrollListContainer from '../../components/ScrollListContainer';
-import ScrollListItem from '../../components/ScrollListItem';
+import Global from '../../components/global'
+import ScrollListContainer from '../../components/ScrollListContainer'
+import ScrollListItem from '../../components/ScrollListItem'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
-const Icon = createIconSetFromFontello(fontelloConfig);
+const Icon = createIconSetFromFontello(fontelloConfig)
 
 export default class EventsDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('events.event_details'),
-    };
-  };
+      title: i18n.t('events.event_details')
+    }
+  }
 
   state = {
     searchText: '',
     user: {},
     dataSource: {
       isLoading: true,
-      eventItem: {},
+      eventItem: {}
     },
     isDescriptionVisible: false,
     relatedItems: {
       isLoading: true,
-      data: [],
+      data: []
     },
     relatedEventsButtons: {
       prevId: 0,
-      nextId: 0,
+      nextId: 0
     },
     modalIsOpen: false,
     ads: [],
@@ -99,44 +99,44 @@ export default class EventsDetailScreen extends React.Component {
     coordinates: {},
 
     premierOnline: false,
-    platinumList: false,
-  };
+    platinumList: false
+  }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     this.setState(
       {
-        user: JSON.parse(storedValue),
+        user: JSON.parse(storedValue)
       },
       () => {
-        this._getEvents();
-        this._getRelatedEvents();
+        this._getEvents()
+        this._getRelatedEvents()
       }
-    );
+    )
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props, prevProps)) {
-      this._getEvents();
+      this._getEvents()
     }
   }
 
   _getEvents = () => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    const eventId = navigation.getParam('id', '');
+    const eventId = navigation.getParam('id', '')
 
     // const eventId = 1374;
     // console.log('eventId', eventId, typeof eventId);
 
     let requests = [
       axiosInstance(apiUrls.getEventById(eventId) + '?langCode=' + i18n.locale.toUpperCase()),
-      axiosInstance(apiUrls.getAds(4, 0, 0) + '?langCode=' + i18n.locale.toUpperCase()),
-    ];
+      axiosInstance(apiUrls.getAds(4, 0, 0) + '?langCode=' + i18n.locale.toUpperCase())
+    ]
 
     if (Global.user.token && Global.user.token.length > 5) {
-      requests.push(axiosInstance(apiUrls.getBookmarks));
+      requests.push(axiosInstance(apiUrls.getBookmarks))
     }
 
     Promise.all(requests).then(([event, ads, bookmarks]) => {
@@ -148,30 +148,28 @@ export default class EventsDetailScreen extends React.Component {
         ads: ads.data,
         isBookmarked:
           !!bookmarks &&
-          !!bookmarks.data.find(
-            item => item.EntityName.toLowerCase() === 'event' && item.Eid === event.data.Id
-          ),
+          !!bookmarks.data.find(item => item.EntityName.toLowerCase() === 'event' && item.Eid === event.data.Id),
         dataSource: { eventItem: event.data, isLoading: false },
         isLoading: false,
         coordinates: {
           GeoLatitude: event.data.Geo_lat,
-          GeoLongitude: event.data.Geo_lng,
+          GeoLongitude: event.data.Geo_lng
         },
 
         premierOnline: Boolean(event.data.ExternalSource === 2), // PremierOnline
-        platinumList: Boolean(event.data.ExternalSource === 1), // PlatinumList
-      });
-    });
-  };
+        platinumList: Boolean(event.data.ExternalSource === 1) // PlatinumList
+      })
+    })
+  }
 
   _getRelatedEvents = () => {
     this.setState({
-      relatedItems: { data: [], isLoading: true },
-    });
+      relatedItems: { data: [], isLoading: true }
+    })
 
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
-    if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-      headers['auth-token'] = Global.user.token;
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
+    if (Global.user && Global.user.token && Global.user.token.length > 5) {
+      headers['auth-token'] = Global.user.token
     }
 
     fetch(
@@ -181,48 +179,44 @@ export default class EventsDetailScreen extends React.Component {
       )}?langCode=${i18n.locale.toUpperCase()}`,
       {
         method: 'GET',
-        headers,
+        headers
       }
     )
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.Items) {
           if (responseJson.Items.length > 40) {
-            responseJson.Items = responseJson.Items.slice(0, 40);
+            responseJson.Items = responseJson.Items.slice(0, 40)
           }
 
           this.setState({
-            relatedItems: { data: responseJson.Items, isLoading: false },
-          });
+            relatedItems: { data: responseJson.Items, isLoading: false }
+          })
         }
-      });
-  };
+      })
+  }
 
   toggleModal = () => {
     this.setState(prevState => ({
-      modalIsOpen: !prevState.modalIsOpen,
-    }));
-  };
+      modalIsOpen: !prevState.modalIsOpen
+    }))
+  }
 
   _toggleDescription = () => {
-    console.log(this.state.isDescriptionVisible);
+    console.log(this.state.isDescriptionVisible)
     this.setState({
-      isDescriptionVisible: !this.state.isDescriptionVisible,
-    });
-  };
+      isDescriptionVisible: !this.state.isDescriptionVisible
+    })
+  }
 
   _renderItemRelatedPosts = ({ item, index }) => (
     <TouchableOpacity
       onPress={() => {
-        this.props.navigation.push(`${item.EntityName}Detail`, { id: item.Id, object: item });
+        this.props.navigation.push(`${item.EntityName}Detail`, { id: item.Id, object: item })
       }}
     >
       <View style={index == 0 ? styles.boxShadowNoLeftMargin : styles.boxShadow} elevation={5}>
-        <Image
-          source={{ uri: item.ImageLandscapeThumbUrl }}
-          style={{ width: 257, height: 127 }}
-          resizeMode="cover"
-        />
+        <Image source={{ uri: item.ImageLandscapeThumbUrl }} style={{ width: 257, height: 127 }} resizeMode="cover" />
 
         <View style={{ height: 53 }}>
           <Text
@@ -235,7 +229,7 @@ export default class EventsDetailScreen extends React.Component {
               color: colors.basicText,
               fontSize: 12,
               fontFamily: fontFamily.gothamBold,
-              lineHeight: 19,
+              lineHeight: 19
             }}
           >
             {item.Title}
@@ -249,7 +243,7 @@ export default class EventsDetailScreen extends React.Component {
               marginLeft: 11,
               color: colors.basicText,
               fontSize: 11,
-              fontFamily: fontFamily.gothamMedium,
+              fontFamily: fontFamily.gothamMedium
             }}
           >
             {item.Excerpt}
@@ -264,7 +258,7 @@ export default class EventsDetailScreen extends React.Component {
             borderRadius: 60,
             borderColor: '#ffffff',
             borderWidth: 1,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#ffffff'
           }}
         >
           <Text
@@ -276,7 +270,7 @@ export default class EventsDetailScreen extends React.Component {
               fontFamily: fontFamily.gothamBold,
               paddingHorizontal: 12,
               paddingTop: 3,
-              paddingBottom: 3,
+              paddingBottom: 3
             }}
           >
             {item.EntityName}
@@ -284,51 +278,51 @@ export default class EventsDetailScreen extends React.Component {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  )
 
-  _listDividerRelatedPosts = () => <View style={styles.dividerContainerRecommended} />;
+  _listDividerRelatedPosts = () => <View style={styles.dividerContainerRecommended} />
 
   toggleBookmark = () => {
-    const { navigation } = this.props;
-    const { isBookmarked, dataSource } = this.state;
+    const { navigation } = this.props
+    const { isBookmarked, dataSource } = this.state
 
     const params = {
       Id: dataSource.eventItem.Id,
-      Entity: 'event',
-    };
+      Entity: 'event'
+    }
 
     // console.log(navigation.state.params)
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: false,
-        }));
+          isBookmarked: false
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: true,
-        }));
+          isBookmarked: true
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     }
-  };
+  }
 
   handleGaPurchase = () => {
-    console.log('Purchase handled');
-  };
+    console.log('Purchase handled')
+  }
 
   _getDate = item => {
-    const hasHours = Moment(item).hours() > 0;
-    let date = getLocaleDate(item);
+    const hasHours = Moment(item).hours() > 0
+    let date = getLocaleDate(item)
     return date ? (
       <Text
         style={{
@@ -337,83 +331,77 @@ export default class EventsDetailScreen extends React.Component {
           fontSize: 16,
           lineHeight: 22,
           marginTop: Platform.OS === 'ios' ? 4 : 4,
-          marginBottom: Platform.OS === 'ios' ? -4 : -4,
+          marginBottom: Platform.OS === 'ios' ? -4 : -4
         }}
       >
         {hasHours ? `${Moment().format('H:mm A')} ` : ''}
         {`${date}`}
       </Text>
-    ) : null;
-  };
+    ) : null
+  }
 
   getLocation = () => {
-    const { coordinates } = this.state;
+    const { coordinates } = this.state
 
     // console.log('coordinates', coordinates)
 
-    const url = externalLinks.getGoogleMapsUrl(coordinates.GeoLatitude, coordinates.GeoLongitude);
+    const url = externalLinks.getGoogleMapsUrl(coordinates.GeoLatitude, coordinates.GeoLongitude)
 
-    openExternalLink(url);
-  };
+    openExternalLink(url)
+  }
 
   setEvent() {
-    const { dataSource } = this.state;
+    const { dataSource } = this.state
 
-    const eventItem = dataSource.eventItem || {};
+    const eventItem = dataSource.eventItem || {}
 
     const eventConfig = {
       title: eventItem.Title || '',
       startDate: eventItem.EventDateTime ? Moment(eventItem.EventDateTime).toISOString() : '',
       endDate: eventItem.EventEndDateTime ? Moment(eventItem.EventEndDateTime).toISOString() : '',
       location: eventItem.VenueName || '',
-      notes: eventItem.Excerpt || '',
-    };
+      notes: eventItem.Excerpt || ''
+    }
 
     AddCalendarEvent.presentEventCreatingDialog(eventConfig)
       .then(eventInfo => {
-        console.log(JSON.stringify(eventInfo));
+        console.log(JSON.stringify(eventInfo))
       })
       .catch(error => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
 
   registerUser() {
-    const { dataSource } = this.state;
-    id =
-      dataSource && dataSource.eventItem && dataSource.eventItem.Id
-        ? dataSource.eventItem.Id
-        : false;
+    const { dataSource } = this.state
+    id = dataSource && dataSource.eventItem && dataSource.eventItem.Id ? dataSource.eventItem.Id : false
 
-    const requests = [axiosInstance.post(`${apiUrls.postEventRegister(id)}`)];
+    const requests = [axiosInstance.post(`${apiUrls.postEventRegister(id)}`)]
 
     Promise.all(requests)
       .then(([response]) => {
-        console.log('Response: ', response.data);
-        this._getEvents();
+        console.log('Response: ', response.data)
+        this._getEvents()
       })
-      .catch(e => console.log('Error:', e));
+      .catch(e => console.log('Error:', e))
   }
 
   unregisterUser() {
-    const { dataSource } = this.state;
-    id =
-      dataSource && dataSource.eventItem && dataSource.eventItem.Id
-        ? dataSource.eventItem.Id
-        : false;
+    const { dataSource } = this.state
+    id = dataSource && dataSource.eventItem && dataSource.eventItem.Id ? dataSource.eventItem.Id : false
 
-    const requests = [axiosInstance.post(`${apiUrls.postEventUnregister(id)}`)];
+    const requests = [axiosInstance.post(`${apiUrls.postEventUnregister(id)}`)]
 
     Promise.all(requests)
       .then(([response]) => {
-        console.log('Response: ', response.data);
-        this._getEvents();
+        console.log('Response: ', response.data)
+        this._getEvents()
       })
-      .catch(e => console.log('Error:', e));
+      .catch(e => console.log('Error:', e))
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation } = this.props
     const {
       dataSource,
       relatedItems,
@@ -423,47 +411,47 @@ export default class EventsDetailScreen extends React.Component {
       isBookmarked,
       isLoading,
       premierOnline,
-      platinumList,
-    } = this.state;
+      platinumList
+    } = this.state
 
     // console.log('~~~ premierOnline: ', Boolean( premierOnline ))
     // console.log('~~~ platinumList: ', Boolean( platinumList ))
 
     const groupIcon = IconCreator.getIcon(IconCreator.iconLibraries.materialIcons, 'group', {
       size: 22,
-      color: colors.basicText,
-    });
+      color: colors.basicText
+    })
 
-    let content = '';
+    let content = ''
 
-    const hasHours = Moment(dataSource.eventItem.EventDateTime).hours() > 0;
+    const hasHours = Moment(dataSource.eventItem.EventDateTime).hours() > 0
 
     if (dataSource.eventItem.Description) {
-      content = dataSource.eventItem.Description;
+      content = dataSource.eventItem.Description
     }
     if (dataSource.eventItem.Content) {
-      content = dataSource.eventItem.Content;
+      content = dataSource.eventItem.Content
     }
 
-    const decodedContent = decodeHtmlEntities(content.replace(/<(?:.|\n)*?>/gm, ''));
+    const decodedContent = decodeHtmlEntities(content.replace(/<(?:.|\n)*?>/gm, ''))
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // console.log('AdditionalInfo', Boolean(dataSource && dataSource.eventItem && dataSource.eventItem.AdditionalInfo));
 
-    const htmlWithTweets = extractTweets(content);
-    let YouTubeLinks = dataSource.eventItem.ExternalContent || [];
+    const htmlWithTweets = extractTweets(content)
+    let YouTubeLinks = dataSource.eventItem.ExternalContent || []
 
     const isRegistrationRequired =
       dataSource && dataSource.eventItem && dataSource.eventItem.IsRegistrationRequired
         ? dataSource.eventItem.IsRegistrationRequired
-        : false;
+        : false
     const isAlreadyRegistered =
       dataSource && dataSource.eventItem && dataSource.eventItem.IsAlreadyRegistered
         ? dataSource.eventItem.IsAlreadyRegistered
-        : false;
+        : false
 
     return (
       <View style={styles.container}>
@@ -471,13 +459,13 @@ export default class EventsDetailScreen extends React.Component {
         <ScrollView
           style={{ backgroundColor: '#d3d3d3', flex: 1 }}
           contentContainerStyle={{
-            paddingTop: 0,
+            paddingTop: 0
           }}
           onScroll={this._onScrollViewScroll}
         >
           <View
             style={{
-              marginHorizontal: 12,
+              marginHorizontal: 12
             }}
           >
             <View
@@ -487,7 +475,7 @@ export default class EventsDetailScreen extends React.Component {
                 flex: 1,
                 //paddingBottom: 25,
                 paddingBottom: 8,
-                paddingTop: 10,
+                paddingTop: 10
               }}
             >
               <View
@@ -499,7 +487,7 @@ export default class EventsDetailScreen extends React.Component {
                   borderTopRightRadius: 5,
                   overflow: 'hidden',
 
-                  backgroundColor: '#ffffff',
+                  backgroundColor: '#ffffff'
                 }}
               >
                 <FullWidthImage source={{ uri: dataSource.eventItem.ImageSquareThumbURL }} />
@@ -516,13 +504,13 @@ export default class EventsDetailScreen extends React.Component {
                   borderBottomRightRadius: 5,
                   overflow: 'hidden',
 
-                  backgroundColor: '#ffffff',
+                  backgroundColor: '#ffffff'
                 }}
               >
                 <View
                   style={{
                     marginTop: 10,
-                    marginBottom: 5,
+                    marginBottom: 5
                   }}
                 >
                   <SectionTitle
@@ -538,19 +526,19 @@ export default class EventsDetailScreen extends React.Component {
                     flexDirection: 'column',
                     marginBottom: 20,
                     //marginLeft: 2,
-                    marginTop: 4,
+                    marginTop: 4
                   }}
                 >
                   <TouchableOpacity
                     style={{
-                      marginBottom: 4,
+                      marginBottom: 4
                     }}
                     onPress={this.getLocation}
                   >
                     <View
                       style={{
                         flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                        flex: 1,
+                        flex: 1
                       }}
                     >
                       <Icon
@@ -560,11 +548,11 @@ export default class EventsDetailScreen extends React.Component {
                           marginTop: 2,
                           ...(i18n.locale.toLowerCase() == 'en'
                             ? {
-                                marginRight: 8,
+                                marginRight: 8
                               }
                             : {
-                                marginLeft: 8,
-                              }),
+                                marginLeft: 8
+                              })
                         }}
                       />
                       <Text
@@ -572,7 +560,7 @@ export default class EventsDetailScreen extends React.Component {
                         adjustsFontSizeToFit
                         style={{
                           fontFamily: fontFamily.gothamMedium,
-                          fontSize: 14,
+                          fontSize: 14
                         }}
                       >
                         {dataSource.eventItem.VenueName}
@@ -584,7 +572,7 @@ export default class EventsDetailScreen extends React.Component {
                     style={{
                       flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                       marginTop: 10,
-                      marginLeft: -16,
+                      marginLeft: -16
                       // borderWidth: 1,
                       // borderColor: '#ff0000',
                     }}
@@ -595,19 +583,19 @@ export default class EventsDetailScreen extends React.Component {
                         flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                         flexGrow: 0,
                         flexShrink: 0,
-                        flexBasis: 'auto',
+                        flexBasis: 'auto'
                         // borderWidth: 1,
                         // borderColor: '#ff0000',
                       }}
                       activeOpacity={0.9}
                       onPress={() => {
-                        this.setEvent();
+                        this.setEvent()
                       }}
                     >
                       <View
                         style={{
                           ...styles.dateStyle,
-                          flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+                          flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
                         }}
                       >
                         <Icon
@@ -617,12 +605,12 @@ export default class EventsDetailScreen extends React.Component {
                           style={{
                             ...(i18n.locale.toLowerCase() == 'en'
                               ? {
-                                  marginRight: 8,
+                                  marginRight: 8
                                 }
                               : {
-                                  marginLeft: 8,
+                                  marginLeft: 8
                                 }),
-                            marginTop: 3,
+                            marginTop: 3
                           }}
                         />
                         {this._getDate(dataSource.eventItem.EventDateTime)}
@@ -632,18 +620,18 @@ export default class EventsDetailScreen extends React.Component {
                           ...(i18n.locale.toLowerCase() == 'en'
                             ? {
                                 borderRightWidth: 30,
-                                borderRightColor: 'transparent',
+                                borderRightColor: 'transparent'
                               }
                             : {
                                 borderLeftWidth: 30,
-                                borderLeftColor: 'transparent',
+                                borderLeftColor: 'transparent'
                               }),
                           borderTopWidth: 34,
                           borderTopColor: '#2F8C83',
                           width: 0,
                           height: 0,
                           backgroundColor: 'transparent',
-                          borderStyle: 'solid',
+                          borderStyle: 'solid'
                         }}
                       />
                     </TouchableOpacity>
@@ -662,14 +650,14 @@ export default class EventsDetailScreen extends React.Component {
                               link={YouTubeLinks.shift()}
                               //links={dataSource.newsItem.ExternalContent}
                             />
-                          );
+                          )
                         },
                         tweet: attributes => {
                           if (attributes.tweet) {
-                            const tweet = htmlWithTweets.tweets[attributes.tweet];
-                            return <Tweet key={Date.now() + '-' + Math.random()} tweet={tweet} />;
+                            const tweet = htmlWithTweets.tweets[attributes.tweet]
+                            return <Tweet key={Date.now() + '-' + Math.random()} tweet={tweet} />
                           }
-                          return null;
+                          return null
                         },
                         a: (htmlAttribs, children, convertedCSSStyles, passProps) => {
                           if (htmlAttribs.href) {
@@ -680,20 +668,20 @@ export default class EventsDetailScreen extends React.Component {
                               >
                                 {children}
                               </Text>
-                            );
+                            )
                           }
-                        },
+                        }
                       }}
                       baseFontStyle={{
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                       }}
                       tagsStyles={{
                         ...htmlStyles,
                         img: {
                           maxWidth: '100%',
                           marginTop: 4,
-                          marginBottom: 4,
-                        },
+                          marginBottom: 4
+                        }
                       }}
                     />
                   </>
@@ -702,22 +690,18 @@ export default class EventsDetailScreen extends React.Component {
                 {dataSource.eventItem.IsReservedSeating && !dataSource.eventItem.IsFree && (
                   <View style={{ paddingHorizontal: 10 }}>
                     <View style={{ marginBottom: 10 }}>
-                      <Text style={{ fontFamily: fontFamily.gothamMedium }}>
-                        {i18n.t('events.available_tickets')}
-                      </Text>
+                      <Text style={{ fontFamily: fontFamily.gothamMedium }}>{i18n.t('events.available_tickets')}</Text>
                     </View>
                     <Text
                       style={{ fontFamily: fontFamily.gothamMedium, marginBottom: 20 }}
                     >{`from ${dataSource.eventItem.MinPrice} ${dataSource.eventItem.Currency}`}</Text>
                     <TouchableOpacity
                       onPress={() => {
-                        if (
-                          Boolean(Global.user && Global.user.token && Global.user.token.length > 5)
-                        ) {
+                        if (Global.user && Global.user.token && Global.user.token.length > 5) {
                           navigation.navigate('SeatReservationScreen', {
                             eventId: dataSource.eventItem.Id,
-                            event: dataSource.eventItem,
-                          });
+                            event: dataSource.eventItem
+                          })
                         } else {
                           Alert.alert(
                             i18n.t('alerts.unauth_buy_tickets'),
@@ -725,17 +709,17 @@ export default class EventsDetailScreen extends React.Component {
                             [
                               {
                                 text: i18n.t('alerts.login'),
-                                onPress: () => this.props.navigation.navigate('SignIn', {}),
+                                onPress: () => this.props.navigation.navigate('SignIn', {})
                               },
                               {
                                 text: i18n.t('alerts.cancel'),
-                                style: 'cancel',
-                              },
+                                style: 'cancel'
+                              }
                             ],
                             {
-                              cancelable: false,
+                              cancelable: false
                             }
-                          );
+                          )
                         }
                       }}
                       style={{
@@ -744,14 +728,14 @@ export default class EventsDetailScreen extends React.Component {
                         height: 50,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginBottom: 10,
+                        marginBottom: 10
                       }}
                     >
                       <Text
                         style={{
                           fontFamily: fontFamily.gothamMedium,
                           color: '#ffffff',
-                          fontSize: 20,
+                          fontSize: 20
                         }}
                       >
                         {i18n.t('events.buy_tickets')}
@@ -764,18 +748,17 @@ export default class EventsDetailScreen extends React.Component {
               <View
                 style={{
                   paddingLeft: 0,
-                  paddingRight: 0,
+                  paddingRight: 0
                 }}
               >
-                {dataSource.eventItem.Infographics &&
-                dataSource.eventItem.Infographics.length > 0 ? (
+                {dataSource.eventItem.Infographics && dataSource.eventItem.Infographics.length > 0 ? (
                   <>
                     <View
                       style={{
                         flex: 1,
                         flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                         marginBottom: 10,
-                        marginTop: 22,
+                        marginTop: 22
                         // marginTop: 5,
                         // marginBottom: 0,
                       }}
@@ -788,7 +771,7 @@ export default class EventsDetailScreen extends React.Component {
                           flexBasis: 'auto',
                           paddingRight: i18n.locale.toLowerCase() == 'en' ? 16 : 0,
                           paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 16,
-                          justifyContent: 'center',
+                          justifyContent: 'center'
                         }}
                       >
                         <Text
@@ -796,7 +779,7 @@ export default class EventsDetailScreen extends React.Component {
                             fontFamily: fontFamily.gothamBold,
                             fontSize: 15,
                             color: '#0177C1',
-                            lineHeight: 21,
+                            lineHeight: 21
                           }}
                         >
                           {i18n.t('events.did_you_know')}
@@ -826,7 +809,7 @@ export default class EventsDetailScreen extends React.Component {
                       style={{
                         flex: 1,
                         flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                        backgroundColor: `${dataSource.eventItem.Infographics[0].ColorCode}`,
+                        backgroundColor: `${dataSource.eventItem.Infographics[0].ColorCode}`
                       }}
                     >
                       <View
@@ -839,12 +822,12 @@ export default class EventsDetailScreen extends React.Component {
                           // borderWidth: 1,
                           // borderColor: '#ff00ff',
                           alignItems: 'center',
-                          justifyContent: 'center',
+                          justifyContent: 'center'
                         }}
                       >
                         <FullWidthImage
                           source={{
-                            uri: dataSource.eventItem.Infographics[0].ImageThumbURL,
+                            uri: dataSource.eventItem.Infographics[0].ImageThumbURL
                           }}
                         />
                       </View>
@@ -857,7 +840,7 @@ export default class EventsDetailScreen extends React.Component {
                           // alignItems: "center",
                           justifyContent: 'center',
                           paddingTop: 18,
-                          paddingBottom: 14,
+                          paddingBottom: 14
                         }}
                       >
                         {dataSource.eventItem.Infographics[0].HeadingText ? (
@@ -873,7 +856,7 @@ export default class EventsDetailScreen extends React.Component {
                               paddingRight: i18n.locale.toLowerCase() == 'en' ? 10 : 20,
                               paddingBottom: 0,
                               lineHeight: 28,
-                              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                               // borderWidth: 1,
                               // borderColor: '#ff00ff',
                             }}
@@ -894,7 +877,7 @@ export default class EventsDetailScreen extends React.Component {
                             lineHeight: 21,
                             // borderWidth: 1,
                             // borderColor: '#ff00ff',
-                            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                           }}
                         >
                           {dataSource.eventItem.Infographics[0].DescriptionText}
@@ -912,7 +895,7 @@ export default class EventsDetailScreen extends React.Component {
                         marginTop: 32,
                         marginBottom: -16,
                         marginLeft: -15,
-                        marginRight: -15,
+                        marginRight: -15
                       }}
                     >
                       <GeneralAdmission
@@ -932,7 +915,7 @@ export default class EventsDetailScreen extends React.Component {
                         marginBottom: 20,
                         backgroundColor: '#ffffff',
                         paddingTop: 10,
-                        paddingHorizontal: 16,
+                        paddingHorizontal: 16
                       }}
                     >
                       <Text
@@ -941,7 +924,7 @@ export default class EventsDetailScreen extends React.Component {
                           color: colors.basicText,
                           fontSize: fontSize.large,
                           marginBottom: 16,
-                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                         }}
                       >
                         {i18n.t('events.event_registration')}
@@ -953,7 +936,7 @@ export default class EventsDetailScreen extends React.Component {
                           color: colors.themeColor,
                           fontSize: fontSize.extraRegular,
                           marginBottom: 2,
-                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                         }}
                       >
                         {i18n.t('events.first_name')}
@@ -967,11 +950,9 @@ export default class EventsDetailScreen extends React.Component {
                         style={{
                           ...styles.searchFieldList,
                           textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-                          marginBottom: 16,
+                          marginBottom: 16
                         }}
-                        value={
-                          Global.user && Global.user.firstName ? Global.user.firstName.trim() : ''
-                        }
+                        value={Global.user && Global.user.firstName ? Global.user.firstName.trim() : ''}
                       />
 
                       <Text
@@ -980,7 +961,7 @@ export default class EventsDetailScreen extends React.Component {
                           color: colors.themeColor,
                           fontSize: fontSize.extraRegular,
                           marginBottom: 2,
-                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                         }}
                       >
                         {i18n.t('events.last_name')}
@@ -994,11 +975,9 @@ export default class EventsDetailScreen extends React.Component {
                         style={{
                           ...styles.searchFieldList,
                           textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-                          marginBottom: 24,
+                          marginBottom: 24
                         }}
-                        value={
-                          Global.user && Global.user.lastName ? Global.user.lastName.trim() : ''
-                        }
+                        value={Global.user && Global.user.lastName ? Global.user.lastName.trim() : ''}
                       />
 
                       {isAlreadyRegistered ? (
@@ -1007,7 +986,7 @@ export default class EventsDetailScreen extends React.Component {
                             backgroundColor: colors.warningBackgroundAlt,
                             borderRadius: 5,
                             marginBottom: 16,
-                            padding: 10,
+                            padding: 10
                           }}
                         >
                           <Text
@@ -1015,7 +994,7 @@ export default class EventsDetailScreen extends React.Component {
                               fontFamily: fontFamily.gothamRegular,
                               fontSize: fontSize.small,
                               color: colors.basicLightText,
-                              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                              textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                             }}
                           >
                             {i18n.t('events.event_already_registered')}
@@ -1026,10 +1005,8 @@ export default class EventsDetailScreen extends React.Component {
 
                     <ActionButton
                       onPress={() => {
-                        if (
-                          Boolean(Global.user && Global.user.token && Global.user.token.length > 5)
-                        ) {
-                          isAlreadyRegistered ? this.unregisterUser() : this.registerUser();
+                        if (Global.user && Global.user.token && Global.user.token.length > 5) {
+                          isAlreadyRegistered ? this.unregisterUser() : this.registerUser()
                         } else {
                           Alert.alert(
                             i18n.t('alerts.unauth_buy_tickets'),
@@ -1037,35 +1014,29 @@ export default class EventsDetailScreen extends React.Component {
                             [
                               {
                                 text: i18n.t('alerts.login'),
-                                onPress: () => this.props.navigation.navigate('SignIn', {}),
+                                onPress: () => this.props.navigation.navigate('SignIn', {})
                               },
                               {
                                 text: i18n.t('alerts.cancel'),
-                                style: 'cancel',
-                              },
+                                style: 'cancel'
+                              }
                             ],
                             {
-                              cancelable: false,
+                              cancelable: false
                             }
-                          );
+                          )
                         }
                       }}
-                      label={
-                        isAlreadyRegistered
-                          ? i18n.t('events.event_unregister')
-                          : i18n.t('events.event_register')
-                      }
+                      label={isAlreadyRegistered ? i18n.t('events.event_unregister') : i18n.t('events.event_register')}
                     />
                   </>
                 ) : null}
 
-                {Boolean(
-                  dataSource && dataSource.eventItem && Boolean(dataSource.eventItem.AdditionalInfo)
-                ) && (
+                {Boolean(dataSource && dataSource.eventItem && Boolean(dataSource.eventItem.AdditionalInfo)) && (
                   <View
                     style={{
                       marginTop: 32,
-                      marginBottom: 8,
+                      marginBottom: 8
                     }}
                   >
                     <Text
@@ -1076,7 +1047,7 @@ export default class EventsDetailScreen extends React.Component {
                         fontFamily: fontFamily.gothamMedium,
                         textTransform: 'uppercase',
                         marginBottom: 12,
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                       }}
                     >
                       {i18n.t('more.additional_info')}
@@ -1088,7 +1059,7 @@ export default class EventsDetailScreen extends React.Component {
                         backgroundColor: '#ffffff',
                         paddingHorizontal: 16,
                         paddingVertical: 14,
-                        paddingBottom: 0,
+                        paddingBottom: 0
                       }}
                     >
                       <HTML
@@ -1103,20 +1074,20 @@ export default class EventsDetailScreen extends React.Component {
                                 >
                                   {children}
                                 </Text>
-                              );
+                              )
                             }
-                          },
+                          }
                         }}
                         baseFontStyle={{
-                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                         }}
                         tagsStyles={{
                           ...htmlStyles,
                           img: {
                             maxWidth: '100%',
                             marginTop: 4,
-                            marginBottom: 4,
-                          },
+                            marginBottom: 4
+                          }
                         }}
                       />
                     </View>
@@ -1130,13 +1101,10 @@ export default class EventsDetailScreen extends React.Component {
                       // borderWidth: 1,
                       marginTop: 16,
                       marginLeft: -12,
-                      marginRight: -12,
+                      marginRight: -12
                     }}
                   >
-                    <ScrollListContainer
-                      headingLabel={i18n.t('events.related')}
-                      targetScreen="Events"
-                    >
+                    <ScrollListContainer headingLabel={i18n.t('events.related')} targetScreen="Events">
                       <FlatList
                         data={relatedItems.data}
                         renderItem={({ item, index }) => (
@@ -1147,7 +1115,7 @@ export default class EventsDetailScreen extends React.Component {
                             key={index}
                             navigationModel={{
                               targetScreen: `${item.EntityName}Detail`,
-                              data: { id: item.Id, object: item },
+                              data: { id: item.Id, object: item }
                             }}
                           />
                         )}
@@ -1175,15 +1143,15 @@ export default class EventsDetailScreen extends React.Component {
                 width: '100%',
                 paddingBottom: 25,
                 paddingTop: 0,
-                paddingHorizontal: 15,
+                paddingHorizontal: 15
               }}
             >
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.push('EventDetail', {
                     id: relatedEventsButtons.nextId,
-                    object: {},
-                  });
+                    object: {}
+                  })
                 }}
                 style={{
                   padding: 10,
@@ -1191,7 +1159,7 @@ export default class EventsDetailScreen extends React.Component {
                   backgroundColor: '#2F8C83',
                   borderRadius: 30,
                   justifyContent: 'center',
-                  alignItems: 'center',
+                  alignItems: 'center'
                 }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1201,7 +1169,7 @@ export default class EventsDetailScreen extends React.Component {
                       fontFamily: fontFamily.gothamBold,
                       fontSize: 15,
                       color: colors.basicLightText,
-                      marginLeft: 10,
+                      marginLeft: 10
                     }}
                   >
                     {i18n.t('events.next_event')}
@@ -1212,6 +1180,6 @@ export default class EventsDetailScreen extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }

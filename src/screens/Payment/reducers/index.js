@@ -1,21 +1,21 @@
-import { handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions'
 
 export const defaultState = {
-  successCallbacks: [],
-};
+  successCallbacks: []
+}
 
 const reducer = handleActions(
   {
     ADD_SUCCESS_CALLBACK: (state, action) => ({
       ...state,
-      successCallbacks: [...state.successCallbacks, action.payload],
+      successCallbacks: [...state.successCallbacks, action.payload]
     }),
     CLEAR_SUCCESS_CALLBACKS: state => ({
       ...state,
-      successCallbacks: [],
-    }),
+      successCallbacks: []
+    })
   },
   defaultState
-);
+)
 
-export default reducer;
+export default reducer

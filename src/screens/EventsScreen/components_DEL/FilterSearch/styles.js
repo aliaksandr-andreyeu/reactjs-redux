@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.brandColorBright,
     flexDirection: 'row',
 
-    alignItems: 'center',
+    alignItems: 'center'
   },
   iconContainer: {
-    width: 30,
+    width: 30
   },
   input: {
     paddingLeft: 15,
@@ -22,16 +22,16 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.gothamMedium,
     color: colors.basicLightText,
     borderRadius: 5,
-    flex: 1,
+    flex: 1
   },
   focusedInput: {
     backgroundColor: colors.backgroundLight,
-    color: colors.basicText,
+    color: colors.basicText
   },
   icon: {
     position: 'absolute',
-    right: 25,
-  },
-});
+    right: 25
+  }
+})
 
-export default styles;
+export default styles

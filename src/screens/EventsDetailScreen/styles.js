@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
 const styles = StyleSheet.create({
   searchFieldList: {
@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8C9091',
 
-    borderRadius: 3,
+    borderRadius: 3
   },
   bodyViewStyle: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   boxShadow: {
     backgroundColor: '#ffffff',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   boxShadowNoLeftMargin: {
     backgroundColor: '#ffffff',
@@ -57,15 +57,15 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   commonTextStyle: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 18
   },
   container: {
     backgroundColor: colors.backgroundLight,
-    flex: 1,
+    flex: 1
   },
   dateStyle: {
     backgroundColor: '#2F8C83',
@@ -76,26 +76,26 @@ const styles = StyleSheet.create({
     paddingLeft: 13,
     paddingRight: 15,
     minWidth: 150,
-    flexWrap: 'nowrap',
+    flexWrap: 'nowrap'
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   dividerContainer: {
     height: 1,
-    width: 25,
+    width: 25
   },
   dividerContainerEvent: {
     height: 19,
-    width: 1,
+    width: 1
   },
   dividerContainerRecommended: {
     height: 1,
-    width: 0,
+    width: 0
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -103,27 +103,27 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   headerLayoutStyle: {
     alignItems: 'center',
     backgroundColor: 'orange',
     height: 100,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   horizontalLine: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     marginBottom: 24,
     marginTop: 24,
-    opacity: 0.1,
+    opacity: 0.1
   },
   horizontalLineDate: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     marginBottom: 10,
     marginTop: 10,
-    opacity: 0.1,
+    opacity: 0.1
   },
   input: {
     alignSelf: 'stretch',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   searchInput: {
     alignContent: 'flex-start',
@@ -146,14 +146,14 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    textAlign: 'left',
+    textAlign: 'left'
   },
   slidingPanelLayoutStyle: {
     alignItems: 'center',
     backgroundColor: '#7E52A0',
     flex: 1,
     justifyContent: 'center',
-    minHeight: 500,
+    minHeight: 500
   },
   ticketPriceContainer: {
     backgroundColor: colors.secondaryBackgroundLight,
@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 11,
-    marginBottom: 15,
+    marginBottom: 15
   },
   ticketPriceText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
     color: colors.basicText,
-    marginLeft: 15,
+    marginLeft: 15
   },
   ticketPurchaseContainer: {
     height: 50,
@@ -175,24 +175,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 15,
-    borderRadius: 5,
+    borderRadius: 5
   },
   ticketPurchaseText: {
     color: colors.basicLightText,
     fontSize: fontSize.large + 2,
-    fontFamily: fontFamily.gothamMedium,
+    fontFamily: fontFamily.gothamMedium
   },
   text: {
     color: colors.basicText,
     fontSize: fontSize.medium,
-    fontFamily: fontFamily.gothamMedium,
+    fontFamily: fontFamily.gothamMedium
   },
   boldText: {
-    fontFamily: fontFamily.boldText,
+    fontFamily: fontFamily.boldText
   },
   paddedWrapper: {
-    paddingHorizontal: 15,
-  },
-});
+    paddingHorizontal: 15
+  }
+})
 
-export default styles;
+export default styles

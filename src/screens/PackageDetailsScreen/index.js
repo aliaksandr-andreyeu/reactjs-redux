@@ -1,48 +1,48 @@
-import moment from 'moment';
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Image, ScrollView, View, Text, TouchableOpacity, Alert, Dimensions } from 'react-native';
-import propTypes from 'prop-types';
-import styles from './styles';
-import SectionTitle from '../../components/Details/SectionTitle';
-import ActionButton from '../../components/Details/ActionButton';
-import VenueLine from '../../components/Details/VenueLine';
-import Counter from '../../components/UI/Counter';
-import * as actions from './actions';
-import ModalComponent from '../../components/UI/ModalComponent';
-import Loading from '../../components/Loading';
-import TimeScreen from '../PackageOptionScreens/TimeScreen';
+import moment from 'moment'
+import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { Image, ScrollView, View, Text, TouchableOpacity, Alert, Dimensions } from 'react-native'
+import propTypes from 'prop-types'
+import styles from './styles'
+import SectionTitle from '../../components/Details/SectionTitle'
+import ActionButton from '../../components/Details/ActionButton'
+import VenueLine from '../../components/Details/VenueLine'
+import Counter from '../../components/UI/Counter'
+import * as actions from './actions'
+import ModalComponent from '../../components/UI/ModalComponent'
+import Loading from '../../components/Loading'
+import TimeScreen from '../PackageOptionScreens/TimeScreen'
 
-import HTML from 'react-native-render-html';
-import { htmlStyles } from '../../constants/htmlRendering';
+import HTML from 'react-native-render-html'
+import { htmlStyles } from '../../constants/htmlRendering'
 
-import { NavHeaderUser } from '../../components/NavHeaderUser';
+import { NavHeaderUser } from '../../components/NavHeaderUser'
 
-import { externalLinks, axiosInstance, apiUrls } from '../../constants/api';
-import openExternalLink from '../../helpers/openExternalLink';
+import { externalLinks, axiosInstance, apiUrls } from '../../constants/api'
+import openExternalLink from '../../helpers/openExternalLink'
 
-import { formatISODate } from '../../helpers/miscHelpers';
-import SsaOption from '../SsaMainScreen/components/SsaOption';
-import i18n from '../../../i18n';
-import Global from '../../components/global';
+import { formatISODate } from '../../helpers/miscHelpers'
+import SsaOption from '../SsaMainScreen/components/SsaOption'
+import i18n from '../../../i18n'
+import Global from '../../components/global'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
-import colors from '../../constants/colors';
-import { fontFamily, fontSize } from '../../constants/fonts';
+import colors from '../../constants/colors'
+import { fontFamily, fontSize } from '../../constants/fonts'
 
-import getLocaleDate from '../../helpers/getLocaleDate';
+import getLocaleDate from '../../helpers/getLocaleDate'
 
 class PackageDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: i18n.t('activities.title'),
-      headerRight: <NavHeaderUser {...navigation} />,
-    };
-  };
+      headerRight: <NavHeaderUser {...navigation} />
+    }
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       numberOfParticipants: 1,
       modalIsVisible: false,
@@ -53,20 +53,20 @@ class PackageDetailsScreen extends Component {
 
       isPristine: true,
       isBookmarked: false,
-      screenWidth: Math.round(Dimensions.get('window').width),
-    };
+      screenWidth: Math.round(Dimensions.get('window').width)
+    }
   }
 
   windowDimensions() {
     this.setState({
-      screenWidth: Math.round(Dimensions.get('window').width),
-    });
+      screenWidth: Math.round(Dimensions.get('window').width)
+    })
   }
 
   getActivityData() {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    const id = navigation.getParam('id') ? navigation.getParam('id') : false;
+    const id = navigation.getParam('id') ? navigation.getParam('id') : false
 
     // const id = 95;
     // console.log('id', id, typeof id);
@@ -75,12 +75,10 @@ class PackageDetailsScreen extends Component {
     if (id !== undefined) {
       this.setState(
         {
-          isBookmarked: Global.isBookmarked(id, 'package'),
+          isBookmarked: Global.isBookmarked(id, 'package')
         },
         () => {
-          axiosInstance(
-            `${apiUrls.getSsaTimeslotsById(id)}?languageCode=${i18n.locale.toUpperCase()}`
-          )
+          axiosInstance(`${apiUrls.getSsaTimeslotsById(id)}?languageCode=${i18n.locale.toUpperCase()}`)
             .then(({ data }) => {
               // console.log(`${apiUrls.getSsaTimeslotsById(id)}?languageCode=${i18n.locale.toUpperCase()}`);
               // console.log(apiUrls.getSsaTimeslotsById(id), data.Days);
@@ -89,71 +87,71 @@ class PackageDetailsScreen extends Component {
               this.setState({
                 availableDates: data.Days,
                 activityData: data.PackageDetails,
-                isLoading: false,
-              });
+                isLoading: false
+              })
 
               // console.log('Fetch Activity Data', data.Days );
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         }
-      );
+      )
     }
   }
 
   componentDidMount() {
-    Dimensions.addEventListener('change', () => this.windowDimensions());
+    Dimensions.addEventListener('change', () => this.windowDimensions())
 
-    const { clearForm } = this.props;
+    const { clearForm } = this.props
 
-    clearForm();
-    this.getActivityData();
+    clearForm()
+    this.getActivityData()
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', () => this.windowDimensions());
+    Dimensions.removeEventListener('change', () => this.windowDimensions())
   }
 
   componentDidUpdate(prevProps) {
-    const { navigation, clearForm } = this.props;
+    const { navigation, clearForm } = this.props
 
     if (!isEqual(navigation, prevProps.navigation)) {
-      clearForm();
-      this.getActivityData();
+      clearForm()
+      this.getActivityData()
     }
   }
 
   setNumberOfParticipants = value => {
-    const { activityData } = this.state;
+    const { activityData } = this.state
 
-    const { MaxParticipants, IsExclusive } = activityData ? activityData : {};
+    const { MaxParticipants, IsExclusive } = activityData ? activityData : {}
 
     if (MaxParticipants !== undefined && MaxParticipants >= +value && +value > 0) {
       this.setState({
-        numberOfParticipants: IsExclusive ? 1 : +value,
-      });
+        numberOfParticipants: IsExclusive ? 1 : +value
+      })
     }
-  };
+  }
 
   toggleTimeModal = time => {
-    const { updateStore } = this.props;
-    const { startTime, endTime, timeSlotId } = time || {};
+    const { updateStore } = this.props
+    const { startTime, endTime, timeSlotId } = time || {}
 
     this.setState(
       prevState => ({
-        modalIsVisible: !prevState.modalIsVisible,
+        modalIsVisible: !prevState.modalIsVisible
       }),
       startTime && endTime !== undefined && timeSlotId >= 0
         ? () => updateStore({ startTime, endTime, timeSlotId })
         : () => false
-    );
-  };
+    )
+  }
 
   getSubFacilities = () => {
-    const { date, timeSlotId } = this.props;
-    const { availableDates } = this.state;
+    const { date, timeSlotId } = this.props
+    const { availableDates } = this.state
 
     if (timeSlotId < 0) {
-      return [];
+      return []
     }
 
     // console.log('availableDates', Object.keys(availableDates).length > 0);
@@ -161,42 +159,42 @@ class PackageDetailsScreen extends Component {
     const timeSlot =
       availableDates && Object.keys(availableDates).length > 0 && availableDates[date]
         ? availableDates[date].find(item => item.Id === timeSlotId)
-        : false;
+        : false
 
     if (timeSlot) {
-      return timeSlot.SubFacilities || [];
+      return timeSlot.SubFacilities || []
     }
 
     // console.log('timeSlot.SubFacilities', timeSlot.SubFacilities || [])
 
-    return [];
-  };
+    return []
+  }
 
   getSubFacilityValue = defaultTitle => {
-    const { subFacilityId } = this.props;
+    const { subFacilityId } = this.props
 
     if (subFacilityId < 0) {
-      return defaultTitle;
+      return defaultTitle
     }
 
-    const subFacilities = this.getSubFacilities();
+    const subFacilities = this.getSubFacilities()
 
     if (subFacilities && subFacilities.length) {
-      let subId = subFacilities.find(item => item.Id === subFacilityId);
-      return subId && subId.Title ? subId.Title : '';
+      let subId = subFacilities.find(item => item.Id === subFacilityId)
+      return subId && subId.Title ? subId.Title : ''
     }
 
-    return defaultTitle;
-  };
+    return defaultTitle
+  }
 
   bookPackage = () => {
-    if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-      const { date, startTime, timeSlotId, subFacilityId, navigation } = this.props;
-      const { numberOfParticipants } = this.state;
+    if (Global.user && Global.user.token && Global.user.token.length > 5) {
+      const { date, startTime, timeSlotId, subFacilityId, navigation } = this.props
+      const { numberOfParticipants } = this.state
 
-      const packageId = navigation.getParam('id') ? navigation.getParam('id') : false;
+      const packageId = navigation.getParam('id') ? navigation.getParam('id') : false
 
-      const validatedFields = this.validateOnSubmit();
+      const validatedFields = this.validateOnSubmit()
 
       if (!validatedFields.hasErrors) {
         const params = {
@@ -204,16 +202,16 @@ class PackageDetailsScreen extends Component {
           ActivityDate: formatISODate(date, startTime),
           TimeSlotId: timeSlotId,
           SubFacilityId: subFacilityId,
-          ParticipantsNumber: numberOfParticipants,
-        };
+          ParticipantsNumber: numberOfParticipants
+        }
         axiosInstance
           .post(apiUrls.postBookPackage, params)
           .then(res => {
-            navigation.navigate('Cart');
+            navigation.navigate('Cart')
           })
           .catch(err => {
-            console.log(err);
-          });
+            console.log(err)
+          })
       }
     } else {
       Alert.alert(
@@ -222,19 +220,19 @@ class PackageDetailsScreen extends Component {
         [
           {
             text: i18n.t('alerts.login'),
-            onPress: () => this.props.navigation.navigate('SignIn', {}),
+            onPress: () => this.props.navigation.navigate('SignIn', {})
           },
           {
             text: i18n.t('alerts.cancel'),
-            style: 'cancel',
-          },
+            style: 'cancel'
+          }
         ],
         {
-          cancelable: false,
+          cancelable: false
         }
-      );
+      )
     }
-  };
+  }
 
   /*
   changePackage = item => {
@@ -262,7 +260,7 @@ class PackageDetailsScreen extends Component {
   */
 
   getValidatedFields = () => {
-    const { date, startTime, endTime, timeSlotId, subFacilityId } = this.props;
+    const { date, startTime, endTime, timeSlotId, subFacilityId } = this.props
 
     // const { numberOfParticipants } = this.state;
 
@@ -271,68 +269,68 @@ class PackageDetailsScreen extends Component {
       date: !date,
       // time: !startTime || endTime == undefined || timeSlotId < 0,
       time: !startTime || timeSlotId < 0,
-      subFacility: subFacilityId < 0,
-    };
+      subFacility: subFacilityId < 0
+    }
 
-    validatedFields.hasErrors = Object.values(validatedFields).some(field => field);
+    validatedFields.hasErrors = Object.values(validatedFields).some(field => field)
 
-    return validatedFields;
-  };
+    return validatedFields
+  }
 
   validateOnSubmit = () => {
     this.setState({
-      isPristine: false,
-    });
+      isPristine: false
+    })
 
-    return this.getValidatedFields();
-  };
+    return this.getValidatedFields()
+  }
 
   toggleBookmark = () => {
-    const { navigation } = this.props;
-    const { isBookmarked } = this.state;
+    const { navigation } = this.props
+    const { isBookmarked } = this.state
 
-    const id = navigation.getParam('id') ? navigation.getParam('id') : false;
+    const id = navigation.getParam('id') ? navigation.getParam('id') : false
 
     const params = {
       Id: id,
-      Entity: 'package',
-    };
+      Entity: 'package'
+    }
 
     // console.log(params);
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: false,
-        }));
+          isBookmarked: false
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: true,
-        }));
+          isBookmarked: true
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     }
-  };
+  }
 
   getLocation = () => {
-    const { activityData } = this.state;
+    const { activityData } = this.state
 
-    const url = externalLinks.getGoogleMapsUrl(activityData.GeoLatitude, activityData.GeoLongitude);
+    const url = externalLinks.getGoogleMapsUrl(activityData.GeoLatitude, activityData.GeoLongitude)
 
-    openExternalLink(url);
-  };
+    openExternalLink(url)
+  }
 
   render() {
-    const { navigation, date, startTime, endTime, timeSlotId } = this.props;
+    const { navigation, date, startTime, endTime, timeSlotId } = this.props
 
     const {
       numberOfParticipants,
@@ -341,11 +339,11 @@ class PackageDetailsScreen extends Component {
       modalIsVisible,
       isLoading,
       isPristine,
-      screenWidth,
-    } = this.state;
+      screenWidth
+    } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     const {
@@ -357,38 +355,38 @@ class PackageDetailsScreen extends Component {
       Price,
       IsExclusive,
       MaxParticipants,
-      IsPricePerPackage,
-    } = activityData ? activityData : {};
+      IsPricePerPackage
+    } = activityData ? activityData : {}
 
-    const messageToShare = externalLinks.getPackagesUrl(PackagedId);
+    const messageToShare = externalLinks.getPackagesUrl(PackagedId)
 
-    const availableTimeslots = availableDates[date] || [];
+    const availableTimeslots = availableDates[date] || []
 
-    const errors = this.getValidatedFields();
+    const errors = this.getValidatedFields()
 
     // console.log('AdditionalInfo', Boolean(activityData && activityData.AdditionalInfo));
 
-    let timeValue = '';
-    timeValue += startTime ? `${startTime}` : '';
-    timeValue += startTime && endTime ? ` - ${endTime}` : '';
+    let timeValue = ''
+    timeValue += startTime ? `${startTime}` : ''
+    timeValue += startTime && endTime ? ` - ${endTime}` : ''
 
     return (
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: 24,
+          paddingBottom: 24
         }}
         style={{
           paddingTop: 8,
           paddingLeft: 16,
           paddingRight: 16,
-          backgroundColor: colors.backgroundLightGrey,
+          backgroundColor: colors.backgroundLightGrey
         }}
       >
         <View
           style={{
             backgroundColor: colors.backgroundLight,
             borderRadius: 6,
-            overflow: 'hidden',
+            overflow: 'hidden'
           }}
         >
           <View
@@ -397,13 +395,13 @@ class PackageDetailsScreen extends Component {
               borderTopLeftRadius: 6,
               borderTopRightRadius: 6,
               width: '100%',
-              height: screenWidth * 0.65,
+              height: screenWidth * 0.65
             }}
           >
             <Image
               source={{ uri: ImageUrl }}
               style={{
-                flex: 1,
+                flex: 1
               }}
               resizeMode="cover"
             />
@@ -412,7 +410,7 @@ class PackageDetailsScreen extends Component {
             style={{
               paddingTop: 16,
               paddingLeft: 16,
-              paddingRight: 16,
+              paddingRight: 16
             }}
           >
             <SectionTitle
@@ -426,7 +424,7 @@ class PackageDetailsScreen extends Component {
             <TouchableOpacity
               style={{
                 marginTop: 8,
-                marginBottom: 8,
+                marginBottom: 8
               }}
               onPress={this.getLocation}
             >
@@ -436,7 +434,7 @@ class PackageDetailsScreen extends Component {
             <Text
               style={{
                 ...styles.eventDescription,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
             >
               {Description}
@@ -446,7 +444,7 @@ class PackageDetailsScreen extends Component {
               <View
                 style={{
                   marginTop: 6,
-                  marginBottom: 0,
+                  marginBottom: 0
                 }}
               >
                 <Text
@@ -456,7 +454,7 @@ class PackageDetailsScreen extends Component {
                     fontFamily: fontFamily.gothamMedium,
                     textTransform: 'uppercase',
                     marginBottom: 12,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }}
                 >
                   {i18n.t('more.additional_info')}
@@ -474,20 +472,20 @@ class PackageDetailsScreen extends Component {
                             >
                               {children}
                             </Text>
-                          );
+                          )
                         }
-                      },
+                      }
                     }}
                     baseFontStyle={{
-                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                     }}
                     tagsStyles={{
                       ...htmlStyles,
                       img: {
                         maxWidth: '100%',
                         marginTop: 4,
-                        marginBottom: 4,
-                      },
+                        marginBottom: 4
+                      }
                     }}
                   />
                 </View>
@@ -498,14 +496,11 @@ class PackageDetailsScreen extends Component {
               <View
                 style={{
                   ...styles.sectionContainer,
-                  alignItems: i18n.locale.toLowerCase() == 'en' ? 'flex-start' : 'flex-end',
+                  alignItems: i18n.locale.toLowerCase() == 'en' ? 'flex-start' : 'flex-end'
                 }}
               >
                 <Text style={[styles.sectionTitle]}>{i18n.t('package.participants')}</Text>
-                <Counter
-                  setCounter={this.setNumberOfParticipants}
-                  counterValue={+numberOfParticipants}
-                />
+                <Counter setCounter={this.setNumberOfParticipants} counterValue={+numberOfParticipants} />
                 {!isPristine && errors.numberOfParticipants && <Text>The field is required</Text>}
               </View>
             )}
@@ -514,9 +509,7 @@ class PackageDetailsScreen extends Component {
             <SsaOption
               label={i18n.t('package.date')}
               value={moment(date).isValid() ? getLocaleDate(date) : ''}
-              onPress={() =>
-                navigation.navigate('PackagesDateScreen', { dates: Object.keys(availableDates) })
-              }
+              onPress={() => navigation.navigate('PackagesDateScreen', { dates: Object.keys(availableDates) })}
               iconName="calendar"
               error={!isPristine && errors.date}
               errorMessage={i18n.t('generic.errors.field_is_required')}
@@ -525,7 +518,7 @@ class PackageDetailsScreen extends Component {
               label={i18n.t('package.time')}
               value={timeValue}
               onPress={() => {
-                !date ? Alert.alert(i18n.t('alerts.select_date_first')) : this.toggleTimeModal();
+                !date ? Alert.alert(i18n.t('alerts.select_date_first')) : this.toggleTimeModal()
               }}
               iconName="clock-o"
               error={!isPristine && errors.time}
@@ -540,8 +533,8 @@ class PackageDetailsScreen extends Component {
                 timeSlotId < 0
                   ? Alert.alert(i18n.t('alerts.select_time_first'))
                   : navigation.navigate('PackagesSubFacilitiesScreen', {
-                      data: this.getSubFacilities(),
-                    });
+                      data: this.getSubFacilities()
+                    })
               }}
               iconName="star"
               error={!isPristine && errors.subFacility}
@@ -558,14 +551,14 @@ class PackageDetailsScreen extends Component {
                   // borderWidth: 1,
                   // borderColor: "#ff0000",
                   marginTop: 8,
-                  marginBottom: 24,
+                  marginBottom: 24
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontFamily.gothamBold,
                     fontSize: 15,
-                    color: colors.basicText,
+                    color: colors.basicText
                     // textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
                   }}
                 >
@@ -575,14 +568,11 @@ class PackageDetailsScreen extends Component {
                   style={{
                     fontFamily: fontFamily.gothamBold,
                     fontSize: 15,
-                    color: colors.basicText,
+                    color: colors.basicText
                     // textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
                   }}
                 >
-                  AED{' '}
-                  {IsPricePerPackage
-                    ? Price
-                    : Price * (numberOfParticipants > 0 ? numberOfParticipants : 1)}
+                  AED {IsPricePerPackage ? Price : Price * (numberOfParticipants > 0 ? numberOfParticipants : 1)}
                 </Text>
               </View>
             ) : (
@@ -592,7 +582,7 @@ class PackageDetailsScreen extends Component {
                   fontSize: 15,
                   color: colors.basicText,
                   marginBottom: 16,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left'
                 }}
               >
                 FREE
@@ -624,7 +614,7 @@ class PackageDetailsScreen extends Component {
           </View>
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -633,13 +623,13 @@ const mapStateToProps = state => ({
   subFacilityId: state.packageDetails.subFacilityId,
   startTime: state.packageDetails.startTime,
   endTime: state.packageDetails.endTime,
-  timeSlotId: state.packageDetails.timeSlotId,
-});
+  timeSlotId: state.packageDetails.timeSlotId
+})
 
 PackageDetailsScreen.propTypes = {
   navigation: propTypes.shape({
     getParam: propTypes.func.isRequired,
-    navigate: propTypes.func.isRequired,
+    navigate: propTypes.func.isRequired
   }).isRequired,
   //date: propTypes.string.isRequired,
   date: propTypes.string,
@@ -648,10 +638,10 @@ PackageDetailsScreen.propTypes = {
   startTime: propTypes.string,
   // endTime: propTypes.string.isRequired,
   endTime: propTypes.string,
-  timeSlotId: propTypes.number.isRequired,
-};
+  timeSlotId: propTypes.number.isRequired
+}
 
 export default connect(mapStateToProps, {
   updateStore: actions.setData,
-  clearForm: actions.clearForm,
-})(PackageDetailsScreen);
+  clearForm: actions.clearForm
+})(PackageDetailsScreen)

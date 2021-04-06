@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
-import { fontSize, fontFamily } from '../../constants/fonts';
+import { fontSize, fontFamily } from '../../constants/fonts'
 
 const styles = StyleSheet.create({
   bookAndPlaySection: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
     alignItems: 'center',
-    marginBottom: 7,
+    marginBottom: 7
   },
   bookPlaySectionTitle: {
     justifyContent: 'center',
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     fontFamily: fontFamily.gothamBold,
     fontSize: fontSize.extraLarge,
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   },
   bookPlaySectionSubtitle: {
     justifyContent: 'center',
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular + 2,
-    lineHeight: 24,
+    lineHeight: 24
   },
   bookPlaySectionButton: {
     backgroundColor: '#3F48A0',
@@ -38,36 +38,36 @@ const styles = StyleSheet.create({
     paddingBottom: 11,
     flex: 1,
     margin: 5,
-    fontSize: fontSize.regular + 2,
+    fontSize: fontSize.regular + 2
   },
   bookPlaySectionButtonText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   },
   bookPlaySectionButtonLeft: {
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
-    backgroundColor: '#D3B000',
+    backgroundColor: '#D3B000'
   },
   bookPlaySectionButtonCenter: {},
   bookPlaySectionButtonRight: {
     borderTopRightRadius: 5,
-    borderBottomRightRadius: 5,
+    borderBottomRightRadius: 5
   },
   whiteText: {
     fontFamily: fontFamily.gothamMedium,
-    color: '#fff',
+    color: '#fff'
   },
   blueText: {
     fontFamily: fontFamily.gothamMedium,
-    color: '#202873',
+    color: '#202873'
   },
   bookAndPlaySectionButtons: {
     flexDirection: 'row',
     width: '100%',
-    paddingBottom: 5,
-  },
-});
+    paddingBottom: 5
+  }
+})
 
-export default styles;
+export default styles

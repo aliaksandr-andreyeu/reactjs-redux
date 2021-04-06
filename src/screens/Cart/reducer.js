@@ -1,11 +1,11 @@
-import { handleActions } from 'redux-actions';
-import { GET_CART_SUCCESS } from './actions';
+import { handleActions } from 'redux-actions'
+import { GET_CART_SUCCESS } from './actions'
 
-const initialState = [];
+const initialState = []
 
 export default handleActions(
   {
-    GET_CART_SUCCESS: (state, { payload }) => payload,
+    GET_CART_SUCCESS: (state, { payload }) => payload
   },
   initialState
-);
+)

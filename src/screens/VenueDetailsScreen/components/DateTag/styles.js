@@ -1,26 +1,26 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
     height: 160,
     width: 225,
-    marginHorizontal: 5,
+    marginHorizontal: 5
   },
   background: {
     width: '100%',
     height: '100%',
     backgroundColor: colors.placeholderBackground,
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   topSection: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   dateContainer: {
     width: 83,
-    height: 54,
+    height: 54
   },
   dateGradient: {
     position: 'absolute',
@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     paddingVertical: 10,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   date: {
     marginLeft: 15,
     fontSize: 10,
     color: '#4F4F4F',
     lineHeight: 12,
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   tagContainer: {
     top: 5,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.backgroundLight,
     borderBottomLeftRadius: 15,
-    borderTopLeftRadius: 15,
+    borderTopLeftRadius: 15
   },
   tag: {
     top: 10,
@@ -53,19 +53,19 @@ const styles = StyleSheet.create({
     color: colors.brandColorBright,
     fontSize: fontSize.regular,
     fontFamily: fontFamily.gothamBold,
-    textAlign: 'right',
+    textAlign: 'right'
   },
   descriptionContainer: {
     justifyContent: 'flex-end',
     marginBottom: 12,
-    marginLeft: 15,
+    marginLeft: 15
   },
   description: {
     color: colors.basicLightText,
     justifyContent: 'flex-end',
     fontSize: fontSize.regular + 2,
-    fontFamily: fontFamily.gothamBold,
-  },
-});
+    fontFamily: fontFamily.gothamBold
+  }
+})
 
-export default styles;
+export default styles

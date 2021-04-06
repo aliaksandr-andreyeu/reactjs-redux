@@ -1,13 +1,13 @@
-import React from 'react';
-import { WebView } from 'react-native-webview';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import i18n from '../../../i18n';
+import React from 'react'
+import { WebView } from 'react-native-webview'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import i18n from '../../../i18n'
 
 const View360Screen = ({ navigation }) => {
   return (
     <WebView
       source={{
-        uri: navigation.getParam('uri'),
+        uri: navigation.getParam('uri')
         //uri: 'https://pandaanalytics.com'
         //uri: 'http://hi360v.com/ru/googlepano/38-google/183-carpetworld'
         //uri: 'https://staging01.dxbsports.com'
@@ -16,23 +16,23 @@ const View360Screen = ({ navigation }) => {
       }}
       startInLoadingState={true}
       onError={syntheticEvent => {
-        const { nativeEvent } = syntheticEvent;
-        console.warn('WebView error: ', nativeEvent);
+        const { nativeEvent } = syntheticEvent
+        console.warn('WebView error: ', nativeEvent)
       }}
       onLoad={syntheticEvent => {
-        const { nativeEvent } = syntheticEvent;
+        const { nativeEvent } = syntheticEvent
 
-        console.log('WebView Load: ', nativeEvent.url);
+        console.log('WebView Load: ', nativeEvent.url)
       }}
       onLoadEnd={syntheticEvent => {
-        const { nativeEvent } = syntheticEvent;
+        const { nativeEvent } = syntheticEvent
 
-        console.log('WebView LoadEnd: ', nativeEvent.loading);
+        console.log('WebView LoadEnd: ', nativeEvent.loading)
       }}
       onLoadStart={syntheticEvent => {
-        const { nativeEvent } = syntheticEvent;
+        const { nativeEvent } = syntheticEvent
 
-        console.log('WebView LoadStart: ', nativeEvent.loading);
+        console.log('WebView LoadStart: ', nativeEvent.loading)
       }}
       style={{ flex: 1 }}
       javaScriptEnabled={true}
@@ -49,16 +49,16 @@ const View360Screen = ({ navigation }) => {
       useWebKit={true}
       allowsFullscreenVideo={true}
     />
-  );
+  )
 
   //return (<WebView source={{ uri: 'https://habr.com/ru/company/sberbank/blog/440710/' }} />);
-};
+}
 
 View360Screen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: <NavHeaderUser {...navigation} />,
-    title: i18n.t('more.360view'),
-  };
-};
+    title: i18n.t('more.360view')
+  }
+}
 
-export default View360Screen;
+export default View360Screen

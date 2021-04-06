@@ -1,53 +1,44 @@
-import axios from 'axios';
-import React, { Component } from 'react';
-import {
-  ScrollView,
-  View,
-  Dimensions,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
-import PropTypes from 'prop-types';
-import { axiosInstance, apiUrls } from '../../constants/api';
-import styles from './styles';
-import { sections } from './constants';
-import { getListItemParams } from './helpers';
-import Icon from '../../components/Icon';
-import { fontSize, fontFamily } from '../../constants/fonts';
-import colors from '../../constants/colors';
-import VenueMenu from '../VenuesScreen/components/VenueMenu';
-import ScrollListContainer from '../../components/ScrollListContainer';
-import ScrollListItem from '../../components/ScrollListItem';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import i18n from '../../../i18n';
+import axios from 'axios'
+import React, { Component } from 'react'
+import { ScrollView, View, Dimensions, Text, FlatList, Image, TouchableOpacity, Linking } from 'react-native'
+import PropTypes from 'prop-types'
+import { axiosInstance, apiUrls } from '../../constants/api'
+import styles from './styles'
+import { sections } from './constants'
+import { getListItemParams } from './helpers'
+import Icon from '../../components/Icon'
+import { fontSize, fontFamily } from '../../constants/fonts'
+import colors from '../../constants/colors'
+import VenueMenu from '../VenuesScreen/components/VenueMenu'
+import ScrollListContainer from '../../components/ScrollListContainer'
+import ScrollListItem from '../../components/ScrollListItem'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import i18n from '../../../i18n'
 
-import { htmlStyles } from '../../constants/htmlRendering';
+import { htmlStyles } from '../../constants/htmlRendering'
 
-import HTML from 'react-native-render-html';
+import HTML from 'react-native-render-html'
 
-import { externalLinks } from '../../constants/api';
-import openExternalLink from '../../helpers/openExternalLink';
+import { externalLinks } from '../../constants/api'
+import openExternalLink from '../../helpers/openExternalLink'
 
-import Loading from '../../components/Loading';
-import AsyncStorage from '@react-native-community/async-storage';
-import Global from '../../components/global';
+import Loading from '../../components/Loading'
+import AsyncStorage from '@react-native-community/async-storage'
+import Global from '../../components/global'
 
-import getSportsIcon from '../../helpers/sportsIconMapper';
+import getSportsIcon from '../../helpers/sportsIconMapper'
 
-import getSvgIcon from '../../helpers/iconMapper';
+import getSvgIcon from '../../helpers/iconMapper'
 
-import ActionButton from '../../components/Details/ActionButton';
+import ActionButton from '../../components/Details/ActionButton'
 
 class VenueDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('venues.venue_details'),
-    };
-  };
+      title: i18n.t('venues.venue_details')
+    }
+  }
 
   state = {
     data: {},
@@ -60,32 +51,30 @@ class VenueDetails extends Component {
     otherVenues: [],
     isLoading: true,
     isBookmarked: false,
-    coordinates: {},
-  };
+    coordinates: {}
+  }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
-    const { navigation } = this.props;
+    const storedValue = await AsyncStorage.getItem('app:user')
+    const { navigation } = this.props
 
-    const venueItemProps = navigation.getParam('item', {});
+    const venueItemProps = navigation.getParam('item', {})
 
     // console.log('componentDidMount() venueItemProps', venueItemProps);
 
     if (venueItemProps.Id) {
       const params = {
-        vn: venueItemProps.Id,
-      };
+        vn: venueItemProps.Id
+      }
 
       const venueDetails = axiosInstance(
         `${apiUrls.getVenueById(venueItemProps.Id)}?langCode=${i18n.locale.toUpperCase()}`
-      );
-      const bookmarksList = axiosInstance(
-        `${apiUrls.getBookmarks}?langCode=${i18n.locale.toUpperCase()}`
-      );
+      )
+      const bookmarksList = axiosInstance(`${apiUrls.getBookmarks}?langCode=${i18n.locale.toUpperCase()}`)
 
-      const isAuthorized = false;
+      const isAuthorized = false
 
-      const requests = isAuthorized ? [venueDetails, bookmarksList] : [venueDetails];
+      const requests = isAuthorized ? [venueDetails, bookmarksList] : [venueDetails]
 
       axios
         .all(requests)
@@ -108,48 +97,48 @@ class VenueDetails extends Component {
             packages: venueDetailsResponse.data.Activities,
             coordinates: {
               GeoLatitude: venueDetailsResponse.data.GeoLatitude,
-              GeoLongitude: venueDetailsResponse.data.GeoLongitude,
+              GeoLongitude: venueDetailsResponse.data.GeoLongitude
             },
-            isLoading: false,
-          });
+            isLoading: false
+          })
         })
         .catch(e => {
-          console.warn(e);
+          console.warn(e)
           this.setState({
-            isLoading: false,
-          });
-        });
+            isLoading: false
+          })
+        })
     }
   }
 
   toggleBookmark = () => {
-    const { isBookmarked } = this.state;
+    const { isBookmarked } = this.state
 
-    const dataSource = this.props.navigation.getParam('item', {});
+    const dataSource = this.props.navigation.getParam('item', {})
 
     const params = {
       Id: dataSource.Id,
-      Entity: 'venue',
-    };
+      Entity: 'venue'
+    }
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: false,
-        }));
-      });
+          isBookmarked: false
+        }))
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: true,
-        }));
-      });
+          isBookmarked: true
+        }))
+      })
     }
-  };
+  }
 
   renderScrollableSection = (type, list, title, withPrice) => {
     // console.log('renderScrollableSection', title, type, list)
@@ -163,12 +152,12 @@ class VenueDetails extends Component {
           showsHorizontalScrollIndicator={false}
         />
       </ScrollListContainer>
-    );
-  };
+    )
+  }
 
   renderScrollableSectionItem = (item, type, list, withPrice) => {
     // console.log('renderScrollableSection', item)
-    const { screen, title, imageUri } = getListItemParams(item, type);
+    const { screen, title, imageUri } = getListItemParams(item, type)
     return (
       <ScrollListItem
         src={imageUri}
@@ -185,25 +174,25 @@ class VenueDetails extends Component {
             item,
             list,
             params: {
-              id: item.Id,
-            },
-          },
+              id: item.Id
+            }
+          }
         }}
         ////////////////////////////////////////////////////////
       />
-    );
-  };
+    )
+  }
 
   getLocation = () => {
-    const { coordinates } = this.state;
+    const { coordinates } = this.state
 
-    const url = externalLinks.getGoogleMapsUrl(coordinates.GeoLatitude, coordinates.GeoLongitude);
+    const url = externalLinks.getGoogleMapsUrl(coordinates.GeoLatitude, coordinates.GeoLongitude)
 
-    openExternalLink(url);
-  };
+    openExternalLink(url)
+  }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation } = this.props
     const {
       events,
       ssa,
@@ -214,21 +203,21 @@ class VenueDetails extends Component {
       openHours,
       sportsOffered,
       otherVenues,
-      data,
-    } = this.state;
+      data
+    } = this.state
 
     // console.log('render() item', navigation.getParam('item', {}));
 
-    const { getIcon, iconLibraries } = Icon;
+    const { getIcon, iconLibraries } = Icon
 
     // console.log('sportsOffered', sportsOffered);
     // console.log('otherVenues', otherVenues)
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
-    const screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get('window').width
 
     return (
       <ScrollView style={[styles.container]}>
@@ -237,12 +226,12 @@ class VenueDetails extends Component {
             ...styles.innerWrapper,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
-            overflow: 'hidden',
+            overflow: 'hidden'
           }}
         >
           <Image
             style={{
-              height: screenWidth * 0.65,
+              height: screenWidth * 0.65
             }}
             resizeMode="cover"
             source={{ uri: data.ImageThumbUrl }}
@@ -253,14 +242,14 @@ class VenueDetails extends Component {
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10,
               paddingHorizontal: 16,
-              paddingVertical: 8,
+              paddingVertical: 8
             }}
           >
             <View
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'space-between',
-                marginBottom: 8,
+                marginBottom: 8
               }}
             >
               <Text
@@ -271,7 +260,7 @@ class VenueDetails extends Component {
                   lineHeight: 26,
                   flex: 2.5,
                   marginTop: 10,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {data.Title}
@@ -286,19 +275,19 @@ class VenueDetails extends Component {
             </View>
             <TouchableOpacity
               style={{
-                marginBottom: 12,
+                marginBottom: 12
               }}
               onPress={this.getLocation}
             >
               <View
                 style={{
                   flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'flex-start'
                 }}
               >
                 {getIcon(iconLibraries.fontAwesome5, 'map-marker-alt', {
                   size: fontSize.small,
-                  color: colors.darkIcon,
+                  color: colors.darkIcon
                 })}
                 <Text
                   style={{
@@ -308,7 +297,7 @@ class VenueDetails extends Component {
                     marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
                     fontFamily: fontFamily.gothamBold,
                     lineHeight: 20,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }}
                 >
                   {data.FullAddress}
@@ -320,15 +309,15 @@ class VenueDetails extends Component {
                 html={data.Description ? data.Description : ''}
                 renderers={{}}
                 baseFontStyle={{
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
                 tagsStyles={{
                   ...htmlStyles,
                   img: {
                     maxWidth: '100%',
                     marginTop: 4,
-                    marginBottom: 4,
-                  },
+                    marginBottom: 4
+                  }
                 }}
               />
             </View>
@@ -363,7 +352,7 @@ class VenueDetails extends Component {
           <View
             style={{
               marginTop: 12,
-              marginBottom: 24,
+              marginBottom: 24
             }}
           >
             <Text
@@ -374,7 +363,7 @@ class VenueDetails extends Component {
                 fontFamily: fontFamily.gothamMedium,
                 textTransform: 'uppercase',
                 marginBottom: 12,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
             >
               {i18n.t('more.additional_info')}
@@ -385,7 +374,7 @@ class VenueDetails extends Component {
                 overflow: 'hidden',
                 backgroundColor: '#ffffff',
                 paddingHorizontal: 16,
-                paddingVertical: 14,
+                paddingVertical: 14
               }}
             >
               <Text
@@ -394,7 +383,7 @@ class VenueDetails extends Component {
                   fontSize: fontSize.regular,
                   color: colors.basicText,
                   lineHeight: fontSize.regular + 8,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {data.AditionalInfo}
@@ -406,7 +395,7 @@ class VenueDetails extends Component {
         {sportsOffered && sportsOffered.length ? (
           <View
             style={{
-              marginTop: 8,
+              marginTop: 8
             }}
           >
             <Text
@@ -417,7 +406,7 @@ class VenueDetails extends Component {
                 fontSize: fontSize.regular,
                 color: colors.themeColor,
                 textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-                textTransform: 'uppercase',
+                textTransform: 'uppercase'
               }}
             >
               {i18n.t('venues.sportsOffered')}
@@ -430,13 +419,13 @@ class VenueDetails extends Component {
                 paddingTop: 12,
                 paddingBottom: 8,
                 paddingRight: 15,
-                paddingLeft: 15,
+                paddingLeft: 15
               }}
             >
               <View
                 style={{
                   flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                  flexWrap: 'wrap',
+                  flexWrap: 'wrap'
                 }}
               >
                 {sportsOffered.map((item, index) => (
@@ -449,7 +438,7 @@ class VenueDetails extends Component {
                       paddingRight: 10,
                       // paddingRight: i18n.locale.toLowerCase() == 'en' ? 12 : 0,
                       // paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 12,
-                      marginBottom: 4,
+                      marginBottom: 4
                       // borderWidth: 1,
                       // borderColor: "#ff0000",
                     }}
@@ -458,7 +447,7 @@ class VenueDetails extends Component {
                       style={{
                         width: 20,
                         justifyContent: 'center',
-                        alignItems: 'center',
+                        alignItems: 'center'
                         // borderWidth: 1,
                         // borderColor: "#ff0000",
                       }}
@@ -474,7 +463,7 @@ class VenueDetails extends Component {
                         textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
                         textAlignVertical: 'center',
                         marginLeft: i18n.locale.toLowerCase() == 'en' ? 10 : 0,
-                        marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 10,
+                        marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 10
                       }}
                     >
                       {item.Title}
@@ -487,16 +476,9 @@ class VenueDetails extends Component {
         ) : null}
 
         {!!packages.length &&
-          this.renderScrollableSection(
-            sections.packages.type,
-            packages,
-            sections.packages.title(),
-            true
-          )}
-        {!!ssa.length &&
-          this.renderScrollableSection(sections.ssa.type, ssa, sections.ssa.title(), true)}
-        {!!events.length &&
-          this.renderScrollableSection(sections.events.type, events, sections.events.title(), true)}
+          this.renderScrollableSection(sections.packages.type, packages, sections.packages.title(), true)}
+        {!!ssa.length && this.renderScrollableSection(sections.ssa.type, ssa, sections.ssa.title(), true)}
+        {!!events.length && this.renderScrollableSection(sections.events.type, events, sections.events.title(), true)}
 
         {openHours && openHours.length ? (
           <View
@@ -505,7 +487,7 @@ class VenueDetails extends Component {
               borderRadius: 10,
               marginBottom: 15,
               padding: 10,
-              paddingTop: 15,
+              paddingTop: 15
             }}
           >
             <Text
@@ -513,7 +495,7 @@ class VenueDetails extends Component {
                 color: 'white',
                 marginBottom: 10,
                 fontFamily: fontFamily.gothamMedium,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
             >
               {i18n.t('venues.openingHours')}
@@ -523,14 +505,14 @@ class VenueDetails extends Component {
                 key={index}
                 style={{
                   flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                  justifyContent: 'space-between',
+                  justifyContent: 'space-between'
                 }}
               >
                 <Text
                   style={{
                     color: 'white',
                     fontFamily: fontFamily.gothamMedium,
-                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                    textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                   }}
                 >
                   {item.WorkdayName}
@@ -541,7 +523,7 @@ class VenueDetails extends Component {
                     style={{
                       color: 'white',
                       fontFamily: fontFamily.gothamMedium,
-                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
+                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left'
                     }}
                   >
                     {'Closed'}
@@ -549,14 +531,14 @@ class VenueDetails extends Component {
                 ) : (
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: 'row'
                     }}
                   >
                     <Text
                       style={{
                         color: 'white',
                         fontFamily: fontFamily.gothamMedium,
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left'
                       }}
                     >
                       {item.Start}
@@ -565,7 +547,7 @@ class VenueDetails extends Component {
                       style={{
                         color: 'white',
                         fontFamily: fontFamily.gothamMedium,
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left'
                       }}
                     >
                       {' - '}
@@ -574,7 +556,7 @@ class VenueDetails extends Component {
                       style={{
                         color: 'white',
                         fontFamily: fontFamily.gothamMedium,
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'right' : 'left'
                       }}
                     >
                       {item.Finish}
@@ -593,7 +575,7 @@ class VenueDetails extends Component {
               borderRadius: 10,
               marginBottom: 15,
               padding: 10,
-              paddingTop: 15,
+              paddingTop: 15
             }}
           >
             <Text
@@ -605,7 +587,7 @@ class VenueDetails extends Component {
                 color: colors.themeColor,
                 lineHeight: fontSize.regular + 8,
                 textTransform: 'uppercase',
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
             >
               {i18n.t('venues.amenities')}
@@ -613,7 +595,7 @@ class VenueDetails extends Component {
             <View
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-                flexWrap: 'wrap',
+                flexWrap: 'wrap'
               }}
             >
               {amenities.map((item, index) => (
@@ -625,14 +607,14 @@ class VenueDetails extends Component {
                     marginRight: i18n.locale.toLowerCase() == 'en' ? 10 : 0,
                     marginLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 10,
                     marginBottom: 5,
-                    width: '45%',
+                    width: '45%'
                   }}
                 >
                   <View
                     style={{
                       width: 15,
                       justifyContent: 'center',
-                      alignItems: 'center',
+                      alignItems: 'center'
                     }}
                   >
                     {item.Icon && getSvgIcon(item.Icon, { height: 15, width: 15 })}
@@ -643,7 +625,7 @@ class VenueDetails extends Component {
                       marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
                       fontFamily: fontFamily.gothamMedium,
                       textAlignVertical: 'center',
-                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                      textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                     }}
                   >
                     {item.Title}
@@ -661,15 +643,15 @@ class VenueDetails extends Component {
             i18n.t('venues.other_locations').toUpperCase()
           )}
       </ScrollView>
-    );
+    )
   }
 }
 
 VenueDetails.propTypes = {
   navigation: PropTypes.shape({
     getParam: PropTypes.func.isRequired,
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
+    navigate: PropTypes.func.isRequired
+  }).isRequired
+}
 
-export default VenueDetails;
+export default VenueDetails

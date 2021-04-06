@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../constants/colors';
-import { fontFamily, fontSize } from '../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../constants/colors'
+import { fontFamily, fontSize } from '../../../constants/fonts'
 
 const styles = StyleSheet.create({
   dayNamesContainer: {
@@ -8,29 +8,29 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondaryBackgroundLight,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   dayNameText: {
-    color: colors.basicText,
+    color: colors.basicText
   },
   selectedDateContainer: {
     height: 60,
     backgroundColor: colors.brandColorBright,
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   selectedDateText: {
     color: colors.basicLightText,
     fontFamily: fontFamily.gothamMedium,
     fontSize: 24,
     textAlign: 'center',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   buttonContainer: {
     paddingHorizontal: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   button: {
     flexGrow: 1,
@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
     borderColor: colors.brandColorBright,
     borderRadius: 20,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
     fontFamily: fontFamily.gothamMedium,
     color: colors.brandColorBright,
-    fontSize: fontSize.medium,
-  },
-});
+    fontSize: fontSize.medium
+  }
+})
 
-export default styles;
+export default styles

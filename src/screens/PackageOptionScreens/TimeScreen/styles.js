@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../constants/colors';
-import { fontFamily, fontSize } from '../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../constants/colors'
+import { fontFamily, fontSize } from '../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.brandColorBright, justifyContent: 'flex-start' },
@@ -16,15 +16,15 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     marginHorizontal: 5,
-    marginVertical: 5,
+    marginVertical: 5
   },
   hourContainerActive: {
     borderColor: colors.basicLightText,
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   hourContianerDisabled: {
     borderColor: colors.disabledBorder,
-    backgroundColor: colors.brandColorBright,
+    backgroundColor: colors.brandColorBright
   },
   halfDaySection: {
     flexDirection: 'row',
@@ -33,21 +33,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.basicLightText,
     paddingBottom: 10,
-    marginBottom: 10,
+    marginBottom: 10
   },
   itemText: {
     fontFamily: fontFamily.gothamMedium,
     // fontSize: fontSize.medium,
     fontSize: 15,
     color: colors.basicLightText,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   activeItemText: {
-    color: colors.brandColorBright,
+    color: colors.brandColorBright
   },
   disabledItemText: {
-    color: colors.disabledText,
-  },
-});
+    color: colors.disabledText
+  }
+})
 
-export default styles;
+export default styles

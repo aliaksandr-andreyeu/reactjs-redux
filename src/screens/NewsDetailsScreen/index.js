@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
@@ -10,84 +10,84 @@ import {
   StatusBar,
   FlatList,
   Dimensions,
-  Linking,
-} from 'react-native';
+  Linking
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Moment from 'moment';
+import Moment from 'moment'
 
-import FullWidthImage from 'react-native-fullwidth-image';
+import FullWidthImage from 'react-native-fullwidth-image'
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import HTML from 'react-native-render-html';
-import Tweet from '../../components/Tweet';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import HTML from 'react-native-render-html'
+import Tweet from '../../components/Tweet'
 
-import i18n from '../../../i18n';
+import i18n from '../../../i18n'
 
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import Loading from '../../components/Loading';
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import Loading from '../../components/Loading'
 
-import decodeHtmlEntities from '../../helpers/decodeHtmlEntities';
-import { htmlStyles } from '../../constants/htmlRendering';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
-import { externalLinks, axiosInstance, apiUrls } from '../../constants/api';
-import Ads from '../../components/UI/Ads';
-import extractTweets from '../../helpers/extractTweets';
-import YouTube from '../../components/YouTube';
+import decodeHtmlEntities from '../../helpers/decodeHtmlEntities'
+import { htmlStyles } from '../../constants/htmlRendering'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
+import { externalLinks, axiosInstance, apiUrls } from '../../constants/api'
+import Ads from '../../components/UI/Ads'
+import extractTweets from '../../helpers/extractTweets'
+import YouTube from '../../components/YouTube'
 
-import ScrollListContainer from '../../components/ScrollListContainer';
-import ScrollListItem from '../../components/ScrollListItem';
+import ScrollListContainer from '../../components/ScrollListContainer'
+import ScrollListItem from '../../components/ScrollListItem'
 
-import Global from '../../components/global';
-import SectionTitle from '../../components/Details/SectionTitle';
+import Global from '../../components/global'
+import SectionTitle from '../../components/Details/SectionTitle'
 
 export default class NewsDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('news.news_details'),
-    };
-  };
+      title: i18n.t('news.news_details')
+    }
+  }
 
   state = {
     searchText: '',
     user: {},
     dataSource: {
       isLoading: true,
-      newsItem: {},
+      newsItem: {}
     },
     isDescriptionVisible: false,
     relatedItems: {
       isLoading: true,
-      data: [],
+      data: []
     },
     ads: [],
     webViewHeight: 0,
-    isBookmarked: false,
-  };
+    isBookmarked: false
+  }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
 
-    const id = this.props.navigation.getParam('id', {});
+    const id = this.props.navigation.getParam('id', {})
 
-    this._getRelatedEvents();
+    this._getRelatedEvents()
 
     let requests = [
       axiosInstance(apiUrls.getNewsDetails(id) + '?langCode=' + i18n.locale.toUpperCase()),
-      axiosInstance(apiUrls.getAds(4, 0, 0) + '?langCode=' + i18n.locale.toUpperCase()),
-    ];
+      axiosInstance(apiUrls.getAds(4, 0, 0) + '?langCode=' + i18n.locale.toUpperCase())
+    ]
 
     if (Global.user.token && Global.user.token.length > 5) {
-      requests.push(axiosInstance(apiUrls.getBookmarks));
+      requests.push(axiosInstance(apiUrls.getBookmarks))
     }
 
     Promise.all(requests).then(([newsItem, ads, bookmarks]) => {
@@ -101,16 +101,14 @@ export default class NewsDetailScreen extends React.Component {
       this.setState({
         dataSource: {
           newsItem: newsItem.data,
-          isLoading: false,
+          isLoading: false
         },
         ads: ads.data,
         isBookmarked:
           !!bookmarks &&
-          !!bookmarks.data.find(
-            item => item.EntityName.toLowerCase() === 'news' && item.Eid === newsItem.data.Id
-          ),
-      });
-    });
+          !!bookmarks.data.find(item => item.EntityName.toLowerCase() === 'news' && item.Eid === newsItem.data.Id)
+      })
+    })
   }
 
   // _getItem = () => {
@@ -125,84 +123,78 @@ export default class NewsDetailScreen extends React.Component {
   // };
 
   _getRelatedEvents = () => {
-    const id = this.props.navigation.getParam('id', {});
+    const id = this.props.navigation.getParam('id', {})
 
-    axiosInstance(apiUrls.getRelatedNews(id) + '?langCode=' + i18n.locale.toUpperCase()).then(
-      ({ data }) => {
-        this.setState({
-          relatedItems: { data: data.Items, isLoading: false },
-        });
-      }
-    );
-  };
+    axiosInstance(apiUrls.getRelatedNews(id) + '?langCode=' + i18n.locale.toUpperCase()).then(({ data }) => {
+      this.setState({
+        relatedItems: { data: data.Items, isLoading: false }
+      })
+    })
+  }
 
   _getHomeItems = () => {
-    const id = this.props.navigation.getParam('id', {});
+    const id = this.props.navigation.getParam('id', {})
 
-    let model = {};
-    model.languageCode = i18n.locale.toUpperCase();
-    model.langCode = i18n.locale.toUpperCase();
+    let model = {}
+    model.languageCode = i18n.locale.toUpperCase()
+    model.langCode = i18n.locale.toUpperCase()
 
     axiosInstance(apiUrls.postNews, model).then(({ data }) => {
       this.setState({
-        dataSource: { news: data, isLoading: false },
-      });
-    });
-  };
+        dataSource: { news: data, isLoading: false }
+      })
+    })
+  }
 
   _toggleDescription = () => {
-    console.log(this.state.isDescriptionVisible);
+    console.log(this.state.isDescriptionVisible)
     this.setState({
-      isDescriptionVisible: !this.state.isDescriptionVisible,
-    });
-  };
+      isDescriptionVisible: !this.state.isDescriptionVisible
+    })
+  }
 
   toggleBookmark = () => {
-    const { navigation } = this.props;
-    const { isBookmarked, dataSource } = this.state;
+    const { navigation } = this.props
+    const { isBookmarked, dataSource } = this.state
 
     const params = {
       Id: dataSource.newsItem.Id,
-      Entity: 'news',
-    };
+      Entity: 'news'
+    }
 
     // console.log(navigation.state.params)
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: false,
-        }));
+          isBookmarked: false
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
         this.setState(() => ({
-          isBookmarked: true,
-        }));
+          isBookmarked: true
+        }))
 
-        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks();
-      });
+        Boolean(navigation.state.params.getBookmarks()) && navigation.state.params.getBookmarks()
+      })
     }
-  };
+  }
 
   _renderItemRelatedPosts = ({ item, index }) => (
     <TouchableOpacity
       onPress={() => {
-        this.props.navigation.push(`${item.EntityName}Detail`, { id: item.Id, object: item });
+        this.props.navigation.push(`${item.EntityName}Detail`, { id: item.Id, object: item })
       }}
     >
       <View style={index == 0 ? styles.boxShadowNoLeftMargin : styles.boxShadow} elevation={5}>
-        <Image
-          source={{ uri: item.ImageLandscapeThumbUrl }}
-          style={{ width: 257, height: 127 }}
-          resizeMode="cover"
-        />
+        <Image source={{ uri: item.ImageLandscapeThumbUrl }} style={{ width: 257, height: 127 }} resizeMode="cover" />
 
         <View style={{ height: 53 }}>
           <Text
@@ -214,7 +206,7 @@ export default class NewsDetailScreen extends React.Component {
               marginLeft: 11,
               color: colors.basicText,
               fontSize: fontSize.medium,
-              fontFamily: fontFamily.gothamBold,
+              fontFamily: fontFamily.gothamBold
             }}
           >
             {item.Title}
@@ -228,7 +220,7 @@ export default class NewsDetailScreen extends React.Component {
               marginLeft: 11,
               color: colors.basicText,
               fontSize: 11,
-              fontFamily: fontFamily.gothamMedium,
+              fontFamily: fontFamily.gothamMedium
             }}
           >
             {item.Excerpt}
@@ -243,7 +235,7 @@ export default class NewsDetailScreen extends React.Component {
             borderRadius: 60,
             borderColor: '#ffffff',
             borderWidth: 1,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#ffffff'
           }}
         >
           <Text
@@ -255,7 +247,7 @@ export default class NewsDetailScreen extends React.Component {
               fontFamily: fontFamily.gothamBold,
               padding: 12,
               paddingTop: 3,
-              paddingBottom: 3,
+              paddingBottom: 3
             }}
           >
             {item.EntityName}
@@ -263,35 +255,35 @@ export default class NewsDetailScreen extends React.Component {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  )
 
-  _listDividerRelatedPosts = () => <View style={styles.dividerContainerRecommended} />;
+  _listDividerRelatedPosts = () => <View style={styles.dividerContainerRecommended} />
 
   render() {
-    const { ads, dataSource, isBookmarked } = this.state;
+    const { ads, dataSource, isBookmarked } = this.state
 
-    Moment.locale('en');
+    Moment.locale('en')
 
-    let content = '';
+    let content = ''
 
     if (dataSource.newsItem.Content) {
-      content = dataSource.newsItem.Content;
+      content = dataSource.newsItem.Content
     }
     if (dataSource.newsItem.Description) {
-      content = dataSource.newsItem.Description;
+      content = dataSource.newsItem.Description
     }
 
-    const decodedContent = decodeHtmlEntities(content.replace(/<(?:.|\n)*?>/gm, ''));
+    const decodedContent = decodeHtmlEntities(content.replace(/<(?:.|\n)*?>/gm, ''))
 
     if (this.state.dataSource.isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // const htmlWrapLinks = extractTweets(content);
     // const htmlWithTweets = this.extractLinks(htmlWrapLinks);
 
-    const htmlWithTweets = extractTweets(content);
-    let YouTubeLinks = dataSource.newsItem.ExternalContent || [];
+    const htmlWithTweets = extractTweets(content)
+    let YouTubeLinks = dataSource.newsItem.ExternalContent || []
 
     //console.log( 'htmlWithTweets', htmlWithTweets.html );
     // console.log('*******************************************************************************');
@@ -313,7 +305,7 @@ export default class NewsDetailScreen extends React.Component {
               marginHorizontal: 16,
               borderRadius: 10,
               backgroundColor: colors.backgroundLight,
-              overflow: 'hidden',
+              overflow: 'hidden'
             }}
           >
             <FullWidthImage source={{ uri: dataSource.newsItem.ImageSquareThumbURL }} />
@@ -324,7 +316,7 @@ export default class NewsDetailScreen extends React.Component {
                 marginRight: 0,
                 flex: 1,
                 paddingBottom: 35,
-                paddingTop: 15,
+                paddingTop: 15
               }}
             >
               <View
@@ -335,12 +327,12 @@ export default class NewsDetailScreen extends React.Component {
                   paddingTop: 5,
                   paddingBottom: 5,
                   marginTop: -30,
-                  backgroundColor: '#ffffff',
+                  backgroundColor: '#ffffff'
                 }}
               >
                 <View
                   style={{
-                    marginVertical: 15,
+                    marginVertical: 15
                   }}
                 >
                   <SectionTitle
@@ -363,14 +355,14 @@ export default class NewsDetailScreen extends React.Component {
                               link={YouTubeLinks.shift()}
                               //links={dataSource.newsItem.ExternalContent}
                             />
-                          );
+                          )
                         },
                         tweet: attributes => {
                           if (attributes.tweet) {
-                            const tweet = htmlWithTweets.tweets[attributes.tweet];
-                            return <Tweet key={Date.now() + '-' + Math.random()} tweet={tweet} />;
+                            const tweet = htmlWithTweets.tweets[attributes.tweet]
+                            return <Tweet key={Date.now() + '-' + Math.random()} tweet={tweet} />
                           }
-                          return null;
+                          return null
                         },
                         a: (htmlAttribs, children, convertedCSSStyles, passProps) => {
                           if (htmlAttribs.href) {
@@ -381,20 +373,20 @@ export default class NewsDetailScreen extends React.Component {
                               >
                                 {children}
                               </Text>
-                            );
+                            )
                           }
-                        },
+                        }
                       }}
                       baseFontStyle={{
-                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                        textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                       }}
                       tagsStyles={{
                         ...htmlStyles,
                         img: {
                           maxWidth: '100%',
                           marginTop: 4,
-                          marginBottom: 4,
-                        },
+                          marginBottom: 4
+                        }
                       }}
                     />
                   </>
@@ -418,7 +410,7 @@ export default class NewsDetailScreen extends React.Component {
                     key={index.toString()}
                     navigationModel={{
                       targetScreen: `${item.EntityName}Detail`,
-                      data: { id: item.Id, object: item },
+                      data: { id: item.Id, object: item }
                     }}
                   />
                 )}
@@ -436,7 +428,7 @@ export default class NewsDetailScreen extends React.Component {
           />
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -451,7 +443,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   boxShadowNoLeftMargin: {
     backgroundColor: '#ffffff',
@@ -464,33 +456,33 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   container: {
     backgroundColor: colors.primaryBgColor,
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
-    paddingTop: 0,
+    paddingTop: 0
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   dividerContainer: {
     height: 1,
-    width: 25,
+    width: 25
   },
   dividerContainerEvent: {
     height: 19,
-    width: 1,
+    width: 1
   },
   dividerContainerRecommended: {
     height: 1,
-    width: 0,
+    width: 0
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -498,7 +490,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   input: {
     alignSelf: 'stretch',
@@ -506,7 +498,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   searchInput: {
     alignContent: 'flex-start',
@@ -521,6 +513,6 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    textAlign: 'left',
-  },
-});
+    textAlign: 'left'
+  }
+})

@@ -1,64 +1,64 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import propTypes from 'prop-types';
-import Icon from '../../../../components/Icon';
-import styles from './styles';
-import { fontSize } from '../../../../constants/fonts';
-import colors from '../../../../constants/colors';
-import { SsaEventParticipationStatus } from '../../../../constants/socialSportsActivity';
-import { axiosInstance, apiUrls } from '../../../../constants/api';
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+import propTypes from 'prop-types'
+import Icon from '../../../../components/Icon'
+import styles from './styles'
+import { fontSize } from '../../../../constants/fonts'
+import colors from '../../../../constants/colors'
+import { SsaEventParticipationStatus } from '../../../../constants/socialSportsActivity'
+import { axiosInstance, apiUrls } from '../../../../constants/api'
 
-import MoreIcon from '../../../../assets/images/icons/icon_user.svg';
+import MoreIcon from '../../../../assets/images/icons/icon_user.svg'
 
 class SsaEventInvitee extends Component {
   approveRequest = () => {
-    const { updateParticipantsList, participant } = this.props;
+    const { updateParticipantsList, participant } = this.props
 
     axiosInstance
       .post(apiUrls.postApproveJoin(participant.Code))
       .then(res => {
-        console.log(res);
-        updateParticipantsList();
+        console.log(res)
+        updateParticipantsList()
       })
       .catch(err => {
-        console.log(err);
-        console.log(err.request);
-      });
-  };
+        console.log(err)
+        console.log(err.request)
+      })
+  }
 
   declineRequest = () => {
-    const { updateParticipantsList, participant } = this.props;
+    const { updateParticipantsList, participant } = this.props
 
     axiosInstance
       .post(apiUrls.postDeclineJoin(participant.Code))
       .then(() => updateParticipantsList())
       .catch(err => {
-        console.log(err);
-        console.log(err.request);
-      });
-  };
+        console.log(err)
+        console.log(err.request)
+      })
+  }
 
   render() {
     const {
       isCurrentUserHost,
-      participant: { Participant, ParticipationStatus },
-    } = this.props;
+      participant: { Participant, ParticipationStatus }
+    } = this.props
 
-    const FullName = Participant && Participant.FullName ? Participant.FullName : '';
-    const ImageThumbURL = Participant && Participant.ImageThumbURL ? Participant.ImageThumbURL : '';
+    const FullName = Participant && Participant.FullName ? Participant.FullName : ''
+    const ImageThumbURL = Participant && Participant.ImageThumbURL ? Participant.ImageThumbURL : ''
 
     const {
       getIcon,
-      iconLibraries: { fontAwesome },
-    } = Icon;
+      iconLibraries: { fontAwesome }
+    } = Icon
 
-    const isApproved = ParticipationStatus === SsaEventParticipationStatus.JoinRequestApproved;
-    const isDeclined = ParticipationStatus === SsaEventParticipationStatus.JoinRequestDeclined;
-    const isSent = ParticipationStatus === SsaEventParticipationStatus.JoinRequestSent;
+    const isApproved = ParticipationStatus === SsaEventParticipationStatus.JoinRequestApproved
+    const isDeclined = ParticipationStatus === SsaEventParticipationStatus.JoinRequestDeclined
+    const isSent = ParticipationStatus === SsaEventParticipationStatus.JoinRequestSent
 
-    let isImage = false;
+    let isImage = false
     if (ImageThumbURL && ImageThumbURL.length > 0) {
-      isImage = true;
+      isImage = true
     }
 
     // console.log('participant', participant)
@@ -71,7 +71,7 @@ class SsaEventInvitee extends Component {
             <Image
               style={styles.contactImage}
               source={{
-                uri: ImageThumbURL,
+                uri: ImageThumbURL
               }}
               resizeMode="cover"
             />
@@ -83,7 +83,7 @@ class SsaEventInvitee extends Component {
                 borderWidth: 1,
                 borderColor: colors.tabIconDefault,
                 alignItems: 'center',
-                justifyContent: 'flex-end',
+                justifyContent: 'flex-end'
               }}
             >
               <MoreIcon height={32} width={32} />
@@ -93,7 +93,7 @@ class SsaEventInvitee extends Component {
           <View
             style={{
               ...styles.contactDetails,
-              justifyContent: 'center',
+              justifyContent: 'center'
             }}
           >
             <Text style={styles.contactName}>{FullName}</Text>
@@ -106,36 +106,24 @@ class SsaEventInvitee extends Component {
         {isCurrentUserHost ? (
           isSent ? (
             <View style={styles.buttonsContainer}>
-              <TouchableOpacity
-                style={[styles.button, styles.confirmButton]}
-                onPress={this.approveRequest}
-              >
+              <TouchableOpacity style={[styles.button, styles.confirmButton]} onPress={this.approveRequest}>
                 {getIcon(fontAwesome, 'check', {
                   size: fontSize.medium,
-                  color: '#089293',
+                  color: '#089293'
                 })}
               </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.declineButton]}
-                onPress={this.declineRequest}
-              >
+              <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={this.declineRequest}>
                 {getIcon(fontAwesome, 'close', { size: fontSize.medium, color: '#F92D4F' })}
               </TouchableOpacity>
             </View>
           ) : (
-            <Text
-              style={[
-                styles.status,
-                isApproved ? styles.approved : styles.declined,
-                { minWidth: 40, height: 50 },
-              ]}
-            >
+            <Text style={[styles.status, isApproved ? styles.approved : styles.declined, { minWidth: 40, height: 50 }]}>
               {/*isApproved ? 'Approved' : 'Declined'*/}
             </Text>
           )
         ) : null}
       </View>
-    ) : null;
+    ) : null
   }
 }
 
@@ -144,12 +132,12 @@ SsaEventInvitee.propTypes = {
   participant: propTypes.shape({
     Participant: propTypes.shape({
       FullName: propTypes.string,
-      ImageThumbURL: propTypes.string,
+      ImageThumbURL: propTypes.string
     }),
     ParticipationStatus: propTypes.isRequired,
-    Code: propTypes.string.isRequired,
+    Code: propTypes.string.isRequired
   }).isRequired,
-  updateParticipantsList: propTypes.func.isRequired,
-};
+  updateParticipantsList: propTypes.func.isRequired
+}
 
-export default SsaEventInvitee;
+export default SsaEventInvitee

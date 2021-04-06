@@ -1,90 +1,87 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import FilterOption from '../../../components/SortAndFilter/FilterOption';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../EventsScreen/actions';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import { EventType } from './models';
-import { sportActivityTypes } from '../../../constants/socialSportsActivity';
-import Loading from '../../../components/Loading';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import styles from './styles'
+import FilterOption from '../../../components/SortAndFilter/FilterOption'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../EventsScreen/actions'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import { EventType } from './models'
+import { sportActivityTypes } from '../../../constants/socialSportsActivity'
+import Loading from '../../../components/Loading'
+import i18n from '../../../../i18n'
 
 class EventsFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       venuesList: [],
       sportCategoriesList: [],
       eventTypesList: [
         new EventType(sportActivityTypes.TicketedEvents, i18n.t('more.free_spectating_events')),
         new EventType(sportActivityTypes.FreeEvents, i18n.t('more.ticketed_spectating_events')),
-        new EventType(
-          sportActivityTypes.SocialSportsActivities,
-          i18n.t('more.social_sports_events')
-        ),
+        new EventType(sportActivityTypes.SocialSportsActivities, i18n.t('more.social_sports_events'))
       ],
-      isLoading: true,
-    };
+      isLoading: true
+    }
   }
 
   componentDidMount() {
     const requests = [
       axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`),
-      axiosInstance.post(apiUrls.postVenues, {}),
-    ];
+      axiosInstance.post(apiUrls.postVenues, {})
+    ]
 
     Promise.all(requests).then(([sportCategories, venues]) => {
       this.setState({
         venuesList: this.mapList(venues.data, 'Title'),
         sportCategoriesList: this.mapList(sportCategories.data, 'NameInPrimaryLang'),
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   mapList = (list, labelKey, idKey = 'Id') =>
     list.map(item => ({
       id: item[idKey],
-      label: item[labelKey],
-    }));
+      label: item[labelKey]
+    }))
 
   // applyFilters = () => {};
 
   handleCancel = () => {
-    const { clearFilter } = this.props;
+    const { clearFilter } = this.props
 
-    clearFilter();
-  };
+    clearFilter()
+  }
 
   applyFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update,
-    });
+      [itemKey]: update
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   applyRadioFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update.join(),
-    });
+      [itemKey]: update.join()
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   render() {
     // get data from redux store
-    const { categoryOfSports, eventType, dateRange, venue, distance } = this.props;
-    const { venuesList, eventTypesList, sportCategoriesList, isLoading } = this.state;
+    const { categoryOfSports, eventType, dateRange, venue, distance } = this.props
+    const { venuesList, eventTypesList, sportCategoriesList, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -97,7 +94,7 @@ class EventsFilter extends Component {
               onApply: this.applyFilter('categoryOfSports'),
               selectedItems: categoryOfSports,
               items: sportCategoriesList,
-              screenTitle: i18n.t('filters.category_of_sports'),
+              screenTitle: i18n.t('filters.category_of_sports')
             }}
           />
           {/*
@@ -118,7 +115,7 @@ class EventsFilter extends Component {
             navigationData={{
               onApply: this.applyFilter('dateRange'),
               selectedItems: dateRange,
-              screenTitle: i18n.t('filters.daterange'),
+              screenTitle: i18n.t('filters.daterange')
             }}
           />
           {/*
@@ -146,9 +143,9 @@ class EventsFilter extends Component {
                 { id: '15000', label: i18n.t('filters.15km') },
                 { id: '20000', label: i18n.t('filters.20km') },
                 { id: '25000', label: i18n.t('filters.25km') },
-                { id: '30000', label: i18n.t('filters.30km') },
+                { id: '30000', label: i18n.t('filters.30km') }
               ],
-              screenTitle: i18n.t('filters.select_distance'),
+              screenTitle: i18n.t('filters.select_distance')
             }}
           />
         </View>
@@ -159,7 +156,7 @@ class EventsFilter extends Component {
           cancelLabel={i18n.t('generic.buttons.reset')}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -168,12 +165,12 @@ const mapStateToProps = state => ({
   eventType: state.events.filters.eventType,
   dateRange: state.events.filters.dateRange,
   venue: state.events.filters.venue,
-  distance: state.events.filters.distance,
-});
+  distance: state.events.filters.distance
+})
 const mapDispatchToProps = {
   updateStore: actions.setEventsData,
   setFilter: actions.setEventsFilter,
-  clearFilter: actions.clearEventsFilter,
-};
+  clearFilter: actions.clearEventsFilter
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(EventsFilter)

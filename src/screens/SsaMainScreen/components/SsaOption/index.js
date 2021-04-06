@@ -1,52 +1,52 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ViewPropTypes } from 'react-native';
-import PropTypes from 'prop-types';
-import styles from './styles';
-import Icons from '../../../../components/Icons';
-import colors from '../../../../constants/colors';
-import ErrorMessage from '../../../../components/ErrorMessage';
-import i18n from '../../../../../i18n';
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, ViewPropTypes } from 'react-native'
+import PropTypes from 'prop-types'
+import styles from './styles'
+import Icons from '../../../../components/Icons'
+import colors from '../../../../constants/colors'
+import ErrorMessage from '../../../../components/ErrorMessage'
+import i18n from '../../../../../i18n'
 
 class SsaScreen extends Component {
   renderIcon = color => {
-    const { iconName } = this.props;
+    const { iconName } = this.props
 
     switch (iconName) {
       case 'medal': {
-        return <Icons.FontAwesome5 size={18} color={color} name="medal" />;
+        return <Icons.FontAwesome5 size={18} color={color} name="medal" />
       }
       case 'group': {
-        return <Icons.FontAwesome size={18} color={color} name="group" />;
+        return <Icons.FontAwesome size={18} color={color} name="group" />
       }
       case 'ticket': {
-        return <Icons.FontAwesome size={18} color={color} name="ticket" />;
+        return <Icons.FontAwesome size={18} color={color} name="ticket" />
       }
       case 'calendar': {
-        return <Icons.FontAwesome size={18} color={color} name="calendar" />;
+        return <Icons.FontAwesome size={18} color={color} name="calendar" />
       }
       case 'clock-o': {
-        return <Icons.FontAwesome size={18} color={color} name="clock-o" />;
+        return <Icons.FontAwesome size={18} color={color} name="clock-o" />
       }
       case 'money-bill-wave': {
-        return <Icons.FontAwesome5 size={18} color={color} name="money-bill-wave" />;
+        return <Icons.FontAwesome5 size={18} color={color} name="money-bill-wave" />
       }
       case 'credit-card': {
-        return <Icons.FontAwesome5 size={18} color={color} name="credit-card" />;
+        return <Icons.FontAwesome5 size={18} color={color} name="credit-card" />
       }
       case 'map-marker': {
-        return <Icons.FontAwesome size={18} color={color} name="map-marker" />;
+        return <Icons.FontAwesome size={18} color={color} name="map-marker" />
       }
       case 'level-up': {
-        return <Icons.FontAwesome size={18} color={color} name="level-up" />;
+        return <Icons.FontAwesome size={18} color={color} name="level-up" />
       }
       case 'star': {
-        return <Icons.FontAwesome size={18} color={color} name="star-o" />;
+        return <Icons.FontAwesome size={18} color={color} name="star-o" />
       }
       default: {
-        return <Icons.FontAwesome5 size={18} color={color} name="globe" />;
+        return <Icons.FontAwesome5 size={18} color={color} name="globe" />
       }
     }
-  };
+  }
 
   render() {
     const {
@@ -59,8 +59,8 @@ class SsaScreen extends Component {
       errorMessage,
       isDisabled,
       isDisabledActive,
-      withDropdown,
-    } = this.props;
+      withDropdown
+    } = this.props
 
     return (
       <View>
@@ -72,14 +72,14 @@ class SsaScreen extends Component {
             ...(withDropdown && { marginBottom: 0 }),
             ...(isDisabled && styles.disabled),
             ...(error && { borderColor: colors.errorMain }),
-            flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+            flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
           }}
         >
           <View
             style={{
               ...styles.titleSection,
               flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             {this.renderIcon(isDisabled ? colors.basicText : colors.themeColor)}
@@ -87,18 +87,14 @@ class SsaScreen extends Component {
               style={{
                 ...styles.title,
                 marginLeft: i18n.locale.toLowerCase() == 'en' ? 10 : 0,
-                marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 10,
+                marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 10
               }}
             >
               {label}
             </Text>
           </View>
           <View style={styles.valueContainer}>
-            <Text
-              style={[styles.value, valueIcon && { marginRight: 15 }]}
-              ellipsizeMode="tail"
-              numberOfLines={1}
-            >
+            <Text style={[styles.value, valueIcon && { marginRight: 15 }]} ellipsizeMode="tail" numberOfLines={1}>
               {value ? value : ''}
             </Text>
             {valueIcon}
@@ -106,7 +102,7 @@ class SsaScreen extends Component {
         </TouchableOpacity>
         {error && errorMessage && <ErrorMessage errorMessage={errorMessage} />}
       </View>
-    );
+    )
   }
 }
 
@@ -121,15 +117,15 @@ SsaScreen.propTypes = {
   isDisabled: PropTypes.bool,
   isDisabledActive: PropTypes.bool,
   valueIcon: PropTypes.element,
-  withDropdown: PropTypes.bool,
-};
+  withDropdown: PropTypes.bool
+}
 
 SsaScreen.defaultProps = {
   style: {},
   isDisabled: false,
   isDisabledActive: false,
   valueIcon: null,
-  withDropdown: false,
-};
+  withDropdown: false
+}
 
-export default SsaScreen;
+export default SsaScreen

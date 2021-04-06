@@ -1,25 +1,25 @@
-import React, { PureComponent } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import React, { PureComponent } from 'react'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import i18n from '../../../../i18n';
-import { fontFamily, fontSize } from '../../../constants/fonts';
-import colors from '../../../constants/colors';
+import i18n from '../../../../i18n'
+import { fontFamily, fontSize } from '../../../constants/fonts'
+import colors from '../../../constants/colors'
 
-import styles from '../styles';
+import styles from '../styles'
 
-import getLocaleDate from '../../../helpers/getLocaleDate';
+import getLocaleDate from '../../../helpers/getLocaleDate'
 
-import env from '../../../config';
+import env from '../../../config'
 
 export default class NewsItem extends PureComponent {
   state = {
-    titleLines: 0,
-  };
+    titleLines: 0
+  }
 
   _getDate = item => {
-    let date = getLocaleDate(item);
+    let date = getLocaleDate(item)
     return date ? (
       <Text
         ellipsizeMode="tail"
@@ -33,22 +33,22 @@ export default class NewsItem extends PureComponent {
           marginTop: 7,
           fontFamily: fontFamily.gothamMedium,
           lineHeight: fontSize.small + 6,
-          textTransform: 'uppercase',
+          textTransform: 'uppercase'
         }}
       >
         {date}
       </Text>
-    ) : null;
-  };
+    ) : null
+  }
 
   setTitleLines = e => {
-    let eLines = e.nativeEvent.layout.height;
+    let eLines = e.nativeEvent.layout.height
     if (eLines !== undefined) {
       this.setState({
-        titleLines: eLines <= 48 ? true : false,
-      });
+        titleLines: eLines <= 48 ? true : false
+      })
     }
-  };
+  }
 
   getDescription = desc => {
     // const { titleLines } = this.state;
@@ -63,21 +63,21 @@ export default class NewsItem extends PureComponent {
           fontSize: fontSize.small,
           fontFamily: fontFamily.gothamMedium,
           lineHeight: fontSize.small + 6,
-          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+          textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
         }}
       >
         {desc}
       </Text>
-    );
-  };
+    )
+  }
 
   render() {
-    const { navigation, item, isBookmarked, isSignedInUser, getIcon, iconLibraries } = this.props;
+    const { navigation, item, isBookmarked, isSignedInUser, getIcon, iconLibraries } = this.props
 
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(`${item.EntityName}Detail`, { id: item.Id, object: item });
+          navigation.navigate(`${item.EntityName}Detail`, { id: item.Id, object: item })
         }}
       >
         <View
@@ -88,7 +88,7 @@ export default class NewsItem extends PureComponent {
             marginBottom: 8,
             flexDirection: 'row',
             height: 146,
-            overflow: 'hidden',
+            overflow: 'hidden'
           }}
         >
           <View
@@ -98,7 +98,7 @@ export default class NewsItem extends PureComponent {
               // height: 120,
               // flex: 1,
               borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
+              borderBottomLeftRadius: 10
               // borderWidth: 1,
               // borderColor: "#ffff00",
             }}
@@ -106,7 +106,7 @@ export default class NewsItem extends PureComponent {
             <Image
               style={{
                 flex: 1,
-                width: 128,
+                width: 128
                 // height: 120,
                 // borderWidth: 1,
                 // borderColor: "#ff0000",
@@ -121,14 +121,14 @@ export default class NewsItem extends PureComponent {
               paddingRight: 21,
               paddingTop: 11,
               paddingBottom: 14,
-              flex: 1,
+              flex: 1
             }}
           >
             <View
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'space-between',
-                alignItems: 'flex-start',
+                alignItems: 'flex-start'
                 // marginBottom: 0,
               }}
             >
@@ -142,7 +142,7 @@ export default class NewsItem extends PureComponent {
                   fontSize: fontSize.regular,
                   fontFamily: fontFamily.gothamBold,
                   lineHeight: fontSize.regular + 10,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {item.Title}
@@ -152,12 +152,12 @@ export default class NewsItem extends PureComponent {
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'flex-start',
-                alignItems: 'center',
+                alignItems: 'center'
               }}
             >
               {getIcon(iconLibraries.fontAwesome5, 'calendar-alt', {
                 size: fontSize.small,
-                color: colors.darkIcon,
+                color: colors.darkIcon
               })}
               {this._getDate(item.PublishedOn)}
             </View>
@@ -165,6 +165,6 @@ export default class NewsItem extends PureComponent {
           </View>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
 }

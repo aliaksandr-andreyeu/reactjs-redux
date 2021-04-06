@@ -1,210 +1,202 @@
-import React, { PureComponent } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Dimensions,
-  ImageBackground,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
-import moment from 'moment';
-import { withNavigation } from 'react-navigation';
-import SwipeGesture from '../../../../components/SwipeGesture';
-import SkewedContainer from '../../../../components/SkewedContainer';
-import colors from '../../../../constants/colors';
-import styles from './styles';
-import HomeLine from '../../../../assets/images/HomeLine.png';
-import SigninBgImage from '../../../../assets/images/signInBg.jpg';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
-import Icon from '../../../../components/Icon';
-import i18n from '../../../../../i18n';
+import React, { PureComponent } from 'react'
+import { View, Text, Image, Dimensions, ImageBackground, Platform, TouchableOpacity } from 'react-native'
+import moment from 'moment'
+import { withNavigation } from 'react-navigation'
+import SwipeGesture from '../../../../components/SwipeGesture'
+import SkewedContainer from '../../../../components/SkewedContainer'
+import colors from '../../../../constants/colors'
+import styles from './styles'
+import HomeLine from '../../../../assets/images/HomeLine.png'
+import SigninBgImage from '../../../../assets/images/signInBg.jpg'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
+import Icon from '../../../../components/Icon'
+import i18n from '../../../../../i18n'
 
-import getLocaleDate from '../../../../helpers/getLocaleDate';
-import { getLocalePeriod, getLocalePeriodWithYear } from '../../../../helpers/getLocalePeriod';
+import getLocaleDate from '../../../../helpers/getLocaleDate'
+import { getLocalePeriod, getLocalePeriodWithYear } from '../../../../helpers/getLocalePeriod'
 
 class Slider extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       currentSlide: 0,
       dataBoxHeight: 0,
       dimensions: {
         window: Dimensions.get('window'),
-        screen: Dimensions.get('screen'),
-      },
-    };
+        screen: Dimensions.get('screen')
+      }
+    }
 
     this.sliderInterval = setInterval(() => {
-      this.autoScrollSlider();
-    }, 3000);
+      this.autoScrollSlider()
+    }, 3000)
   }
 
   componentDidMount() {
-    Dimensions.addEventListener('change', this.onChange);
+    Dimensions.addEventListener('change', this.onChange)
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.onChange);
+    Dimensions.removeEventListener('change', this.onChange)
 
-    clearInterval(this.sliderInterval);
+    clearInterval(this.sliderInterval)
   }
 
   onChange = ({ window, screen }) => {
-    this.setState({ dimensions: { window, screen } });
-  };
+    this.setState({ dimensions: { window, screen } })
+  }
 
   setSliderInterval() {
     this.sliderInterval = setInterval(() => {
-      this.autoScrollSlider();
-    }, 3000);
+      this.autoScrollSlider()
+    }, 3000)
   }
 
   clearSliderInterval() {
-    clearInterval(this.sliderInterval);
+    clearInterval(this.sliderInterval)
   }
 
   onSwipePerformed = action => {
     switch (action) {
       case 'left': {
-        this._scrollSlider('left');
-        break;
+        this._scrollSlider('left')
+        break
       }
       case 'right': {
-        this._scrollSlider('right');
-        break;
+        this._scrollSlider('right')
+        break
       }
     }
-  };
+  }
 
   autoScrollSlider() {
-    const { slides } = this.props;
-    const { currentSlide } = this.state;
+    const { slides } = this.props
+    const { currentSlide } = this.state
 
-    let newIndex = 0;
+    let newIndex = 0
 
-    newIndex = slides[currentSlide + 1] ? currentSlide + 1 : 0;
+    newIndex = slides[currentSlide + 1] ? currentSlide + 1 : 0
 
     this.setState({
-      currentSlide: newIndex,
-    });
+      currentSlide: newIndex
+    })
   }
 
   _scrollSlider(direction) {
-    const { slides } = this.props;
-    const { currentSlide } = this.state;
+    const { slides } = this.props
+    const { currentSlide } = this.state
 
-    this.clearSliderInterval();
+    this.clearSliderInterval()
 
-    let newIndex = currentSlide;
+    let newIndex = currentSlide
 
     if (direction === 'right') {
-      newIndex = slides[currentSlide - 1] ? currentSlide - 1 : currentSlide;
+      newIndex = slides[currentSlide - 1] ? currentSlide - 1 : currentSlide
     } else if (direction === 'left') {
-      newIndex = slides[currentSlide + 1] ? currentSlide + 1 : currentSlide;
+      newIndex = slides[currentSlide + 1] ? currentSlide + 1 : currentSlide
     }
 
     this.setState(
       {
-        currentSlide: newIndex,
+        currentSlide: newIndex
       },
       () => {
-        this.setSliderInterval();
+        this.setSliderInterval()
       }
-    );
+    )
   }
 
   _slideRight() {
-    const { slides } = this.props;
-    const { currentSlide } = this.state;
+    const { slides } = this.props
+    const { currentSlide } = this.state
 
-    this.clearSliderInterval();
+    this.clearSliderInterval()
 
-    let newIndex = slides[currentSlide + 1] ? currentSlide + 1 : 0;
+    let newIndex = slides[currentSlide + 1] ? currentSlide + 1 : 0
 
     this.setState(
       {
-        currentSlide: newIndex,
+        currentSlide: newIndex
       },
       () => {
-        this.setSliderInterval();
+        this.setSliderInterval()
       }
-    );
+    )
   }
 
   _slideLeft() {
-    const { slides } = this.props;
-    const { currentSlide } = this.state;
+    const { slides } = this.props
+    const { currentSlide } = this.state
 
-    this.clearSliderInterval();
+    this.clearSliderInterval()
 
-    let newIndex = slides[currentSlide - 1] ? currentSlide - 1 : slides.length - 1;
+    let newIndex = slides[currentSlide - 1] ? currentSlide - 1 : slides.length - 1
 
     this.setState(
       {
-        currentSlide: newIndex,
+        currentSlide: newIndex
       },
       () => {
-        this.setSliderInterval();
+        this.setSliderInterval()
       }
-    );
+    )
   }
 
   slidePressed() {
-    const { slides, navigation } = this.props;
-    const { currentSlide } = this.state;
+    const { slides, navigation } = this.props
+    const { currentSlide } = this.state
 
-    const slide = slides[currentSlide];
+    const slide = slides[currentSlide]
 
     if (slide.EntityName === 'Feature') {
       navigation.navigate('FeatureDetail', {
         id: slides[currentSlide].Id,
-        object: slides[currentSlide],
-      });
+        object: slides[currentSlide]
+      })
     } else if (slide.EntityName === 'News') {
       navigation.navigate('NewsDetail', {
         id: slides[currentSlide].Id,
-        object: slides[currentSlide],
-      });
+        object: slides[currentSlide]
+      })
     } else if (slide.EntityName === 'Event') {
       navigation.navigate('EventDetail', {
         id: slides[currentSlide].Id,
-        object: slides[currentSlide],
-      });
+        object: slides[currentSlide]
+      })
     }
   }
 
   _getDate = (item, itemEnd) => {
-    const { dimensions } = this.state;
+    const { dimensions } = this.state
 
     // let date = itemEnd && itemEnd != item ? getLocalePeriodWithYear(item, itemEnd) : getLocaleDate(item);
-    let date = itemEnd && itemEnd != item ? getLocalePeriod(item, itemEnd) : getLocaleDate(item);
+    let date = itemEnd && itemEnd != item ? getLocalePeriod(item, itemEnd) : getLocaleDate(item)
 
     // console.log('date: ', date);
 
-    return date ? <Text style={styles.date}>{date}</Text> : null;
-  };
+    return date ? <Text style={styles.date}>{date}</Text> : null
+  }
 
   render() {
-    const { slides, navigation } = this.props;
-    const { currentSlide, dataBoxHeight } = this.state;
+    const { slides, navigation } = this.props
+    const { currentSlide, dataBoxHeight } = this.state
 
-    const deviceWidth = Dimensions.get('window').width;
+    const deviceWidth = Dimensions.get('window').width
 
-    const slide = slides[currentSlide];
+    const slide = slides[currentSlide]
 
-    const screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get('window').width
 
-    const { getIcon, iconLibraries } = Icon;
+    const { getIcon, iconLibraries } = Icon
 
     // A randomly picked value of 400 serves as breakpoint to switch between a hexagon and a rectangle
     // The approach is widely known as a 'kostyl' and is likely to be removed as soon as the designs
     // are revisited and prudence prevails in the designer's head.
     // const shouldHexagonTransformToSquare = screenWidth < 400;
 
-    const shouldHexagonTransformToSquare = false;
+    const shouldHexagonTransformToSquare = false
 
-    const mainSkewedContainerEdgeType = shouldHexagonTransformToSquare ? '' : 'full';
+    const mainSkewedContainerEdgeType = shouldHexagonTransformToSquare ? '' : 'full'
 
     return (
       <View style={{ marginBottom: -(dataBoxHeight / 2) + 30 }}>
@@ -246,20 +238,20 @@ class Slider extends PureComponent {
                           flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                           justifyContent: 'flex-start',
                           marginBottom: 9,
-                          alignItems: 'center',
+                          alignItems: 'center'
                         }}
                       >
                         <View style={{ marginBottom: Platform.OS === 'ios' ? 0 : 4 }}>
                           {getIcon(iconLibraries.fontAwesome5, 'map-marker-alt', {
                             size: fontSize.small,
-                            color: colors.darkIcon,
+                            color: colors.darkIcon
                           })}
                         </View>
                         <Text
                           style={{
                             ...styles.venueName,
                             marginLeft: i18n.locale.toLowerCase() == 'en' ? 8 : 0,
-                            marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
+                            marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8
                           }}
                           numberOfLines={1}
                           adjustsFontSizeToFit={true}
@@ -274,7 +266,7 @@ class Slider extends PureComponent {
                   <TouchableOpacity
                     style={styles.buttonBox}
                     onPress={() => {
-                      this.slidePressed();
+                      this.slidePressed()
                     }}
                   >
                     <SkewedContainer
@@ -296,12 +288,12 @@ class Slider extends PureComponent {
                   style={styles.leftButton}
                   activeOpacity={0.6}
                   onPress={() => {
-                    this._slideLeft();
+                    this._slideLeft()
                   }}
                 >
                   {getIcon(iconLibraries.entypo, 'chevron-thin-left', {
                     size: 54,
-                    color: colors.themeColor,
+                    color: colors.themeColor
                   })}
                 </TouchableOpacity>
               </View>
@@ -310,12 +302,12 @@ class Slider extends PureComponent {
                   style={styles.rightButton}
                   activeOpacity={0.6}
                   onPress={() => {
-                    this._slideRight();
+                    this._slideRight()
                   }}
                 >
                   {getIcon(iconLibraries.entypo, 'chevron-thin-right', {
                     size: 54,
-                    color: colors.themeColor,
+                    color: colors.themeColor
                   })}
                 </TouchableOpacity>
               </View>
@@ -323,8 +315,8 @@ class Slider extends PureComponent {
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default withNavigation(Slider);
+export default withNavigation(Slider)

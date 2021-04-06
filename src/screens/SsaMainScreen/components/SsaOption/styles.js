@@ -1,7 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
-import layoutConfig from '../../../../constants/layout';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { Platform, StyleSheet } from 'react-native'
+import layoutConfig from '../../../../constants/layout'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,46 +15,46 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     ...Platform.select({
       ios: {
-        backgroundColor: colors.placeholderBackground,
+        backgroundColor: colors.placeholderBackground
       },
       android: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
-        elevation: 0.5,
-      },
-    }),
+        elevation: 0.5
+      }
+    })
   },
   titleSection: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   title: {
     marginLeft: 10,
     fontSize: fontSize.medium,
     fontFamily: fontFamily.gothamBold,
-    fontWeight: Platform.OS === 'ios' ? 'bold' : 'normal',
+    fontWeight: Platform.OS === 'ios' ? 'bold' : 'normal'
   },
   value: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.large,
-    color: colors.themeColor,
+    color: colors.themeColor
   },
   valueContainer: {
     maxWidth: '50%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   error: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular,
     color: colors.errorText,
-    marginBottom: 10,
+    marginBottom: 10
   },
   disabled: {
-    backgroundColor: colors.placeholderBackground,
-  },
-});
+    backgroundColor: colors.placeholderBackground
+  }
+})
 
-export default styles;
+export default styles

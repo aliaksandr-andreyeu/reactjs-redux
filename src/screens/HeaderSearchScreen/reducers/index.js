@@ -1,20 +1,20 @@
-import { handleActions } from 'redux-actions';
-import { orderOptions } from '../../../components/SortAndFilter/SortOrderItem/constants';
+import { handleActions } from 'redux-actions'
+import { orderOptions } from '../../../components/SortAndFilter/SortOrderItem/constants'
 
 export const defaultSortOptions = {
   name: orderOptions.initial,
-  sportsCategory: orderOptions.initial,
-};
+  sportsCategory: orderOptions.initial
+}
 
 export const defaultFilters = {
   categoryOfSports: [],
-  contentType: '',
-};
+  contentType: ''
+}
 
 export const defaultState = {
   sortOptions: defaultSortOptions,
-  filters: defaultFilters,
-};
+  filters: defaultFilters
+}
 
 const reducer = handleActions(
   {
@@ -23,27 +23,27 @@ const reducer = handleActions(
       ...state,
       filters: {
         ...state.filters,
-        ...action.payload,
-      },
+        ...action.payload
+      }
     }),
     SET_SEARCH_SORTING: (state, action) => ({
       ...state,
       sortOptions: {
         ...state.sortOptions,
-        ...action.payload,
-      },
+        ...action.payload
+      }
     }),
     CLEAR_SEARCH_DATA: () => defaultState,
     CLEAR_SEARCH_SORTING: state => ({
       ...state,
-      sortOptions: defaultSortOptions,
+      sortOptions: defaultSortOptions
     }),
     CLEAR_SEARCH_FILTER: state => ({
       ...state,
-      filters: defaultFilters,
-    }),
+      filters: defaultFilters
+    })
   },
   defaultState
-);
+)
 
-export default reducer;
+export default reducer

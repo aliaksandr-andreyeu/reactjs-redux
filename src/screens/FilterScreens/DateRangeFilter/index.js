@@ -1,24 +1,24 @@
-import React, { Component, createRef } from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import moment from 'moment';
-import { dayNames } from './constants';
-import styles from './styles';
-import colors from '../../../constants/colors';
-import { fontFamily, fontSize } from '../../../constants/fonts';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import i18n from '../../../../i18n';
+import React, { Component, createRef } from 'react'
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native'
+import { Calendar, LocaleConfig } from 'react-native-calendars'
+import moment from 'moment'
+import { dayNames } from './constants'
+import styles from './styles'
+import colors from '../../../constants/colors'
+import { fontFamily, fontSize } from '../../../constants/fonts'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import i18n from '../../../../i18n'
 
-import localeDatePicker from './localeDatePicker';
+import localeDatePicker from './localeDatePicker'
 
 class DateRangeFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    const { navigation } = props;
-    const selectedItems = navigation.getParam('selectedItems', []);
+    const { navigation } = props
+    const selectedItems = navigation.getParam('selectedItems', [])
 
-    this.calendarRef = React.createRef();
+    this.calendarRef = React.createRef()
 
     this.state = {
       fromDate: selectedItems[0] ? selectedItems[0] : null,
@@ -26,25 +26,25 @@ class DateRangeFilter extends Component {
       isFromDatePicked: !!selectedItems[0],
       isToDatePicked: !!selectedItems[1],
       markedDates: this.fillMarkedDates(),
-      calendarRange: '',
-    };
+      calendarRange: ''
+    }
   }
 
   fillMarkedDates() {
-    const selectedItems = this.props.navigation.getParam('selectedItems', []);
-    let markedDates = {};
+    const selectedItems = this.props.navigation.getParam('selectedItems', [])
+    let markedDates = {}
 
     if (selectedItems.length > 0) {
-      let fromDate = null;
-      let toDate = null;
+      let fromDate = null
+      let toDate = null
 
       if (selectedItems[0]) {
-        fromDate = selectedItems[0];
+        fromDate = selectedItems[0]
 
         markedDates = {
           [fromDate]: {
             color: colors.themeColor,
-            textColor: colors.basicLightText,
+            textColor: colors.basicLightText
             // customStyles: {
             // container: {
             // justifyContent: 'flex-end',
@@ -55,19 +55,19 @@ class DateRangeFilter extends Component {
             // textAlign: "right",
             // },
             // },
-          },
-        };
+          }
+        }
       }
 
       if (selectedItems[1]) {
-        fromDate = selectedItems[0];
-        toDate = selectedItems[1];
+        fromDate = selectedItems[0]
+        toDate = selectedItems[1]
 
         markedDates = {
           [fromDate]: {
             startingDay: true,
             color: colors.themeColor,
-            textColor: colors.basicLightText,
+            textColor: colors.basicLightText
             // customStyles: {
             // container: {
             // justifyContent: 'flex-end',
@@ -78,20 +78,20 @@ class DateRangeFilter extends Component {
             // textAlign: "right",
             // },
             // },
-          },
-        };
+          }
+        }
 
-        const mFromDate = moment(fromDate);
-        const mToDate = moment(toDate);
+        const mFromDate = moment(fromDate)
+        const mToDate = moment(toDate)
 
-        const range = mToDate.diff(mFromDate, 'days');
+        const range = mToDate.diff(mFromDate, 'days')
 
         if (range >= 0) {
           if (range === 0) {
             markedDates = {
               [toDate]: {
                 color: colors.themeColor,
-                textColor: colors.basicLightText,
+                textColor: colors.basicLightText
                 // customStyles: {
                 // container: {
                 // justifyContent: 'flex-end',
@@ -102,15 +102,15 @@ class DateRangeFilter extends Component {
                 // textAlign: "right",
                 // },
                 // },
-              },
-            };
+              }
+            }
           } else {
             for (let i = 1; i <= range; i++) {
-              const tempDate = mFromDate.add(1, 'day').format('YYYY-MM-DD');
+              const tempDate = mFromDate.add(1, 'day').format('YYYY-MM-DD')
               if (i < range) {
                 markedDates[tempDate] = {
                   color: colors.themeColor,
-                  textColor: colors.basicLightText,
+                  textColor: colors.basicLightText
                   // customStyles: {
                   // container: {
                   // justifyContent: 'flex-end',
@@ -121,13 +121,13 @@ class DateRangeFilter extends Component {
                   // textAlign: "right",
                   // },
                   // },
-                };
+                }
               } else {
                 markedDates[tempDate] = {
                   endingDay: true,
                   selected: true,
                   color: colors.themeColor,
-                  textColor: colors.basicLightText,
+                  textColor: colors.basicLightText
                   // customStyles: {
                   // container: {
                   // justifyContent: 'flex-end',
@@ -138,14 +138,14 @@ class DateRangeFilter extends Component {
                   // textAlign: "right",
                   // },
                   // },
-                };
+                }
               }
             }
           }
         }
       }
     }
-    return markedDates;
+    return markedDates
   }
 
   // componentDidUpdate() {
@@ -159,44 +159,40 @@ class DateRangeFilter extends Component {
 
   handleSelect = date => {
     this.setState({
-      selectedDate: date.dateString,
-    });
-  };
+      selectedDate: date.dateString
+    })
+  }
 
   onDayPress = day => {
-    const { isFromDatePicked, isToDatePicked, markedDates, fromDate } = this.state;
+    const { isFromDatePicked, isToDatePicked, markedDates, fromDate } = this.state
 
     if (!isFromDatePicked || (isFromDatePicked && isToDatePicked)) {
-      this.setupStartMarker(day);
+      this.setupStartMarker(day)
     } else if (!isToDatePicked) {
       // const markedDatesCopy = JSON.parse(JSON.stringify(markedDates));
-      const markedDatesCopy = { ...markedDates };
+      const markedDatesCopy = { ...markedDates }
 
-      const [mMarkedDates, range] = this.setupMarkedDates(
-        fromDate,
-        day.dateString,
-        markedDatesCopy
-      );
+      const [mMarkedDates, range] = this.setupMarkedDates(fromDate, day.dateString, markedDatesCopy)
       if (range >= 0) {
         this.setState({
           isFromDatePicked: true,
           toDate: day.dateString,
           isToDatePicked: true,
-          markedDates: mMarkedDates,
-        });
+          markedDates: mMarkedDates
+        })
         // this.props.onSuccess(this.state.fromDate, day.dateString);
       } else {
-        this.setupStartMarker(day);
+        this.setupStartMarker(day)
       }
     }
-  };
+  }
 
   setupStartMarker = day => {
     const markedDates = {
       [day.dateString]: {
         startingDay: true,
         color: colors.themeColor,
-        textColor: colors.basicLightText,
+        textColor: colors.basicLightText
         // customStyles: {
         // container: {
         // justifyContent: 'flex-end',
@@ -208,30 +204,30 @@ class DateRangeFilter extends Component {
         // textAlign: "right",
         // },
         // },
-      },
-    };
+      }
+    }
     this.setState({
       isFromDatePicked: true,
       isToDatePicked: false,
       fromDate: day.dateString,
       toDate: null,
-      markedDates,
-    });
-  };
+      markedDates
+    })
+  }
 
   setupMarkedDates = (fromDate, toDate, markedDates = {}) => {
     // let markedDatesCopy = JSON.parse(JSON.stringify(markedDates));
-    let markedDatesCopy = { ...markedDates };
+    let markedDatesCopy = { ...markedDates }
 
-    const mFromDate = moment(fromDate);
-    const mToDate = moment(toDate);
-    const range = mToDate.diff(mFromDate, 'days');
+    const mFromDate = moment(fromDate)
+    const mToDate = moment(toDate)
+    const range = mToDate.diff(mFromDate, 'days')
     if (range >= 0) {
       if (range === 0) {
         markedDatesCopy = {
           [toDate]: {
             color: colors.themeColor,
-            textColor: colors.basicLightText,
+            textColor: colors.basicLightText
             // customStyles: {
             // container: {
             // justifyContent: 'flex-end',
@@ -242,15 +238,15 @@ class DateRangeFilter extends Component {
             // textAlign: "right",
             // },
             // },
-          },
-        };
+          }
+        }
       } else {
         for (let i = 1; i <= range; i++) {
-          const tempDate = mFromDate.add(1, 'day').format('YYYY-MM-DD');
+          const tempDate = mFromDate.add(1, 'day').format('YYYY-MM-DD')
           if (i < range) {
             markedDatesCopy[tempDate] = {
               color: colors.themeColor,
-              textColor: colors.basicLightText,
+              textColor: colors.basicLightText
               // customStyles: {
               // container: {
               // justifyContent: 'flex-end',
@@ -262,24 +258,24 @@ class DateRangeFilter extends Component {
               // alignSelf: 'flex-end',
               // },
               // },
-            };
+            }
           } else {
             markedDatesCopy[tempDate] = {
               endingDay: true,
               selected: true,
               color: colors.themeColor,
-              textColor: colors.basicLightText,
-            };
+              textColor: colors.basicLightText
+            }
           }
         }
       }
     }
-    return [markedDatesCopy, range];
-  };
+    return [markedDatesCopy, range]
+  }
 
   getCalendarConfig = () => {
-    const { calendarRange } = this.state;
-    let calendarConfig;
+    const { calendarRange } = this.state
+    let calendarConfig
 
     switch (calendarRange) {
       case 'current': {
@@ -287,68 +283,68 @@ class DateRangeFilter extends Component {
           minDate: moment(),
           maxDate: moment(),
           pastScrollRange: 0,
-          futureScrollRange: 1,
-        };
+          futureScrollRange: 1
+        }
         // minDate
         // maxDate
-        break;
+        break
       }
       case 'upcoming': {
         calendarConfig = {
           minDate: moment().add(1, 'day'),
           maxDate: moment().add(6, 'months'),
           pastScrollRange: 0,
-          futureScrollRange: 1,
-        };
-        break;
+          futureScrollRange: 1
+        }
+        break
       }
       case 'past': {
         calendarConfig = {
           minDate: moment().subtract(1, 'day'),
           maxDate: moment().subtract(6, 'months'),
           pastScrollRange: 1,
-          futureScrollRange: 0,
-        };
-        break;
+          futureScrollRange: 0
+        }
+        break
       }
       default: {
         calendarConfig = {
           minDate: undefined,
           maxDate: undefined,
           pastScrollRange: 0,
-          futureScrollRange: 1,
-        };
+          futureScrollRange: 1
+        }
       }
     }
 
-    const [markedDates] = this.setupMarkedDates(calendarConfig.minDate, calendarConfig.maxDate);
+    const [markedDates] = this.setupMarkedDates(calendarConfig.minDate, calendarConfig.maxDate)
 
     return this.setState({
-      markedDates,
-    });
-  };
+      markedDates
+    })
+  }
 
   setCalendar = calendarRange => {
-    const isCurrent = calendarRange === 'current';
+    const isCurrent = calendarRange === 'current'
 
     this.setState({
       isFromDatePicked: isCurrent,
       isToDatePicked: isCurrent,
       markedDates: isCurrent ? {} : {},
-      calendarRange,
-    });
-  };
+      calendarRange
+    })
+  }
 
   applyChanges = () => {
-    const { navigation } = this.props;
-    const { fromDate, toDate, isFromDatePicked, isToDatePicked } = this.state;
+    const { navigation } = this.props
+    const { fromDate, toDate, isFromDatePicked, isToDatePicked } = this.state
 
-    const updateReduxStore = navigation.getParam('onApply', () => {});
+    const updateReduxStore = navigation.getParam('onApply', () => {})
 
-    const dates = [isFromDatePicked && fromDate, isToDatePicked && toDate].filter(v => !!v);
+    const dates = [isFromDatePicked && fromDate, isToDatePicked && toDate].filter(v => !!v)
 
-    updateReduxStore(dates);
-  };
+    updateReduxStore(dates)
+  }
 
   handleReset = () => {
     this.setState({
@@ -356,15 +352,15 @@ class DateRangeFilter extends Component {
       toDate: null,
       isFromDatePicked: false,
       isToDatePicked: false,
-      markedDates: {},
-    });
-  };
+      markedDates: {}
+    })
+  }
 
   render() {
-    const { selectedDate, fromDate, toDate, markedDates, calendarRange } = this.state;
+    const { selectedDate, fromDate, toDate, markedDates, calendarRange } = this.state
 
-    LocaleConfig.locales.en = localeDatePicker();
-    LocaleConfig.defaultLocale = 'en';
+    LocaleConfig.locales.en = localeDatePicker()
+    LocaleConfig.defaultLocale = 'en'
 
     // const FILLER_HEIGHT = 34;
 
@@ -377,16 +373,13 @@ class DateRangeFilter extends Component {
             </Text>
           ))}
         </View>
-        <ScrollView
-          style={styles.containter}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
-        >
+        <ScrollView style={styles.containter} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
           <Calendar
             {...this.props}
             // key={this.state}
             ref={ref => (this.calendarRef = ref)}
             style={{
-              flex: 1,
+              flex: 1
             }}
             theme={{
               selectedDayBackgroundColor: colors.themeColor,
@@ -399,20 +392,20 @@ class DateRangeFilter extends Component {
                   textAlign: 'center',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  alignSelf: 'stretch',
+                  alignSelf: 'stretch'
                 },
                 base: {
                   width: 38,
                   height: 34,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  alignSelf: 'center',
+                  alignSelf: 'center'
                 },
                 text: {
                   fontSize: fontSize.large,
-                  alignSelf: 'center',
-                },
-              },
+                  alignSelf: 'center'
+                }
+              }
             }}
             current={fromDate}
             // pastScrollRange={1}
@@ -461,8 +454,8 @@ class DateRangeFilter extends Component {
           closeOnCancel={false}
         />
       </View>
-    );
+    )
   }
 }
 
-export default DateRangeFilter;
+export default DateRangeFilter

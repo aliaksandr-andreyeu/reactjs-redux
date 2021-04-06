@@ -1,47 +1,47 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../constants/colors';
-import { fontFamily, fontSize } from '../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../constants/colors'
+import { fontFamily, fontSize } from '../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
+    padding: 15
   },
   addButton: {
     fontFamily: fontFamily.gothamMedium,
     color: colors.brandColorBright,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.medium
   },
   contentWrapper: {},
   text: {
     fontFamily: fontFamily.gothamMedium,
     color: colors.basicText,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.medium
   },
   mainContent: {
-    fontSize: fontSize.large,
+    fontSize: fontSize.large
   },
   lightText: {
-    color: colors.placeholderText,
+    color: colors.placeholderText
   },
   title: {
     marginBottom: 15,
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   footerSection: {
     paddingHorizontal: 15,
-    marginBottom: 15,
+    marginBottom: 15
   },
   accountBalanceInfo: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginBottom: 15,
+    marginBottom: 15
   },
   accountBalanceInfoText: {
-    marginLeft: 15,
+    marginLeft: 15
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   button: {
     height: 40,
@@ -49,17 +49,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.brandColorBright,
     borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
-    color: colors.basicLightText,
+    color: colors.basicLightText
   },
   disabledButton: {
-    backgroundColor: colors.disabledButton,
+    backgroundColor: colors.disabledButton
   },
   disabledButtonText: {
-    color: colors.disabledText,
-  },
-});
+    color: colors.disabledText
+  }
+})
 
-export default styles;
+export default styles

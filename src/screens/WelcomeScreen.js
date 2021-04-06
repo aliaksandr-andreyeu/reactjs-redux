@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Platform,
   StyleSheet,
@@ -8,31 +8,31 @@ import {
   Dimensions,
   ImageBackground,
   TextInput,
-  PixelRatio,
-} from 'react-native';
+  PixelRatio
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import i18n from '../../i18n';
-import { fontFamily } from '../constants/fonts';
-import { onLocaleChange } from '../constants/fonts';
+import i18n from '../../i18n'
+import { fontFamily } from '../constants/fonts'
+import { onLocaleChange } from '../constants/fonts'
 
-import WelcomeBgImage from '../assets/images/LanguageBg.png';
-import SkewedContainer from '../components/SkewedContainer';
-import colors from '../constants/colors';
+import WelcomeBgImage from '../assets/images/LanguageBg.png'
+import SkewedContainer from '../components/SkewedContainer'
+import colors from '../constants/colors'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
-import Global from '../components/global';
+import Global from '../components/global'
 
-import env from '../config';
+import env from '../config'
 
-import { externalLinks, axiosInstance, apiUrls } from '../constants/api';
+import { externalLinks, axiosInstance, apiUrls } from '../constants/api'
 
 export default class WelcomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   state = {
     isLoading: true,
@@ -42,56 +42,56 @@ export default class WelcomeScreen extends React.Component {
       {
         id: 0,
         title: i18n.t('welcome.english'),
-        code: 'en',
+        code: 'en'
       },
       {
         id: 1,
         title: i18n.t('welcome.arabic'),
-        code: 'ar',
-      },
+        code: 'ar'
+      }
     ],
     selectedLanguage: 0,
     isShowLanguageDialogue: false,
     dimensions: {
       window: Dimensions.get('window'),
-      screen: Dimensions.get('screen'),
-    },
-  };
+      screen: Dimensions.get('screen')
+    }
+  }
 
   constructor() {
-    super();
+    super()
   }
 
   async componentDidMount() {
     setTimeout(() => {
       if (false && __DEV__) {
-        this.props.navigation.navigate('Home', {});
-        return true;
+        this.props.navigation.navigate('Home', {})
+        return true
       }
-    }, 1000);
+    }, 1000)
 
-    Dimensions.addEventListener('change', this.onChange);
+    Dimensions.addEventListener('change', this.onChange)
 
-    let locale = 0;
+    let locale = 0
     if (i18n.locale === 'ar') {
-      locale = 1;
+      locale = 1
     }
 
     try {
-      const storedValue = await AsyncStorage.getItem('app:user');
+      const storedValue = await AsyncStorage.getItem('app:user')
 
       if (storedValue) {
-        Global.user = JSON.parse(storedValue);
-        console.log('Welcome JSON.parse(storedValue)', JSON.parse(storedValue));
+        Global.user = JSON.parse(storedValue)
+        console.log('Welcome JSON.parse(storedValue)', JSON.parse(storedValue))
 
-        if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-          this.props.navigation.navigate('Home', {});
+        if (Global.user && Global.user.token && Global.user.token.length > 5) {
+          this.props.navigation.navigate('Home', {})
         } else {
           this.setState({
             user: JSON.parse(storedValue),
             selectedLanguage: locale,
-            isLoading: false,
-          });
+            isLoading: false
+          })
         }
       } else {
         let userModel = {
@@ -103,67 +103,67 @@ export default class WelcomeScreen extends React.Component {
           language: 0,
           phone: '',
           token: '',
-          id: null,
-        };
+          id: null
+        }
 
         // console.log('Welcome JSON.parse(storedValue)', JSON.parse(storedValue));
 
-        Global.user = userModel;
+        Global.user = userModel
 
         this.setState({
           user: userModel,
           selectedLanguage: locale,
-          isLoading: false,
-        });
+          isLoading: false
+        })
       }
-      console.log('Welcome GLOBAL', Global);
+      console.log('Welcome GLOBAL', Global)
     } catch (e) {
-      console.log('Error:', e);
+      console.log('Error:', e)
     }
   }
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props, prevProps)) {
-      this.checkUser();
+      this.checkUser()
     }
   }
 
   async checkUser() {
     try {
-      const storedValue = await AsyncStorage.getItem('app:user');
+      const storedValue = await AsyncStorage.getItem('app:user')
 
       if (storedValue) {
-        Global.user = JSON.parse(storedValue);
+        Global.user = JSON.parse(storedValue)
 
-        if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-          this.props.navigation.navigate('Home', {});
+        if (Global.user && Global.user.token && Global.user.token.length > 5) {
+          this.props.navigation.navigate('Home', {})
         } else {
           this.setState({
-            isLoading: false,
-          });
+            isLoading: false
+          })
         }
       } else {
         this.setState({
-          isLoading: false,
-        });
+          isLoading: false
+        })
       }
     } catch (e) {
-      console.log('Error:', e);
+      console.log('Error:', e)
     }
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.onChange);
+    Dimensions.removeEventListener('change', this.onChange)
   }
 
   onChange = ({ window, screen }) => {
-    this.setState({ dimensions: { window, screen } });
-  };
+    this.setState({ dimensions: { window, screen } })
+  }
 
   render() {
-    const { dimensions, isLoading } = this.state;
+    const { dimensions, isLoading } = this.state
 
-    const pixelRatio = PixelRatio.get();
+    const pixelRatio = PixelRatio.get()
 
     return isLoading ? null : (
       <ImageBackground source={WelcomeBgImage} style={{ width: '100%', height: '100%' }}>
@@ -174,7 +174,7 @@ export default class WelcomeScreen extends React.Component {
             width: '100%',
             bottom: dimensions.window.height > 736 ? 54 : dimensions.window.height > 480 ? 10 : 0,
             textAlign: 'center',
-            alignItems: 'center',
+            alignItems: 'center'
           }}
         >
           <Text style={styles.selectYourLanguage}>
@@ -188,12 +188,12 @@ export default class WelcomeScreen extends React.Component {
               ...styles.bookingsSearchButton,
               marginTop: 15,
               textAlign: 'center',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <TouchableOpacity
               onPress={() => {
-                this.selectLanguage(0);
+                this.selectLanguage(0)
               }}
             >
               <SkewedContainer
@@ -210,14 +210,13 @@ export default class WelcomeScreen extends React.Component {
                     ...styles.selectedLanguageBox,
                     lineHeight: 32,
                     // height: dimensions.window.height > 667 ? 32 : 26,
-                    height: 32,
+                    height: 32
                   }}
                 >
                   <Text
                     style={{
                       ...styles.selectedLanguage,
-                      width:
-                        pixelRatio > 2 ? 140 : pixelRatio > 1.5 ? 120 : pixelRatio > 1 ? 100 : 80,
+                      width: pixelRatio > 2 ? 140 : pixelRatio > 1.5 ? 120 : pixelRatio > 1 ? 100 : 80
                     }}
                   >
                     {this.state.languages[0].title}
@@ -228,20 +227,20 @@ export default class WelcomeScreen extends React.Component {
 
             <TouchableOpacity
               onPress={() => {
-                this.selectLanguage(1);
+                this.selectLanguage(1)
               }}
             >
               <View
                 style={{
                   ...styles.selectedLanguageBox,
                   height: dimensions.window.height > 667 ? 32 : 26,
-                  marginTop: 5,
+                  marginTop: 5
                 }}
               >
                 <Text
                   style={{
                     ...styles.selectedLanguage,
-                    color: '#202873',
+                    color: '#202873'
                   }}
                 >
                   {this.state.languages[1].title}
@@ -251,16 +250,12 @@ export default class WelcomeScreen extends React.Component {
             <TouchableOpacity
               style={{ marginTop: 22, textAlign: 'center', alignItems: 'center' }}
               onPress={() => {
-                this.props.navigation.navigate('SignIn', {});
+                this.props.navigation.navigate('SignIn', {})
               }}
             >
               <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.authText, {}]}>
-                  {i18n.t('auth_choice.already_have_an_account')}
-                </Text>
-                <Text
-                  style={[styles.authText, { marginLeft: 5, fontFamily: fontFamily.gothamBold }]}
-                >
+                <Text style={[styles.authText, {}]}>{i18n.t('auth_choice.already_have_an_account')}</Text>
+                <Text style={[styles.authText, { marginLeft: 5, fontFamily: fontFamily.gothamBold }]}>
                   {i18n.t('auth_choice.login')}
                 </Text>
               </View>
@@ -268,42 +263,42 @@ export default class WelcomeScreen extends React.Component {
           </View>
         </View>
       </ImageBackground>
-    );
+    )
   }
 
   selectLanguage(id) {
-    i18n.locale = id === 0 ? 'en' : 'ar';
-    onLocaleChange();
+    i18n.locale = id === 0 ? 'en' : 'ar'
+    onLocaleChange()
 
     this.setState(
       {
-        selectedLanguage: id,
+        selectedLanguage: id
       },
       () => {
-        this.finishSelection();
+        this.finishSelection()
       }
-    );
+    )
   }
 
   toggleLanguageDialogue() {
     this.setState({
-      isShowLanguageDialogue: !this.state.isShowLanguageDialogue,
-    });
+      isShowLanguageDialogue: !this.state.isShowLanguageDialogue
+    })
   }
 
   finishSelection = () => {
     if (this.state.user.token) {
       this.props.navigation.navigate('Home', {
-        isSkipped: false,
-      });
+        isSkipped: false
+      })
     } else {
-      AsyncStorage.setItem('app:user', JSON.stringify(this.state.user));
+      AsyncStorage.setItem('app:user', JSON.stringify(this.state.user))
 
       this.props.navigation.navigate('AuthChoice', {
-        isSkipped: false,
-      });
+        isSkipped: false
+      })
     }
-  };
+  }
 }
 
 const styles = StyleSheet.create({
@@ -312,7 +307,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 25,
+    marginTop: 25
   },
   radio: {
     width: 25,
@@ -322,24 +317,24 @@ const styles = StyleSheet.create({
     borderColor: '#8C9091',
     borderWidth: 2,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   radioSelected: {
     backgroundColor: '#ffffff',
-    borderColor: '#202873',
+    borderColor: '#202873'
   },
   radioBullet: {
     backgroundColor: '#202873',
     width: 15,
     height: 15,
-    borderRadius: 255,
+    borderRadius: 255
   },
   languageLabel: {
     color: '#575756',
     fontSize: 14,
     marginLeft: 11,
     fontFamily: fontFamily.gothamMedium,
-    marginTop: 2,
+    marginTop: 2
   },
   selectYourLanguageDone: {
     color: '#202873',
@@ -349,7 +344,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.gothamMedium,
     textAlign: 'right',
     alignSelf: 'flex-end',
-    width: '100%',
+    width: '100%'
   },
   selectYourLanguageTitle: {
     fontFamily: fontFamily.gothamMedium,
@@ -360,7 +355,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderBottomColor: '#e2e3e3',
     borderBottomWidth: 2,
-    width: '100%',
+    width: '100%'
   },
   languageDialogueContainer: {
     position: 'absolute',
@@ -377,24 +372,24 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     zIndex: 9999999,
     backgroundColor: '#FFFFFF',
-    borderRadius: 8,
+    borderRadius: 8
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   selectYourLanguage: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: 14,
-    color: '#202873',
+    color: '#202873'
   },
   selectedLanguageBox: {
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   selectedLanguage: {
     color: '#FFFFFF',
@@ -402,13 +397,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textTransform: 'uppercase',
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   authText: {
     color: '#202873',
     fontSize: 12,
     fontFamily: fontFamily.gothamLight,
     textAlign: 'center',
-    lineHeight: 19,
-  },
-});
+    lineHeight: 19
+  }
+})

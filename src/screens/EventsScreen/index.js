@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import {
   Image,
@@ -10,58 +10,58 @@ import {
   View,
   FlatList,
   Dimensions,
-  TextInput,
-} from 'react-native';
+  TextInput
+} from 'react-native'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
-import Loading from '../../components/Loading';
+import Loading from '../../components/Loading'
 
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation'
 
-import AsyncStorage from '@react-native-community/async-storage';
-import Moment from 'moment';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import { externalLinks, axiosInstance, apiUrls } from '../../constants/api';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import styles from './styles';
-import FilterAndSearchBar from '../../components/FilterAndSearchBar';
-import * as actions from './actions';
+import AsyncStorage from '@react-native-community/async-storage'
+import Moment from 'moment'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import { externalLinks, axiosInstance, apiUrls } from '../../constants/api'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import styles from './styles'
+import FilterAndSearchBar from '../../components/FilterAndSearchBar'
+import * as actions from './actions'
 
-import DXBLogo from '../../assets/images/dxb_gray.svg';
+import DXBLogo from '../../assets/images/dxb_gray.svg'
 
-import i18n from '../../../i18n';
+import i18n from '../../../i18n'
 
-import { fontFamily } from '../../constants/fonts';
-import colors from '../../constants/colors';
-import { getSortAndFilterModel } from '../../helpers/filters';
+import { fontFamily } from '../../constants/fonts'
+import colors from '../../constants/colors'
+import { getSortAndFilterModel } from '../../helpers/filters'
 
-import Icon from '../../components/Icon';
-import shareData from '../../helpers/shareData';
+import Icon from '../../components/Icon'
+import shareData from '../../helpers/shareData'
 
-import getLocaleDate from '../../helpers/getLocaleDate';
+import getLocaleDate from '../../helpers/getLocaleDate'
 
-import env from '../../config';
+import env from '../../config'
 
-import Global from '../../components/global';
+import Global from '../../components/global'
 
 const {
   getIcon,
-  iconLibraries: { materialIcons, fontAwesome },
-} = Icon;
+  iconLibraries: { materialIcons, fontAwesome }
+} = Icon
 
 const iconProps = {
   size: 22,
-  color: colors.lightIcon,
-};
+  color: colors.lightIcon
+}
 
 export class EventsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('events.title'),
-    };
-  };
+      title: i18n.t('events.title')
+    }
+  }
 
   state = {
     user: {},
@@ -71,15 +71,15 @@ export class EventsScreen extends Component {
 
     dataSource: {
       isLoading: true,
-      events: [],
+      events: []
     },
     location: {
       longitude: 0,
-      latitude: 0,
+      latitude: 0
     },
 
-    bookmarks: [],
-  };
+    bookmarks: []
+  }
 
   determineLocation() {
     setTimeout(() => {
@@ -87,99 +87,99 @@ export class EventsScreen extends Component {
         position => {
           if (position.coords && position.coords.latitude && position.coords.longitude) {
             this.setState({
-              location: position.coords,
-            });
+              location: position.coords
+            })
           }
         },
         error => {},
         {
           enableHighAccuracy: false,
           timeout: 5000,
-          maximumAge: 10000,
+          maximumAge: 10000
         }
-      );
-    }, 500);
+      )
+    }, 500)
   }
 
   getBookmarks = () => {
-    if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-      let requests = [axiosInstance(apiUrls.getBookmarks)];
+    if (Global.user && Global.user.token && Global.user.token.length > 5) {
+      let requests = [axiosInstance(apiUrls.getBookmarks)]
 
       Promise.all(requests).then(([bookmarks]) => {
         // console.log('bookmarks', bookmarks.data)
 
         this.setState({
-          bookmarks: bookmarks.data,
-        });
-      });
+          bookmarks: bookmarks.data
+        })
+      })
     }
-  };
+  }
 
   toggleBookmark = (id, isBookmarked) => {
     // console.log('id', id, isBookmarked )
 
-    if (id == undefined) return false;
+    if (id == undefined) return false
 
-    const { bookmarks } = this.state;
+    const { bookmarks } = this.state
 
     const params = {
       Id: id,
-      Entity: 'event',
-    };
+      Entity: 'event'
+    }
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
-        this.getBookmarks();
-      });
+        this.getBookmarks()
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
-        this.getBookmarks();
-      });
+        this.getBookmarks()
+      })
     }
-  };
+  }
 
   async componentDidMount() {
     // THIS IS BLOCKED BY console.reportErrorsAsExceptions = false; at APP
     // console.error(' ************************************************************* Testing error boundary');
 
-    this.determineLocation();
+    this.determineLocation()
 
-    const { clearFiltersAndSorting } = this.props;
-    clearFiltersAndSorting();
+    const { clearFiltersAndSorting } = this.props
+    clearFiltersAndSorting()
 
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
 
-    this.getBookmarks();
+    this.getBookmarks()
 
-    this._getHomeItems();
+    this._getHomeItems()
   }
 
   _getHomeItems() {
-    const { sortOptions, filterOptions } = this.props;
+    const { sortOptions, filterOptions } = this.props
 
-    let model = getSortAndFilterModel(sortOptions, filterOptions);
-    model.languageCode = i18n.locale.toUpperCase();
-    model.langCode = i18n.locale.toUpperCase();
+    let model = getSortAndFilterModel(sortOptions, filterOptions)
+    model.languageCode = i18n.locale.toUpperCase()
+    model.langCode = i18n.locale.toUpperCase()
 
     if (this.props.filterOptions.distance) {
-      model.distance = +this.props.filterOptions.distance;
+      model.distance = +this.props.filterOptions.distance
     }
 
     if (this.state.location.longitude && this.state.location.latitude) {
       model = {
         ...model,
-        ...this.state.location,
-      };
+        ...this.state.location
+      }
     }
 
     // console.log('model DidMount', model);
@@ -190,46 +190,43 @@ export class EventsScreen extends Component {
         if (data.Items) {
           this.setState(
             {
-              dataSource: { events: data.Items, isLoading: false },
+              dataSource: { events: data.Items, isLoading: false }
             },
             () => {
-              this.filterData();
+              this.filterData()
             }
-          );
+          )
         }
       })
-      .catch(e => console.log(e));
+      .catch(e => console.log(e))
   }
 
   componentDidUpdate(prevProps) {
-    const { sortOptions, filterOptions } = this.props;
+    const { sortOptions, filterOptions } = this.props
 
-    if (
-      !isEqual(sortOptions, prevProps.sortOptions) ||
-      !isEqual(filterOptions, prevProps.filterOptions)
-    ) {
-      this.fetchItemsWithParams(sortOptions, filterOptions);
+    if (!isEqual(sortOptions, prevProps.sortOptions) || !isEqual(filterOptions, prevProps.filterOptions)) {
+      this.fetchItemsWithParams(sortOptions, filterOptions)
     }
   }
 
   fetchItemsWithParams = async (sortParams, filterParams) => {
-    let model = getSortAndFilterModel(sortParams, filterParams);
+    let model = getSortAndFilterModel(sortParams, filterParams)
 
-    model.languageCode = i18n.locale.toUpperCase();
-    model.langCode = i18n.locale.toUpperCase();
+    model.languageCode = i18n.locale.toUpperCase()
+    model.langCode = i18n.locale.toUpperCase()
 
     if (this.props.filterOptions.distance) {
-      model.distance = +this.props.filterOptions.distance;
+      model.distance = +this.props.filterOptions.distance
     }
 
     if (this.state.location.longitude && this.state.location.latitude) {
       model = {
         ...model,
-        ...this.state.location,
-      };
+        ...this.state.location
+      }
     }
 
-    console.log('model DidUpdate', model);
+    console.log('model DidUpdate', model)
 
     axiosInstance
       .post(apiUrls.postEvents, model)
@@ -237,19 +234,19 @@ export class EventsScreen extends Component {
         if (data.Items) {
           this.setState(
             {
-              dataSource: { events: data.Items, isLoading: false },
+              dataSource: { events: data.Items, isLoading: false }
             },
             () => {
-              this.filterData();
+              this.filterData()
             }
-          );
+          )
         }
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   _getDate = (item, flag) => {
-    let date = getLocaleDate(item);
+    let date = getLocaleDate(item)
     return date ? (
       <Text
         style={{
@@ -262,41 +259,41 @@ export class EventsScreen extends Component {
           marginTop: 3,
           lineHeight: 20,
           textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-          textTransform: 'uppercase',
+          textTransform: 'uppercase'
         }}
       >
         {flag && '-  '}
         {date}
       </Text>
-    ) : null;
-  };
+    ) : null
+  }
 
   _renderItemEvent = ({ item }) => {
-    const { bookmarks } = this.state;
+    const { bookmarks } = this.state
 
-    let startEventDate = null;
-    let endEventDate = null;
+    let startEventDate = null
+    let endEventDate = null
 
     if (item.EventStartDateTime) {
-      startEventDate = item.EventStartDateTime;
+      startEventDate = item.EventStartDateTime
     }
 
     if (item.EventEndDateTime) {
-      endEventDate = item.EventEndDateTime;
+      endEventDate = item.EventEndDateTime
     }
 
-    let eventVenue = 'Dubai';
+    let eventVenue = 'Dubai'
     if (item.VenueName) {
-      eventVenue = item.VenueName;
+      eventVenue = item.VenueName
     }
 
-    const messageToShare = externalLinks.getEventsUrl(item.Id);
+    const messageToShare = externalLinks.getEventsUrl(item.Id)
 
-    const tagText = item.IsFree ? 'Free' : `${item.Currency} ${item.MinPrice}+`;
+    const tagText = item.IsFree ? 'Free' : `${item.Currency} ${item.MinPrice}+`
 
-    const isBookmarked = Boolean(bookmarks.length)
+    const isBookmarked = bookmarks.length
       ? bookmarks.find(el => el.EntityName.toLowerCase() === 'event' && el.Eid === item.Id)
-      : false;
+      : false
 
     // console.log(item.Id, isBookmarked)
     // console.log(item)
@@ -307,8 +304,8 @@ export class EventsScreen extends Component {
           this.props.navigation.navigate('EventDetail', {
             id: item.Id,
             object: item,
-            getBookmarks: () => this.getBookmarks(),
-          });
+            getBookmarks: () => this.getBookmarks()
+          })
         }}
       >
         <View
@@ -316,7 +313,7 @@ export class EventsScreen extends Component {
             flexDirection: 'column',
             borderRadius: 5,
             overflow: 'hidden',
-            marginBottom: 8,
+            marginBottom: 8
           }}
         >
           <View
@@ -326,7 +323,7 @@ export class EventsScreen extends Component {
               borderTopLeftRadius: 5,
               borderTopRightRadius: 5,
               overflow: 'hidden',
-              backgroundColor: colors.secondaryBackgroundLight,
+              backgroundColor: colors.secondaryBackgroundLight
             }}
           >
             <View
@@ -346,7 +343,7 @@ export class EventsScreen extends Component {
                 overflow: 'hidden',
 
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'center'
               }}
             >
               <DXBLogo height={50} width={80} />
@@ -359,7 +356,7 @@ export class EventsScreen extends Component {
                 height: 190,
                 borderTopLeftRadius: 5,
                 borderTopRightRadius: 5,
-                overflow: 'hidden',
+                overflow: 'hidden'
               }}
               resizeMode="cover"
             >
@@ -371,7 +368,7 @@ export class EventsScreen extends Component {
                     left: i18n.locale.toLowerCase() == 'en' ? 0 : 'auto',
                     right: i18n.locale.toLowerCase() == 'en' ? 'auto' : 0,
                     bottom: 0,
-                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+                    flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
                     // backgroundColor: '#00ac9f',
                     // paddingHorizontal: 12,
                     // paddingVertical: 8,
@@ -388,7 +385,7 @@ export class EventsScreen extends Component {
                       paddingRight: 4,
                       paddingVertical: 2,
                       alignItems: 'center',
-                      height: 32,
+                      height: 32
                     }}
                   >
                     <EvilIcons name="calendar" size={20} color="#fff" />
@@ -407,7 +404,7 @@ export class EventsScreen extends Component {
                       borderRightWidth: i18n.locale.toLowerCase() == 'en' ? 32 : 0,
                       borderLeftWidth: i18n.locale.toLowerCase() == 'en' ? 0 : 32,
                       borderBottomWidth: 32,
-                      borderBottomColor: '#00ac9f',
+                      borderBottomColor: '#00ac9f'
                     }}
                   />
                 </View>
@@ -474,14 +471,14 @@ export class EventsScreen extends Component {
               backgroundColor: '#fff',
               paddingVertical: 10,
               paddingHorizontal: 15,
-              paddingBottom: 14,
+              paddingBottom: 14
             }}
           >
             <View
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'space-between',
-                alignItems: 'flex-start',
+                alignItems: 'flex-start'
               }}
             >
               <Text
@@ -496,7 +493,7 @@ export class EventsScreen extends Component {
                   flexBasis: 'auto',
                   flexGrow: 0,
                   flexShrink: 1,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {item.Title}
@@ -507,7 +504,7 @@ export class EventsScreen extends Component {
                   flexGrow: 0,
                   flexShrink: 0,
                   flexBasis: 'auto',
-                  marginTop: 3,
+                  marginTop: 3
                 }}
               >
                 <TouchableOpacity
@@ -516,29 +513,19 @@ export class EventsScreen extends Component {
                     ...(i18n.locale.toLowerCase() == 'en'
                       ? {
                           marginLeft: 5,
-                          marginRight: Boolean(
-                            Global.user && Global.user.token && Global.user.token.length > 5
-                          )
-                            ? 12
-                            : 0,
+                          marginRight: Global.user && Global.user.token && Global.user.token.length > 5 ? 12 : 0
                         }
                       : {
                           marginRight: 5,
-                          marginLeft: Boolean(
-                            Global.user && Global.user.token && Global.user.token.length > 5
-                          )
-                            ? 12
-                            : 0,
-                        }),
+                          marginLeft: Global.user && Global.user.token && Global.user.token.length > 5 ? 12 : 0
+                        })
                   }}
                 >
                   {getIcon(materialIcons, 'share', iconProps)}
                 </TouchableOpacity>
                 {Boolean(Global.user && Global.user.token && Global.user.token.length > 5) && (
-                  <TouchableOpacity
-                    onPress={() => this.toggleBookmark(item.Id, Boolean(isBookmarked))}
-                  >
-                    {getIcon(fontAwesome, Boolean(isBookmarked) ? 'star' : 'star-o', iconProps)}
+                  <TouchableOpacity onPress={() => this.toggleBookmark(item.Id, Boolean(isBookmarked))}>
+                    {getIcon(fontAwesome, isBookmarked ? 'star' : 'star-o', iconProps)}
                   </TouchableOpacity>
                 )}
               </View>
@@ -547,7 +534,7 @@ export class EventsScreen extends Component {
             <View
               style={{
                 alignItems: 'center',
-                flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
+                flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse'
               }}
             >
               <EvilIcons
@@ -556,7 +543,7 @@ export class EventsScreen extends Component {
                 color="grey"
                 style={{
                   marginRight: i18n.locale.toLowerCase() == 'en' ? 5 : 0,
-                  marginLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5,
+                  marginLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5
                 }}
               />
               <Text
@@ -565,7 +552,7 @@ export class EventsScreen extends Component {
                   fontSize: 14,
                   fontFamily: fontFamily.gothamMedium,
                   marginTop: 5,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {eventVenue}
@@ -585,7 +572,7 @@ export class EventsScreen extends Component {
 
                   borderColor: colors.themeColor,
                   borderWidth: 2,
-                  height: 38,
+                  height: 38
                 }}
               >
                 <View
@@ -593,7 +580,7 @@ export class EventsScreen extends Component {
                     width: '50%',
                     flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                     height: 34,
-                    paddingRight: 25,
+                    paddingRight: 25
                     // borderColor: '#ff0000',
                     // borderWidth: 1,
                   }}
@@ -603,7 +590,7 @@ export class EventsScreen extends Component {
                       flex: 1,
                       height: 34,
                       alignItems: 'center',
-                      justifyContent: 'center',
+                      justifyContent: 'center'
                     }}
                     activeOpacity={1}
                     onPress={() => {}}
@@ -615,7 +602,7 @@ export class EventsScreen extends Component {
                         color: colors.themeColor,
                         lineHeight: 30,
                         textTransform: 'uppercase',
-                        textAlign: 'center',
+                        textAlign: 'center'
                       }}
                     >
                       {tagText}
@@ -628,7 +615,7 @@ export class EventsScreen extends Component {
                     width: '50%',
                     flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                     height: 34,
-                    paddingLeft: 25,
+                    paddingLeft: 25
 
                     // borderColor: '#ff0000',
                     // borderWidth: 1,
@@ -651,20 +638,20 @@ export class EventsScreen extends Component {
                       borderRightWidth: i18n.locale.toLowerCase() == 'en' ? 0 : 50,
                       borderLeftWidth: i18n.locale.toLowerCase() == 'en' ? 50 : 0,
                       borderBottomWidth: 34,
-                      borderBottomColor: colors.themeColor,
+                      borderBottomColor: colors.themeColor
                     }}
                   />
                   <TouchableOpacity
                     style={{
-                      flex: 1,
+                      flex: 1
                     }}
                     activeOpacity={1}
                     onPress={() => {
                       this.props.navigation.navigate('EventDetail', {
                         id: item.Id,
                         object: item,
-                        getBookmarks: () => this.getBookmarks(),
-                      });
+                        getBookmarks: () => this.getBookmarks()
+                      })
                     }}
                   >
                     <View
@@ -678,7 +665,7 @@ export class EventsScreen extends Component {
                         justifyContent: 'center',
 
                         paddingRight: i18n.locale.toLowerCase() == 'en' ? 5 : 0,
-                        paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5,
+                        paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5
 
                         // borderColor: colors.themeColor,
                         // flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
@@ -691,7 +678,7 @@ export class EventsScreen extends Component {
                           color: '#ffffff',
                           lineHeight: 30,
                           textTransform: 'uppercase',
-                          textAlign: 'center',
+                          textAlign: 'center'
                         }}
                       >
                         {i18n.t('events.buy_now_list')}
@@ -705,7 +692,7 @@ export class EventsScreen extends Component {
                 style={{
                   marginTop: 10,
                   flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row-reverse' : 'row',
-                  height: 38,
+                  height: 38
                 }}
               >
                 <View
@@ -713,7 +700,7 @@ export class EventsScreen extends Component {
                     width: '50%',
                     flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                     height: 38,
-                    paddingLeft: 25,
+                    paddingLeft: 25
                     // paddingLeft: i18n.locale.toLowerCase() == 'en' ? 25 : 0,
                     // paddingRight: i18n.locale.toLowerCase() == 'en' ? 0 : 25,
                   }}
@@ -735,20 +722,20 @@ export class EventsScreen extends Component {
                       borderRightWidth: i18n.locale.toLowerCase() == 'en' ? 0 : 50,
                       borderLeftWidth: i18n.locale.toLowerCase() == 'en' ? 50 : 0,
                       borderBottomWidth: 38,
-                      borderBottomColor: colors.themeColor,
+                      borderBottomColor: colors.themeColor
                     }}
                   />
                   <TouchableOpacity
                     style={{
-                      flex: 1,
+                      flex: 1
                     }}
                     activeOpacity={1}
                     onPress={() => {
                       this.props.navigation.navigate('EventDetail', {
                         id: item.Id,
                         object: item,
-                        getBookmarks: () => this.getBookmarks(),
-                      });
+                        getBookmarks: () => this.getBookmarks()
+                      })
                     }}
                   >
                     <View
@@ -769,7 +756,7 @@ export class EventsScreen extends Component {
                         justifyContent: 'center',
 
                         paddingRight: i18n.locale.toLowerCase() == 'en' ? 5 : 0,
-                        paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5,
+                        paddingLeft: i18n.locale.toLowerCase() == 'en' ? 0 : 5
 
                         // borderColor: colors.themeColor,
                         // flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
@@ -782,7 +769,7 @@ export class EventsScreen extends Component {
                           color: '#ffffff',
                           lineHeight: 30,
                           textTransform: 'uppercase',
-                          textAlign: 'center',
+                          textAlign: 'center'
                         }}
                       >
                         {i18n.t('events.read_more_list')}
@@ -795,33 +782,33 @@ export class EventsScreen extends Component {
           </View>
         </View>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
-  _listDividerEvent = () => <View style={styles.dividerContainerEvent} />;
+  _listDividerEvent = () => <View style={styles.dividerContainerEvent} />
 
   filterData() {
-    const { dataSource, checkList } = this.state;
+    const { dataSource, checkList } = this.state
 
     let filteredEvents = dataSource.events.filter(event => {
-      let str = checkList ? checkList.toLowerCase() : '';
-      let title = event.Title ? event.Title.toLowerCase() : '';
-      let venue = event.VenueName ? event.VenueName.toLowerCase() : '';
+      let str = checkList ? checkList.toLowerCase() : ''
+      let title = event.Title ? event.Title.toLowerCase() : ''
+      let venue = event.VenueName ? event.VenueName.toLowerCase() : ''
 
-      return title.indexOf(str) >= 0 || venue.indexOf(str) >= 0;
-    });
+      return title.indexOf(str) >= 0 || venue.indexOf(str) >= 0
+    })
 
     this.setState({
-      filteredEvents,
-    });
+      filteredEvents
+    })
   }
 
   render() {
-    const { checkList, filteredEvents, bookmarks } = this.state;
-    const { navigation } = this.props;
+    const { checkList, filteredEvents, bookmarks } = this.state
+    const { navigation } = this.props
 
     if (this.state.dataSource.isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // console.log('bookmarks', bookmarks )
@@ -834,7 +821,7 @@ export class EventsScreen extends Component {
               marginLeft: 15,
               marginRight: 15,
               flex: 1,
-              paddingBottom: 20,
+              paddingBottom: 20
             }}
           >
             <FilterAndSearchBar
@@ -848,18 +835,18 @@ export class EventsScreen extends Component {
               returnKeyType="go"
               style={{
                 ...styles.searchFieldList,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               onChange={e => {
-                let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+                let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
                 this.setState(
                   {
-                    checkList,
+                    checkList
                   },
                   () => {
-                    this.filterData();
+                    this.filterData()
                   }
-                );
+                )
               }}
               value={checkList}
             />
@@ -883,7 +870,7 @@ export class EventsScreen extends Component {
                   marginBottom: 5,
                   color: '#9E9E9B',
                   fontSize: 24,
-                  fontFamily: fontFamily.gothamBold,
+                  fontFamily: fontFamily.gothamBold
                 }}
               >
                 {i18n.t('events.no_events_in_selected_categories')}
@@ -892,17 +879,17 @@ export class EventsScreen extends Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   filterOptions: state.events.filters,
-  sortOptions: state.events.sortOptions,
-});
+  sortOptions: state.events.sortOptions
+})
 
 const mapDispatchToProps = {
-  clearFiltersAndSorting: actions.clearEventsData,
-};
+  clearFiltersAndSorting: actions.clearEventsData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EventsScreen)

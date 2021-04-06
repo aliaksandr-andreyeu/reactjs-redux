@@ -1,16 +1,16 @@
-import { Text, View } from 'react-native';
-import React from 'react';
-import Icon from '../../../../components/Icon';
-import colors from '../../../../constants/colors';
-import styles from './styles';
+import { Text, View } from 'react-native'
+import React from 'react'
+import Icon from '../../../../components/Icon'
+import colors from '../../../../constants/colors'
+import styles from './styles'
 
 const DataLine = ({ text, icon }) => {
-  const { iconLibraries, getIcon } = Icon;
+  const { iconLibraries, getIcon } = Icon
   const iconProps = {
     size: 15,
     color: colors.iconDark,
-    ...(icon.style || {}),
-  };
+    ...(icon.style || {})
+  }
 
   return (
     <View style={styles.lineContainer}>
@@ -19,7 +19,7 @@ const DataLine = ({ text, icon }) => {
         {text}
       </Text>
     </View>
-  );
-};
+  )
+}
 
-export default DataLine;
+export default DataLine

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
 const styles = StyleSheet.create({
   box: {
@@ -8,19 +8,19 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     paddingLeft: 16,
     paddingRight: 16,
-    backgroundColor: colors.primaryBgColor,
+    backgroundColor: colors.primaryBgColor
   },
   title: {
     fontSize: fontSize.submedium,
     color: colors.headingBasic,
     fontFamily: fontFamily.gothamMedium,
     textTransform: 'uppercase',
-    marginBottom: 8,
+    marginBottom: 8
   },
   subTitle: {
     fontSize: fontSize.regular,
     color: '#4F4F4F',
-    fontFamily: fontFamily.gothamRegular,
+    fontFamily: fontFamily.gothamRegular
   },
   input: {
     height: 40,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8C9091',
 
-    borderRadius: 3,
+    borderRadius: 3
   },
   textareaBox: {
     minHeight: 40,
@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 3,
 
-    textAlignVertical: 'top',
+    textAlignVertical: 'top'
   },
   dropdownBox: {
     marginTop: 10,
-    marginBottom: 16,
+    marginBottom: 16
   },
   dropdown: {
     height: 40,
@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
 
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   dropdownText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular,
-    color: '#202873',
+    color: '#202873'
   },
   btnBox: {
     backgroundColor: '#000066',
@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 10
   },
   btn: {},
   btnText: {
     fontFamily: fontFamily.gothamMedium,
     color: '#ffffff',
-    fontSize: fontSize.submedium,
-  },
-});
+    fontSize: fontSize.submedium
+  }
+})
 
-export default styles;
+export default styles

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
-import colors from '../../../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
+import colors from '../../../../constants/colors'
 
 const styles = StyleSheet.create({
   title: {
@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.gothamBold,
     marginBottom: 6,
     marginTop: 11,
-    color: '#78BC4B',
+    color: '#78BC4B'
   },
   lineContainer: {
     flexDirection: 'row',
-    marginBottom: 7,
+    marginBottom: 7
   },
   dateContainer: {
     height: 30,
@@ -23,27 +23,27 @@ const styles = StyleSheet.create({
     minWidth: 190,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
-    backgroundColor: colors.brandColorBright,
+    backgroundColor: colors.brandColorBright
   },
   locationText: {
     color: colors.brandColorBright,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.medium
   },
   dateText: {
-    color: colors.basicLightText,
+    color: colors.basicLightText
   },
   lineText: {
     fontSize: 12,
     fontFamily: fontFamily.gothamMedium,
-    marginLeft: 8,
+    marginLeft: 8
   },
   invitationLink: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   linkTitleContainer: {
-    flexDirection: 'row',
-  },
-});
+    flexDirection: 'row'
+  }
+})
 
-export default styles;
+export default styles

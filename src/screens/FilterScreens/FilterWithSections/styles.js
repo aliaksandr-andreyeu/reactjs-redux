@@ -1,43 +1,43 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../constants/colors';
-import { fontSize, fontFamily } from '../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../constants/colors'
+import { fontSize, fontFamily } from '../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primaryBgColor,
     justifyContent: 'space-between',
-    flex: 1,
+    flex: 1
   },
   innerWrapper: {
     backgroundColor: colors.backgroundLight,
     borderRadius: 10,
     marginHorizontal: 16,
-    marginVertical: 8,
+    marginVertical: 8
   },
   sectionContainer: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 15
   },
   sectionHeader: {
     fontFamily: fontFamily.gothamBold,
     fontSize: fontSize.large,
     color: colors.textBasic,
-    marginBottom: 15,
+    marginBottom: 15
   },
   filterContainer: {
     borderBottomColor: colors.borderLight,
     borderBottomWidth: 1,
     marginBottom: 5,
-    paddingTop: 10,
+    paddingTop: 10
   },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 15
   },
   itemName: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
-    color: colors.textBasic,
+    color: colors.textBasic
   },
   checkBox: {
     borderWidth: 1,
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
     width: 25,
     borderRadius: 2,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   selected: {
-    backgroundColor: colors.brandColorBright,
-  },
-});
+    backgroundColor: colors.brandColorBright
+  }
+})
 
-export default styles;
+export default styles

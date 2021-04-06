@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily, fontSize, fontColor } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontFamily, fontSize, fontColor } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
-const buttonSize = 35;
+const buttonSize = 35
 
 export default StyleSheet.create({
   container: { marginBottom: 10 },
@@ -10,34 +10,34 @@ export default StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#eee',
-    marginBottom: 5,
+    marginBottom: 5
   },
   titleContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     bottom: 20,
-    paddingHorizontal: 15,
+    paddingHorizontal: 15
   },
   title: {
     fontSize: fontSize.large,
     color: fontColor.basicLight,
     fontFamily: fontFamily.gothamBold,
-    marginBottom: 10,
+    marginBottom: 10
   },
   addressContainer: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   address: {
     fontSize: fontSize.regular,
     color: fontColor.basicLight,
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   menuContainer: {
     flexDirection: 'row',
-    flex: 1,
+    flex: 1
   },
   buttonContainer: {
-    marginBottom: 10,
+    marginBottom: 10
   },
   button: {
     width: buttonSize,
@@ -47,20 +47,20 @@ export default StyleSheet.create({
     borderRadius: buttonSize / 2,
     textAlign: 'center',
     lineHeight: buttonSize,
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   filterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    marginBottom: 5,
+    marginBottom: 5
   },
   filterItem: {
     borderBottomColor: 'transparent',
     borderBottomWidth: 3,
     alignItems: 'center',
     paddingTop: 8,
-    paddingBottom: 8,
+    paddingBottom: 8
   },
   filterItemActive: {
     alignItems: 'center',
@@ -68,12 +68,12 @@ export default StyleSheet.create({
     paddingBottom: 10,
     // TODO: replace the color with a constant
     borderBottomColor: colors.menuActiveTab,
-    borderBottomWidth: 3,
+    borderBottomWidth: 3
   },
   filterLabel: {
     fontSize: fontSize.medium,
     color: fontColor.basicDark,
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   venueItem: {},
   searchField: {
@@ -101,7 +101,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8C9091',
 
-    borderRadius: 3,
+    borderRadius: 3
   },
   searchFieldList: {
     height: 40,
@@ -127,7 +127,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8C9091',
 
-    borderRadius: 3,
+    borderRadius: 3
   },
   featuredContainer: {
     position: 'absolute',
@@ -136,7 +136,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 10,
     overflow: 'hidden',
     minWidth: 96,
-    height: 24,
+    height: 24
   },
   featuredBox: {
     borderTopLeftRadius: 10,
@@ -145,12 +145,12 @@ export default StyleSheet.create({
     minWidth: 72,
     paddingLeft: 12,
     paddingRight: 3,
-    height: 24,
+    height: 24
   },
   featured: {
     color: colors.headingBasic,
     fontSize: fontSize.small,
     fontFamily: fontFamily.gothamBold,
-    textTransform: 'uppercase',
-  },
-});
+    textTransform: 'uppercase'
+  }
+})

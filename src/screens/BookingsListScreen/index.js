@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Image,
   ImageBackground,
@@ -11,47 +11,47 @@ import {
   StatusBar,
   FlatList,
   Dimensions,
-  TextInput,
-} from 'react-native';
+  TextInput
+} from 'react-native'
 
-import { connect } from 'react-redux';
-import isEqual from 'lodash.isequal';
+import { connect } from 'react-redux'
+import isEqual from 'lodash.isequal'
 
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import { externalLinks, axiosInstance, apiUrls } from '../../constants/api';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import FilterAndSearchBar from '../../components/FilterAndSearchBar';
-import Loading from '../../components/Loading';
+import { externalLinks, axiosInstance, apiUrls } from '../../constants/api'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import FilterAndSearchBar from '../../components/FilterAndSearchBar'
+import Loading from '../../components/Loading'
 
-import i18n from '../../../i18n';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import i18n from '../../../i18n'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
-import styles from './styles';
-import * as actions from '../BookingsScreen/actions';
-import Icon from '../../components/Icon';
-import { getSortAndFilterModel } from '../../helpers/filters';
-import Global from '../../components/global';
-import FA5Icons from 'react-native-vector-icons/FontAwesome5';
+import styles from './styles'
+import * as actions from '../BookingsScreen/actions'
+import Icon from '../../components/Icon'
+import { getSortAndFilterModel } from '../../helpers/filters'
+import Global from '../../components/global'
+import FA5Icons from 'react-native-vector-icons/FontAwesome5'
 
-import shareData from '../../helpers/shareData';
+import shareData from '../../helpers/shareData'
 
-import getLocaleDate from '../../helpers/getLocaleDate';
+import getLocaleDate from '../../helpers/getLocaleDate'
 
-import env from '../../config';
+import env from '../../config'
 
 class BookingsListScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('bookingsLanding.title'),
-    };
-  };
+      title: i18n.t('bookingsLanding.title')
+    }
+  }
 
   state = {
     cache: Date.now(),
@@ -62,45 +62,45 @@ class BookingsListScreen extends Component {
 
     dataSource: {
       isLoading: true,
-      booking: [],
+      booking: []
     },
 
     searchForm: {},
 
     location: {
       longitude: 0,
-      latitude: 0,
+      latitude: 0
     },
 
-    bookmarks: [],
-  };
+    bookmarks: []
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   filterData() {
-    const { dataSource, checkList } = this.state;
+    const { dataSource, checkList } = this.state
 
     let filteredBooking = dataSource.booking.filter(booking => {
-      let str = checkList ? checkList.toLowerCase() : '';
+      let str = checkList ? checkList.toLowerCase() : ''
 
-      let title = booking.OfferTitle ? booking.OfferTitle.toLowerCase() : '';
-      let locationName = booking.LocationName ? booking.LocationName.toLowerCase() : '';
-      let venue = booking.VenueTitle ? booking.VenueTitle.toLowerCase() : '';
-      let facility = booking.FacilityTitle ? booking.FacilityTitle.toLowerCase() : '';
+      let title = booking.OfferTitle ? booking.OfferTitle.toLowerCase() : ''
+      let locationName = booking.LocationName ? booking.LocationName.toLowerCase() : ''
+      let venue = booking.VenueTitle ? booking.VenueTitle.toLowerCase() : ''
+      let facility = booking.FacilityTitle ? booking.FacilityTitle.toLowerCase() : ''
 
       return (
         title.indexOf(str) >= 0 ||
         locationName.indexOf(str) >= 0 ||
         venue.indexOf(str) >= 0 ||
         facility.indexOf(str) >= 0
-      );
-    });
+      )
+    })
 
     this.setState({
-      filteredBooking,
-    });
+      filteredBooking
+    })
   }
 
   determineLocation() {
@@ -109,31 +109,31 @@ class BookingsListScreen extends Component {
         position => {
           if (position.coords && position.coords.latitude && position.coords.longitude) {
             this.setState({
-              location: position.coords,
-            });
+              location: position.coords
+            })
           }
         },
         error => {},
         {
           enableHighAccuracy: false,
           timeout: 5000,
-          maximumAge: 10000,
+          maximumAge: 10000
         }
-      );
-    }, 500);
+      )
+    }, 500)
   }
 
   getBookmarks = () => {
-    if (Boolean(Global.user && Global.user.token && Global.user.token.length > 5)) {
-      let requests = [axiosInstance(apiUrls.getBookmarks)];
+    if (Global.user && Global.user.token && Global.user.token.length > 5) {
+      let requests = [axiosInstance(apiUrls.getBookmarks)]
 
       Promise.all(requests).then(([bookmarks]) => {
         this.setState({
-          bookmarks: bookmarks.data,
-        });
-      });
+          bookmarks: bookmarks.data
+        })
+      })
     }
-  };
+  }
 
   async componentDidMount() {
     // const { sortOptions, filterOptions } = this.props;
@@ -141,19 +141,19 @@ class BookingsListScreen extends Component {
     // console.log('sortOptions', sortOptions)
     // console.log('filterOptions', filterOptions)
 
-    const { searchForm } = this.state;
+    const { searchForm } = this.state
 
-    this.determineLocation();
+    this.determineLocation()
 
     // const { clearFiltersAndSorting } = this.props;
     // clearFiltersAndSorting();
 
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
 
     // this.focusListener = this.props.navigation.addListener('willFocus', () => {
@@ -162,17 +162,17 @@ class BookingsListScreen extends Component {
     // });
     // });
 
-    this.getBookmarks();
+    this.getBookmarks()
 
     this.setState(
       {
-        searchForm: this.props.navigation.getParam('form', {}),
+        searchForm: this.props.navigation.getParam('form', {})
       },
       () => {
         // console.log('searchForm', searchForm)
-        this._getHomeItems();
+        this._getHomeItems()
       }
-    );
+    )
   }
 
   // componentWillUnmount() {
@@ -180,39 +180,36 @@ class BookingsListScreen extends Component {
   // }
 
   componentDidUpdate(prevProps) {
-    const { sortOptions, filterOptions } = this.props;
-    const { searchForm } = this.state;
+    const { sortOptions, filterOptions } = this.props
+    const { searchForm } = this.state
 
     // console.log('sortOptions', sortOptions);
     // console.log('filterOptions', filterOptions);
 
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
     if (!isEqual(navigation, prevProps.navigation)) {
       this.setState(
         {
           cache: Date.now(),
-          searchForm: this.props.navigation.getParam('form', {}),
+          searchForm: this.props.navigation.getParam('form', {})
         },
         () => {
-          this._getHomeItems();
+          this._getHomeItems()
         }
-      );
+      )
     }
 
-    if (
-      !isEqual(sortOptions, prevProps.sortOptions) ||
-      !isEqual(filterOptions, prevProps.filterOptions)
-    ) {
+    if (!isEqual(sortOptions, prevProps.sortOptions) || !isEqual(filterOptions, prevProps.filterOptions)) {
       this.setState(
         {
-          searchForm: this.props.navigation.getParam('form', {}),
+          searchForm: this.props.navigation.getParam('form', {})
         },
         () => {
           // console.log('searchForm', searchForm)
-          this.fetchItemsWithParams(sortOptions, filterOptions);
+          this.fetchItemsWithParams(sortOptions, filterOptions)
         }
-      );
+      )
     }
   }
 
@@ -303,8 +300,8 @@ class BookingsListScreen extends Component {
     // }
     // }
 
-    const { sortOptions, filterOptions } = this.props;
-    const { searchForm } = this.state;
+    const { sortOptions, filterOptions } = this.props
+    const { searchForm } = this.state
 
     // console.log('Book and Play sortOptions', sortOptions)
     // console.log('Book and Play filterOptions', filterOptions)
@@ -327,49 +324,45 @@ class BookingsListScreen extends Component {
 
     // console.log('searchForm', searchForm)
 
-    let params = {};
+    let params = {}
 
-    params.languageCode = i18n.locale.toUpperCase();
+    params.languageCode = i18n.locale.toUpperCase()
 
     if (this.props.filterOptions.distance) {
-      params.distance = +this.props.filterOptions.distance;
+      params.distance = +this.props.filterOptions.distance
     }
 
     if (this.state.location.longitude && this.state.location.latitude) {
       params = {
         ...params,
-        ...this.state.location,
-      };
+        ...this.state.location
+      }
     }
 
     if (filterOptions.dateRange && filterOptions.dateRange.length == 0) {
-      params.from = moment().format('YYYY-MM-DD');
+      params.from = moment().format('YYYY-MM-DD')
     } else {
-      filterOptions.dateRange[0] && (params.from = filterOptions.dateRange[0]);
-      filterOptions.dateRange[1] && (params.to = filterOptions.dateRange[1]);
+      filterOptions.dateRange[0] && (params.from = filterOptions.dateRange[0])
+      filterOptions.dateRange[1] && (params.to = filterOptions.dateRange[1])
     }
 
-    sortOptions.date && (params.sortDirection = sortOptions.date == 1 ? 'ASC' : 'DESC');
+    sortOptions.date && (params.sortDirection = sortOptions.date == 1 ? 'ASC' : 'DESC')
 
     filterOptions.categoryOfSports &&
       filterOptions.categoryOfSports.length > 0 &&
-      (params.sp = filterOptions.categoryOfSports.join(','));
+      (params.sp = filterOptions.categoryOfSports.join(','))
 
     // console.log('SAT', searchForm.activityType.reduce((a, b) => a + b, 0))
 
-    if (
-      searchForm.isBookingsHomeForm &&
-      searchForm.activityType &&
-      searchForm.activityType.length > 0
-    ) {
+    if (searchForm.isBookingsHomeForm && searchForm.activityType && searchForm.activityType.length > 0) {
       params = {
         ...params,
-        sat: searchForm.activityType.reduce((a, b) => a + b, 0),
-      };
+        sat: searchForm.activityType.reduce((a, b) => a + b, 0)
+      }
     } else {
       filterOptions.eventType &&
         filterOptions.eventType.length > 0 &&
-        (params.sat = filterOptions.eventType.reduce((a, b) => a + b, 0));
+        (params.sat = filterOptions.eventType.reduce((a, b) => a + b, 0))
     }
 
     // console.log('Book and Play PARAMS', params);
@@ -383,69 +376,69 @@ class BookingsListScreen extends Component {
         if (data.Items) {
           this.setState(
             {
-              dataSource: { booking: data.Items, isLoading: false },
+              dataSource: { booking: data.Items, isLoading: false }
             },
             () => {
-              this.filterData();
+              this.filterData()
             }
-          );
+          )
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 
   fetchItemsWithParams = async (sortParams, filterParams) => {
-    this._getHomeItems();
-  };
+    this._getHomeItems()
+  }
 
   toggleBookmark = (id, isBookmarked, entityType) => {
-    console.log('id', id, isBookmarked, entityType);
+    console.log('id', id, isBookmarked, entityType)
 
-    if (id == undefined) return false;
+    if (id == undefined) return false
 
-    const { bookmarks } = this.state;
+    const { bookmarks } = this.state
 
     const params = {
       Id: id,
-      Entity: entityType,
-    };
+      Entity: entityType
+    }
 
-    console.log(params);
+    console.log(params)
 
     if (isBookmarked) {
       axiosInstance.post(apiUrls.postRemoveBookmark, params).then(() => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
-        this.getBookmarks();
-      });
+        this.getBookmarks()
+      })
     } else {
       axiosInstance.post(apiUrls.postAddBookmark, params).then(data => {
-        Global.loadFavorites();
+        Global.loadFavorites()
 
-        this.getBookmarks();
-      });
+        this.getBookmarks()
+      })
     }
-  };
+  }
 
   getDate = item => {
-    const { getIcon, iconLibraries } = Icon;
+    const { getIcon, iconLibraries } = Icon
 
     const iconProps = {
       size: 20,
-      color: colors.lightIcon,
-    };
+      color: colors.lightIcon
+    }
 
-    let date = getLocaleDate(item);
+    let date = getLocaleDate(item)
     return date ? (
       <View
         style={{
           flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
-          justifyContent: 'flex-start',
+          justifyContent: 'flex-start'
         }}
       >
         {getIcon(iconLibraries.fontAwesome5, 'calendar-alt', {
           size: fontSize.medium,
-          color: '#575756',
+          color: '#575756'
         })}
         <Text
           ellipsizeMode="tail"
@@ -457,18 +450,18 @@ class BookingsListScreen extends Component {
             marginLeft: i18n.locale.toLowerCase() == 'en' ? 8 : 0,
             marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
             fontFamily: fontFamily.gothamMedium,
-            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+            textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
           }}
         >
           {date}
         </Text>
       </View>
-    ) : null;
-  };
+    ) : null
+  }
 
   renderPrice(price, currency) {
     // console.log(price, currency);
-    if (price == undefined || currency == undefined) return null;
+    if (price == undefined || currency == undefined) return null
     return (
       <View
         style={{
@@ -476,7 +469,7 @@ class BookingsListScreen extends Component {
           position: 'absolute',
           top: 0,
           right: 0,
-          justifyContent: 'flex-end',
+          justifyContent: 'flex-end'
         }}
       >
         <View
@@ -490,7 +483,7 @@ class BookingsListScreen extends Component {
 
             borderLeftWidth: 22,
             borderTopWidth: 22,
-            borderTopColor: colors.themeColor,
+            borderTopColor: colors.themeColor
           }}
         />
         <View
@@ -504,7 +497,7 @@ class BookingsListScreen extends Component {
             justifyContent: 'center',
 
             borderWidth: 0,
-            borderColor: 'transparent',
+            borderColor: 'transparent'
           }}
         >
           <Text
@@ -513,31 +506,31 @@ class BookingsListScreen extends Component {
               fontSize: 12,
               color: colors.basicLightText,
               lineHeight: 22,
-              textAlign: 'center',
+              textAlign: 'center'
             }}
           >
             {price > 0 ? `${currency} ${price}` : 'FREE'}
           </Text>
         </View>
       </View>
-    );
+    )
   }
 
   renderTypeName(type) {
-    if (type == undefined) return null;
+    if (type == undefined) return null
 
-    let entityType = i18n.t('socialSportsActivity.type_event');
-    let entityColor = '#00a39c';
-    let textColor = colors.basicLightText;
+    let entityType = i18n.t('socialSportsActivity.type_event')
+    let entityColor = '#00a39c'
+    let textColor = colors.basicLightText
 
     if ([8].includes(type)) {
-      entityType = i18n.t('socialSportsActivity.type_match');
-      entityColor = '#d3b000';
-      textColor = colors.themeColor;
+      entityType = i18n.t('socialSportsActivity.type_match')
+      entityColor = '#d3b000'
+      textColor = colors.themeColor
     }
     if ([1, 16, 32, 64].includes(type)) {
-      entityType = i18n.t('socialSportsActivity.type_activity');
-      entityColor = '#78bc4b';
+      entityType = i18n.t('socialSportsActivity.type_activity')
+      entityColor = '#78bc4b'
     }
 
     return (
@@ -547,7 +540,7 @@ class BookingsListScreen extends Component {
           position: 'absolute',
           top: 0,
           left: 0,
-          justifyContent: 'flex-start',
+          justifyContent: 'flex-start'
         }}
       >
         <View
@@ -561,7 +554,7 @@ class BookingsListScreen extends Component {
             justifyContent: 'center',
 
             borderWidth: 0,
-            borderColor: 'transparent',
+            borderColor: 'transparent'
           }}
         >
           <Text
@@ -570,7 +563,7 @@ class BookingsListScreen extends Component {
               fontSize: 12,
               color: textColor,
               lineHeight: 22,
-              textAlign: 'center',
+              textAlign: 'center'
             }}
           >
             {entityType}
@@ -587,50 +580,50 @@ class BookingsListScreen extends Component {
 
             borderRightWidth: 22,
             borderTopWidth: 22,
-            borderTopColor: entityColor,
+            borderTopColor: entityColor
           }}
         />
       </View>
-    );
+    )
   }
 
   _renderItemEvent = ({ item, index }) => {
-    const { isSignedInUser, bookmarks } = this.state;
-    const { getIcon, iconLibraries } = Icon;
+    const { isSignedInUser, bookmarks } = this.state
+    const { getIcon, iconLibraries } = Icon
 
     const iconProps = {
       size: 20,
-      color: colors.lightIcon,
-    };
+      color: colors.lightIcon
+    }
 
-    let messageToShare = '';
-    let entityType = 'event';
+    let messageToShare = ''
+    let entityType = 'event'
 
     if ([8].includes(item.SportActivityType)) {
       //entityType = 'event';
-      entityType = 'ssaEvent';
-      messageToShare = externalLinks.getMatchesUrl(item.OfferId);
+      entityType = 'ssaEvent'
+      messageToShare = externalLinks.getMatchesUrl(item.OfferId)
     } // SSA
     if ([128, 2, 4].includes(item.SportActivityType)) {
-      entityType = 'event';
-      messageToShare = externalLinks.getEventsUrl(item.OfferId);
+      entityType = 'event'
+      messageToShare = externalLinks.getEventsUrl(item.OfferId)
     }
     if ([1, 16, 32, 64].includes(item.SportActivityType)) {
-      entityType = 'package';
-      messageToShare = externalLinks.getPackagesUrl(item.OfferId);
+      entityType = 'package'
+      messageToShare = externalLinks.getPackagesUrl(item.OfferId)
     }
 
     if (item.DateTimeInfo) {
-      const dateTime = item.DateTimeInfo.split(' - ');
+      const dateTime = item.DateTimeInfo.split(' - ')
       if (dateTime.length === 2) {
-        item.DateTimeInfo = dateTime[0];
+        item.DateTimeInfo = dateTime[0]
       }
     }
 
-    const isBookmarked = Boolean(bookmarks.length)
+    const isBookmarked = bookmarks.length
       ? // ? bookmarks.find(el => el.EntityName.toLowerCase() === entityType && el.Eid === item.OfferId)
         bookmarks.find(el => el.Eid === item.OfferId)
-      : false;
+      : false
 
     // console.log(item)
 
@@ -648,24 +641,24 @@ class BookingsListScreen extends Component {
           if ([8].includes(item.SportActivityType)) {
             this.props.navigation.navigate('SsaEventDetailsScreen', {
               params: {
-                id: item.OfferId,
+                id: item.OfferId
               },
-              getBookmarks: () => this.getBookmarks(),
-            });
+              getBookmarks: () => this.getBookmarks()
+            })
           }
           if ([128, 2, 4].includes(item.SportActivityType)) {
             this.props.navigation.navigate('EventDetail', {
               id: item.OfferId,
               object: {},
-              getBookmarks: () => this.getBookmarks(),
-            });
+              getBookmarks: () => this.getBookmarks()
+            })
           }
           if ([1, 16, 32, 64].includes(item.SportActivityType)) {
             this.props.navigation.navigate('PackageDetails', {
               id: item.OfferId,
               item: item,
-              getBookmarks: () => this.getBookmarks(),
-            });
+              getBookmarks: () => this.getBookmarks()
+            })
           }
         }}
       >
@@ -677,7 +670,7 @@ class BookingsListScreen extends Component {
             flexDirection: 'row',
             borderTopLeftRadius: 8,
             borderBottomLeftRadius: 8,
-            overflow: 'hidden',
+            overflow: 'hidden'
           }}
         >
           <View
@@ -685,7 +678,7 @@ class BookingsListScreen extends Component {
               borderTopLeftRadius: 8,
               borderBottomLeftRadius: 8,
               overflow: 'hidden',
-              width: 128,
+              width: 128
               // borderColor: "#ff0000",
               // borderWidth: 1,
               // justifyContent: 'center',
@@ -694,7 +687,7 @@ class BookingsListScreen extends Component {
           >
             <Image
               style={{
-                flex: 1,
+                flex: 1
                 // width: 128,
                 // height: '100%',
                 // height: 25,
@@ -717,7 +710,7 @@ class BookingsListScreen extends Component {
               paddingRight: 16,
               paddingBottom: 11,
               paddingTop: item.SportActivityType == undefined ? 11 : 33,
-              flex: 1,
+              flex: 1
             }}
           >
             {this.renderTypeName(item.SportActivityType)}
@@ -726,7 +719,7 @@ class BookingsListScreen extends Component {
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'space-between',
-                marginBottom: 9,
+                marginBottom: 9
               }}
             >
               <Text
@@ -742,7 +735,7 @@ class BookingsListScreen extends Component {
                   flexBasis: 'auto',
                   flexGrow: 0,
                   flexShrink: 1,
-                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                  textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
                 }}
               >
                 {item.OfferTitle}
@@ -753,15 +746,14 @@ class BookingsListScreen extends Component {
                   flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                   flexGrow: 0,
                   flexShrink: 0,
-                  flexBasis: 'auto',
+                  flexBasis: 'auto'
                 }}
               >
                 <TouchableOpacity
                   onPress={() => shareData(messageToShare)}
                   style={{
                     marginLeft: 5,
-                    marginRight:
-                      Global.user && Global.user.token && Global.user.token.length > 5 ? 12 : 0,
+                    marginRight: Global.user && Global.user.token && Global.user.token.length > 5 ? 12 : 0
                   }}
                 >
                   {getIcon(iconLibraries.materialIcons, 'share', iconProps)}
@@ -769,15 +761,11 @@ class BookingsListScreen extends Component {
                 {Boolean(Global.user && Global.user.token && Global.user.token.length > 5) && (
                   <TouchableOpacity
                     onPress={() => {
-                      console.log('SportActivityType', item.SportActivityType);
-                      this.toggleBookmark(item.OfferId, Boolean(isBookmarked), entityType);
+                      console.log('SportActivityType', item.SportActivityType)
+                      this.toggleBookmark(item.OfferId, Boolean(isBookmarked), entityType)
                     }}
                   >
-                    {getIcon(
-                      iconLibraries.fontAwesome,
-                      Boolean(isBookmarked) ? 'star' : 'star-o',
-                      iconProps
-                    )}
+                    {getIcon(iconLibraries.fontAwesome, isBookmarked ? 'star' : 'star-o', iconProps)}
                   </TouchableOpacity>
                 )}
               </View>
@@ -787,12 +775,12 @@ class BookingsListScreen extends Component {
               style={{
                 flexDirection: i18n.locale.toLowerCase() == 'en' ? 'row' : 'row-reverse',
                 justifyContent: 'flex-start',
-                marginBottom: 9,
+                marginBottom: 9
               }}
             >
               {getIcon(iconLibraries.fontAwesome5, 'map-marker-alt', {
                 size: fontSize.medium,
-                color: '#575756',
+                color: '#575756'
               })}
               <Text
                 ellipsizeMode="tail"
@@ -804,7 +792,7 @@ class BookingsListScreen extends Component {
                   lineHeight: fontSize.regular + 8,
                   textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
                   marginLeft: i18n.locale.toLowerCase() == 'en' ? 8 : 0,
-                  marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8,
+                  marginRight: i18n.locale.toLowerCase() == 'en' ? 0 : 8
                 }}
               >
                 {item.VenueTitle}
@@ -820,7 +808,7 @@ class BookingsListScreen extends Component {
                 fontFamily: fontFamily.gothamMedium,
                 lineHeight: fontSize.regular + 8,
                 textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
-                marginBottom: 10,
+                marginBottom: 10
               }}
             >
               {item.FacilityTitle}
@@ -870,17 +858,17 @@ class BookingsListScreen extends Component {
           </View>
         </View>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
-  _listDividerEvent = () => <View style={styles.dividerContainerEvent} />;
+  _listDividerEvent = () => <View style={styles.dividerContainerEvent} />
 
   render() {
-    const { navigation } = this.props;
-    const { checkList, filteredBooking, bookmarks } = this.state;
+    const { navigation } = this.props
+    const { checkList, filteredBooking, bookmarks } = this.state
 
     if (this.state.dataSource.isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     // console.log('bookmarks', bookmarks )
@@ -895,7 +883,7 @@ class BookingsListScreen extends Component {
               marginLeft: 15,
               marginRight: 15,
               flex: 1,
-              paddingBottom: 50,
+              paddingBottom: 50
             }}
           >
             <FilterAndSearchBar
@@ -909,18 +897,18 @@ class BookingsListScreen extends Component {
               returnKeyType="go"
               style={{
                 ...styles.searchFieldList,
-                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right',
+                textAlign: i18n.locale.toLowerCase() == 'en' ? 'left' : 'right'
               }}
               onChange={e => {
-                let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : '';
+                let checkList = e && e.nativeEvent && e.nativeEvent.text ? e.nativeEvent.text : ''
                 this.setState(
                   {
-                    checkList,
+                    checkList
                   },
                   () => {
-                    this.filterData();
+                    this.filterData()
                   }
-                );
+                )
               }}
               value={checkList}
             />
@@ -968,7 +956,7 @@ class BookingsListScreen extends Component {
                   marginBottom: 5,
                   color: '#9E9E9B',
                   fontSize: 24,
-                  fontFamily: fontFamily.gothamBold,
+                  fontFamily: fontFamily.gothamBold
                 }}
               >
                 {i18n.t('bookingsLanding.no_bookings_in_selected_categories')}
@@ -977,18 +965,18 @@ class BookingsListScreen extends Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   filterOptions: state.bookings.filters,
-  sortOptions: state.bookings.sortOptions,
-});
+  sortOptions: state.bookings.sortOptions
+})
 
 const mapDispatchToProps = {
   updateStore: actions.setBookingsData,
-  clearFiltersAndSorting: actions.clearBookingsData,
-};
+  clearFiltersAndSorting: actions.clearBookingsData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingsListScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(BookingsListScreen)

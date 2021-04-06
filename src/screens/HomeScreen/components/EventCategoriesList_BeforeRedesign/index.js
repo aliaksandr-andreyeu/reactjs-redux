@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
-import { withNavigation } from 'react-navigation';
-import SkewedContainer from '../../../../components/SkewedContainer';
-import colors from '../../../../constants/colors';
-import styles from './styles';
-import getSportsIcon from '../../../../helpers/sportsIconMapper';
+import React from 'react'
+import { View, FlatList, Text, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation'
+import SkewedContainer from '../../../../components/SkewedContainer'
+import colors from '../../../../constants/colors'
+import styles from './styles'
+import getSportsIcon from '../../../../helpers/sportsIconMapper'
 
 const categoryItem = (item, navigation) => {
   return (
@@ -12,7 +12,7 @@ const categoryItem = (item, navigation) => {
       onPress={() =>
         navigation.navigate('CategoryDetail', {
           id: item.NameInPrimaryLang,
-          object: item,
+          object: item
         })
       }
       style={styles.item}
@@ -22,8 +22,8 @@ const categoryItem = (item, navigation) => {
         {item.NameInPrimaryLang}
       </Text>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const EventCategoriesList = ({ eventCategories, navigation }) => {
   return (
@@ -39,16 +39,12 @@ const EventCategoriesList = ({ eventCategories, navigation }) => {
         showsHorizontalScrollIndicator={false}
       />
       <TouchableOpacity style={styles.buttonWrapper} onPress={() => false}>
-        <SkewedContainer
-          backgroundColor={colors.themeColor}
-          leftSkewType="desc"
-          rightSkewType="asc"
-        >
+        <SkewedContainer backgroundColor={colors.themeColor} leftSkewType="desc" rightSkewType="asc">
           <Text style={styles.buttonText}>SHOW ALL</Text>
         </SkewedContainer>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default withNavigation(EventCategoriesList);
+export default withNavigation(EventCategoriesList)

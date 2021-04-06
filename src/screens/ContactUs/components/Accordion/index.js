@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native'
 
-import ListItem from './ListItem';
+import ListItem from './ListItem'
 
-import styles from './styles';
+import styles from './styles'
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash.isequal'
 
 export default class Accordion extends Component {
   state = {
-    currentIndex: undefined,
-  };
+    currentIndex: undefined
+  }
 
   componentDidMount() {}
 
@@ -22,13 +22,13 @@ export default class Accordion extends Component {
 
   onChange(value) {
     this.setState({
-      currentIndex: value,
-    });
+      currentIndex: value
+    })
   }
 
   render() {
-    const { faq } = this.props;
-    const { currentIndex } = this.state;
+    const { faq } = this.props
+    const { currentIndex } = this.state
 
     return faq && faq.length > 0 ? (
       <View style={styles.faqBox}>
@@ -43,11 +43,11 @@ export default class Accordion extends Component {
                 onChange={value => this.onChange(value)}
                 currentIndex={currentIndex}
               />
-            );
+            )
           }}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    ) : null;
+    ) : null
   }
 }

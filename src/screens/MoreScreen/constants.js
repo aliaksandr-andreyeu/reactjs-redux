@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import i18n from '../../../i18n';
-import { Platform } from 'react-native';
+import React, { Component } from 'react'
+import i18n from '../../../i18n'
+import { Platform } from 'react-native'
 
-import IconLanguage from '../../assets/images/icons/icon_language.svg';
+import IconLanguage from '../../assets/images/icons/icon_language.svg'
 
 export default {
   welcomeMessage: () => i18n.t('more.hi_guest'),
@@ -17,21 +17,21 @@ export default {
           text: () => i18n.t('more.account_details'),
           authorizedOnly: true,
           targetScreen: 'EditProfile',
-          navigationParams: null,
+          navigationParams: null
         },
         {
           text: () => i18n.t('more.my_sports'),
           authorizedOnly: true,
           targetScreen: 'MySports',
-          navigationParams: {},
+          navigationParams: {}
         },
         {
           text: () => i18n.t('more.my_bookings'),
           authorizedOnly: true,
           targetScreen: 'MyBookings',
           navigationParams: {
-            currentTab: 0,
-          },
+            currentTab: 0
+          }
         },
         {
           text: () => i18n.t('more.my_bookmarks'),
@@ -39,9 +39,9 @@ export default {
           targetScreen: 'HeaderSearch',
           navigationParams: {
             searchForm: {
-              isBookmarked: true,
-            },
-          },
+              isBookmarked: true
+            }
+          }
         },
         {
           text: () => {
@@ -57,16 +57,16 @@ export default {
                 {'  '}|{'  '}
                 {i18n.t('more.language_en')}
               </>
-            );
+            )
           },
           icon: () => <IconLanguage width={30} height={30} />,
           authorizedOnly: false,
           // targetScreen: 'Welcome',
           targetScreen: null,
           navigationParams: null,
-          modalLanguage: true,
-        },
-      ],
+          modalLanguage: true
+        }
+      ]
     },
     /*{
     title: () => i18n.t('more.events'),
@@ -109,14 +109,14 @@ export default {
           text: () => i18n.t('more.health_report'),
           authorizedOnly: false,
           targetScreen: 'HealthReport',
-          navigationParams: null,
+          navigationParams: null
         } /* {
       text: () => i18n.t('more.leaderboard'),
       authorizedOnly: false,
       targetScreen: 'LeaderBoard',
       navigationParams: null,
-    } */,
-      ],
+    } */
+      ]
     },
     /* {
     title: () => i18n.t('more.news_and_features'),
@@ -134,36 +134,36 @@ export default {
           authorizedOnly: true,
           targetScreen: 'MyActivitiesScreen',
           navigationParams: {
-            currentTab: 0,
-          },
+            currentTab: 0
+          }
         },
         {
           text: () => i18n.t('activities.my_invitations'),
           authorizedOnly: true,
           targetScreen: 'MyActivitiesScreen',
           navigationParams: {
-            currentTab: 1,
-          },
+            currentTab: 1
+          }
         },
         {
           text: () => i18n.t('more.join_match'),
           authorizedOnly: true,
           targetScreen: 'Bookings',
-          navigationParams: null,
+          navigationParams: null
         },
         {
           text: () => i18n.t('more.host_activity'),
           authorizedOnly: true,
           targetScreen: 'CreateSsaMain',
-          navigationParams: null,
+          navigationParams: null
         },
         {
           text: () => i18n.t('more.leaderboard'),
           authorizedOnly: false,
           targetScreen: 'LeaderBoard',
-          navigationParams: null,
-        },
-      ],
+          navigationParams: null
+        }
+      ]
     },
     /* {
     title: () => i18n.t('more.booking'),
@@ -195,7 +195,7 @@ export default {
           text: () => i18n.t('more.app_info'),
           authorizedOnly: false,
           targetScreen: 'AppInfo',
-          navigationParams: null,
+          navigationParams: null
         },
         /* {
       text: () => i18n.t('more.contact_us'),
@@ -207,32 +207,32 @@ export default {
           authorizedOnly: false,
           targetScreen: 'Policy',
           navigationParams: {
-            constraint: 'terms-of-use',
-          },
+            constraint: 'terms-of-use'
+          }
         },
         {
           text: () => i18n.t('more.privacy_policy'),
           authorizedOnly: false,
           targetScreen: 'Policy',
           navigationParams: {
-            constraint: 'privacy-policy',
-          },
+            constraint: 'privacy-policy'
+          }
         },
         {
           text: () => i18n.t('more.refund_policy'),
           authorizedOnly: false,
           targetScreen: 'Policy',
           navigationParams: {
-            constraint: 'refund-policy',
-          },
+            constraint: 'refund-policy'
+          }
         },
         {
           text: () => i18n.t('more.contact_us'),
           authorizedOnly: false,
           targetScreen: 'ContactUs',
-          navigationParams: null,
-        },
-      ],
-    },
-  ].filter(Boolean),
-};
+          navigationParams: null
+        }
+      ]
+    }
+  ].filter(Boolean)
+}

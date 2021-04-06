@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {},
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
     shadowColor: colors.shadowDark,
     shadowOffset: { height: 3, width: 0 },
     shadowOpacity: 0.16,
-    shadowRadius: 6,
+    shadowRadius: 6
   },
   imageContainer: {
     width: '100%',
     height: 300,
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   tagContainer: {
     marginTop: 20,
@@ -29,36 +29,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: 100,
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   tagText: {
     fontSize: fontSize.extraRegular,
     color: colors.basicText,
     fontFamily: fontFamily.gothamBold,
-    paddingHorizontal: 15,
+    paddingHorizontal: 15
   },
   eventTitle: {
     fontSize: fontSize.large,
     color: colors.basicText,
     fontFamily: fontFamily.gothamBold,
     lineHeight: 32,
-    marginBottom: 10,
+    marginBottom: 10
   },
   eventDetailsContainer: {
     paddingHorizontal: 15,
-    paddingTop: 20,
+    paddingTop: 20
   },
   locationContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginBottom: 8,
+    marginBottom: 8
   },
   locationName: {
     color: colors.brandColorBright,
     fontSize: fontSize.regular,
     fontFamily: fontFamily.gothamBold,
     marginLeft: 8,
-    lineHeight: 20,
+    lineHeight: 20
   },
   dateContainer: {
     left: -15,
@@ -70,20 +70,20 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: 16
   },
   dateText: {
     fontSize: fontSize.regulars,
     color: colors.basicLightText,
     fontFamily: fontFamily.gothamBold,
-    marginLeft: 12,
+    marginLeft: 12
   },
   description: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.regular,
     color: colors.basicText,
     lineHeight: 24,
-    marginBottom: 16,
+    marginBottom: 16
   },
   priceText: {
     alignSelf: 'flex-end',
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     // TODO: replace colors as design is approved
     fontFamily: fontFamily.gothamBold,
     fontSize: 15,
-    color: colors.brandColorBright,
-  },
-});
+    color: colors.brandColorBright
+  }
+})
 
-export default styles;
+export default styles

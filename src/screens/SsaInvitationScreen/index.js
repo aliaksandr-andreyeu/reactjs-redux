@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { View, TextInput, FlatList } from 'react-native';
-import propTypes from 'prop-types';
-import ConfirmButtons from '../../components/UI/ConfirmButtons';
-import ContactItem from './components/ContactItem';
-import styles from './styles';
-import { axiosInstance, apiUrls } from '../../constants/api';
-import Loading from '../../components/Loading';
-import i18n from '../../../i18n';
+import React, { Component } from 'react'
+import { View, TextInput, FlatList } from 'react-native'
+import propTypes from 'prop-types'
+import ConfirmButtons from '../../components/UI/ConfirmButtons'
+import ContactItem from './components/ContactItem'
+import styles from './styles'
+import { axiosInstance, apiUrls } from '../../constants/api'
+import Loading from '../../components/Loading'
+import i18n from '../../../i18n'
 
 class SsaInviteContactScreen extends Component {
   state = {
@@ -14,86 +14,84 @@ class SsaInviteContactScreen extends Component {
     selectedContacts: [],
     allContacts: [],
     contactsToRender: [],
-    isLoading: true,
-  };
+    isLoading: true
+  }
 
   componentDidMount() {
-    const requests = [axiosInstance(apiUrls.getAccountDetails), axiosInstance(apiUrls.getUsers)];
+    const requests = [axiosInstance(apiUrls.getAccountDetails), axiosInstance(apiUrls.getUsers)]
 
     Promise.all(requests)
       .then(([accountDetailsResponse, usersResponse]) => {
-        const userId = accountDetailsResponse.data.Id;
+        const userId = accountDetailsResponse.data.Id
 
-        const sortedContacts = usersResponse.data.Items.filter(
-          item => item.Id !== userId
-        ).sort((a, b) => a.FullName.trim().localeCompare(b.FullName.trim()));
+        const sortedContacts = usersResponse.data.Items.filter(item => item.Id !== userId).sort((a, b) =>
+          a.FullName.trim().localeCompare(b.FullName.trim())
+        )
 
         this.setState({
           allContacts: sortedContacts,
           contactsToRender: sortedContacts,
-          isLoading: false,
-        });
+          isLoading: false
+        })
       })
       .catch(() =>
         this.setState({
-          isLoading: false,
+          isLoading: false
         })
-      );
+      )
   }
 
   handleSelection = id => {
-    const { selectedContacts } = this.state;
-    let updatedContacts = [...selectedContacts];
+    const { selectedContacts } = this.state
+    let updatedContacts = [...selectedContacts]
 
     if (updatedContacts.includes(id)) {
-      updatedContacts = updatedContacts.filter(itemId => itemId !== id);
+      updatedContacts = updatedContacts.filter(itemId => itemId !== id)
     } else {
-      updatedContacts.push(id);
+      updatedContacts.push(id)
     }
 
     this.setState(() => ({
-      selectedContacts: updatedContacts,
-    }));
-  };
+      selectedContacts: updatedContacts
+    }))
+  }
 
   handleInputChange = text => {
-    const { allContacts } = this.state;
-    let contactsToRender = allContacts;
+    const { allContacts } = this.state
+    let contactsToRender = allContacts
 
-    const inputText = text.trim().toLowerCase();
+    const inputText = text.trim().toLowerCase()
 
     if (inputText) {
-      contactsToRender = allContacts.filter(item =>
-        item.FullName.toLowerCase().includes(inputText)
-      );
+      contactsToRender = allContacts.filter(item => item.FullName.toLowerCase().includes(inputText))
     }
 
     this.setState({
       contactsToRender,
-      inputValue: text,
-    });
-  };
+      inputValue: text
+    })
+  }
 
   inviteContacts = () => {
-    const { selectedContacts } = this.state;
-    const { navigation } = this.props;
+    const { selectedContacts } = this.state
+    const { navigation } = this.props
 
-    const eventId = navigation.getParam('id');
+    const eventId = navigation.getParam('id')
 
     if (eventId) {
       const params = {
         Id: eventId,
-        Users: selectedContacts,
-      };
+        Users: selectedContacts
+      }
 
       if (selectedContacts.length) {
-        axiosInstance.post(apiUrls.postInvite, params).then(res => console.log(res));
+        axiosInstance.post(apiUrls.postInvite, params).then(res => console.log(res))
       }
     }
-  };
+  }
 
   renderList = () => {
-    const { selectedContacts, contactsToRender } = this.state;
+    const { selectedContacts, contactsToRender } = this.state
 
     return (
       <FlatList
@@ -111,11 +109,11 @@ class SsaInviteContactScreen extends Component {
           />
         )}
       />
-    );
-  };
+    )
+  }
 
   renderItem = item => {
-    const { selectedContacts } = this.state;
+    const { selectedContacts } = this.state
 
     return (
       <ContactItem
@@ -124,14 +122,14 @@ class SsaInviteContactScreen extends Component {
         handleSelection={() => this.handleSelection(item.Id)}
         selected={selectedContacts.includes(item.Id)}
       />
-    );
-  };
+    )
+  }
 
   render() {
-    const { inputValue, contactsToRender, isLoading } = this.state;
+    const { inputValue, contactsToRender, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -157,14 +155,14 @@ class SsaInviteContactScreen extends Component {
           cancelLabel={i18n.t('generic.buttons.cancel')}
         />
       </View>
-    );
+    )
   }
 }
 
 SsaInviteContactScreen.propTypes = {
   navigation: propTypes.shape({
-    getParam: propTypes.func.isRequired,
-  }).isRequired,
-};
+    getParam: propTypes.func.isRequired
+  }).isRequired
+}
 
-export default SsaInviteContactScreen;
+export default SsaInviteContactScreen

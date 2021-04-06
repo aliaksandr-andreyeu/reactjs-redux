@@ -1,4 +1,4 @@
-import { createActions } from 'redux-actions';
+import { createActions } from 'redux-actions'
 
 export const {
   setNewsData,
@@ -6,12 +6,12 @@ export const {
   setNewsFilter,
   clearNewsData,
   clearNewsFilter,
-  clearNewsSorting,
+  clearNewsSorting
 } = createActions({
   SET_NEWS_DATA: payload => payload,
   SET_NEWS_SORTING: payload => payload,
   SET_NEWS_FILTER: payload => payload,
   CLEAR_NEWS_DATA: () => true,
   CLEAR_NEWS_FILTER: () => true,
-  CLEAR_NEWS_SORTING: () => true,
-});
+  CLEAR_NEWS_SORTING: () => true
+})

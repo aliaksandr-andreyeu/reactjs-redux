@@ -1,4 +1,4 @@
-import { createActions } from 'redux-actions';
+import { createActions } from 'redux-actions'
 
 export const {
   setVenuesData,
@@ -6,12 +6,12 @@ export const {
   setVenuesFilter,
   clearVenuesData,
   clearVenuesFilter,
-  clearVenuesSorting,
+  clearVenuesSorting
 } = createActions({
   SET_VENUES_DATA: payload => payload,
   SET_VENUES_SORTING: payload => payload,
   SET_VENUES_FILTER: payload => payload,
   CLEAR_VENUES_DATA: () => true,
   CLEAR_VENUES_FILTER: () => true,
-  CLEAR_VENUES_SORTING: () => true,
-});
+  CLEAR_VENUES_SORTING: () => true
+})

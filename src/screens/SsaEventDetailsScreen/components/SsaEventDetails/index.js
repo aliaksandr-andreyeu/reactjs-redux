@@ -1,28 +1,25 @@
-import React, { Fragment } from 'react';
-import { View, Text } from 'react-native';
-import moment from 'moment';
-import propTypes from 'prop-types';
-import Icon from '../../../../components/Icon';
-import { fontSize } from '../../../../constants/fonts';
-import styles from './styles';
-import colors from '../../../../constants/colors';
-import {
-  getSsaPlayerLevel,
-  getSsaEventActivityType,
-} from '../../../../helpers/socialSportsActivity';
+import React, { Fragment } from 'react'
+import { View, Text } from 'react-native'
+import moment from 'moment'
+import propTypes from 'prop-types'
+import Icon from '../../../../components/Icon'
+import { fontSize } from '../../../../constants/fonts'
+import styles from './styles'
+import colors from '../../../../constants/colors'
+import { getSsaPlayerLevel, getSsaEventActivityType } from '../../../../helpers/socialSportsActivity'
 
 const ActivityData = ({ event }) => {
   const {
     getIcon,
-    iconLibraries: { fontAwesome, materialIcons },
-  } = Icon;
+    iconLibraries: { fontAwesome, materialIcons }
+  } = Icon
 
   const params = {
     size: fontSize.medium,
-    color: colors.basicText,
-  };
+    color: colors.basicText
+  }
 
-  const formattedDate = moment(event.StartDateTime).format('hh:mm A DD MMM YYYY');
+  const formattedDate = moment(event.StartDateTime).format('hh:mm A DD MMM YYYY')
 
   return (
     <Fragment>
@@ -45,13 +42,11 @@ const ActivityData = ({ event }) => {
       </View>
       <View style={styles.lineContainer}>
         {getIcon(fontAwesome, 'exclamation', params)}
-        <Text style={styles.lineText}>{`Participants Level: ${getSsaPlayerLevel(
-          event.PlayerLevel
-        )}`}</Text>
+        <Text style={styles.lineText}>{`Participants Level: ${getSsaPlayerLevel(event.PlayerLevel)}`}</Text>
       </View>
     </Fragment>
-  );
-};
+  )
+}
 
 ActivityData.propTypes = {
   event: propTypes.shape({
@@ -59,12 +54,12 @@ ActivityData.propTypes = {
     ActivityType: propTypes.number.isRequired,
     PlayerLevel: propTypes.number.isRequired,
     Venue: propTypes.shape({
-      Title: propTypes.string.isRequired,
+      Title: propTypes.string.isRequired
     }).isRequired,
     Facility: propTypes.shape({
-      Title: propTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
+      Title: propTypes.string.isRequired
+    }).isRequired
+  }).isRequired
+}
 
-export default ActivityData;
+export default ActivityData

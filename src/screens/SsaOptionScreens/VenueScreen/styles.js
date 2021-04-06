@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../constants/colors';
-import { fontFamily, fontSize } from '../../../constants/fonts';
-import layoutConfig from '../../../constants/layout';
+import { StyleSheet } from 'react-native'
+import colors from '../../../constants/colors'
+import { fontFamily, fontSize } from '../../../constants/fonts'
+import layoutConfig from '../../../constants/layout'
 
 const styles = StyleSheet.create({
   innerWrapper: {
-    paddingHorizontal: layoutConfig.mainContainer.sidePadding,
+    paddingHorizontal: layoutConfig.mainContainer.sidePadding
   },
   input: {
     borderWidth: 1,
@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 0.5,
-    marginBottom: 10,
+    marginBottom: 10
   },
   facilitiesText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
-    color: colors.basicText,
-  },
-});
+    color: colors.basicText
+  }
+})
 
-export default styles;
+export default styles

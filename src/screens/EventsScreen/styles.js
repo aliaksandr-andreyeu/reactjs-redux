@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily, fontSize } from '../../constants/fonts';
-import colors from '../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontFamily, fontSize } from '../../constants/fonts'
+import colors from '../../constants/colors'
 
 const styles = StyleSheet.create({
   searchFieldList: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8C9091',
 
-    borderRadius: 3,
+    borderRadius: 3
   },
   categoryButton: {
     padding: 6,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ffffff',
     marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 5
   },
   categoryButtonActive: {
     padding: 6,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff',
     backgroundColor: '#ffffff',
     marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 5
   },
   categorySubmitButton: {
     padding: 8,
@@ -61,32 +61,32 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     width: 125,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   categoryText: {
     color: '#ffffff',
     fontFamily: fontFamily.gothamBold,
-    fontSize: 14,
+    fontSize: 14
   },
   categoryTextActive: {
     color: '#06A09A',
     fontFamily: fontFamily.gothamBold,
-    fontSize: 14,
+    fontSize: 14
   },
   container: {
     backgroundColor: '#d3d3d3',
-    flex: 1,
+    flex: 1
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   dividerContainerEvent: {
     height: 6,
-    width: 1,
+    width: 1
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   filterContainer: {
     alignItems: 'center',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     padding: 10,
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
   filterContainerSearch: {
     alignItems: 'center',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 10,
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
   input: {
     alignSelf: 'stretch',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   searchInput: {
     alignContent: 'flex-start',
@@ -150,12 +150,12 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    textAlign: 'left',
+    textAlign: 'left'
   },
   topSection: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
+    justifyContent: 'space-between'
+  }
+})
 
-export default styles;
+export default styles

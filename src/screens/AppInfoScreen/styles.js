@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../constants/colors';
-import { fontFamily } from '../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../constants/colors'
+import { fontFamily } from '../../constants/fonts'
 
 export default StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.primaryBgColor,
+    backgroundColor: colors.primaryBgColor
   },
   container: {
     flex: 1,
@@ -13,10 +13,10 @@ export default StyleSheet.create({
     marginHorizontal: 15,
     paddingHorizontal: 15,
     borderRadius: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   containerBox: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   containerWrapper: {},
   version: {
@@ -24,12 +24,12 @@ export default StyleSheet.create({
     marginBottom: 35,
     fontSize: 13,
     color: colors.lightTitleText,
-    fontFamily: fontFamily.gothamMedium,
+    fontFamily: fontFamily.gothamMedium
   },
   description: {
     color: colors.basicText,
     lineHeight: 20,
     fontSize: 14,
-    fontFamily: fontFamily.gothamMedium,
-  },
-});
+    fontFamily: fontFamily.gothamMedium
+  }
+})

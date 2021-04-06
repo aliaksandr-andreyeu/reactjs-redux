@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.16,
     shadowRadius: 6,
     borderRadius: 8,
-    overflow: 'hidden',
-  },
-});
+    overflow: 'hidden'
+  }
+})
 
-export default styles;
+export default styles

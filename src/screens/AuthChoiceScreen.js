@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Button,
@@ -12,65 +12,55 @@ import {
   TextInput,
   Alert,
   ImageBackground,
-  Dimensions,
-} from 'react-native';
+  Dimensions
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Global from '../components/global';
+import Global from '../components/global'
 
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'
 
-import env from '../config';
+import env from '../config'
 
-import {
-  LoginButton,
-  AccessToken,
-  LoginManager,
-  GraphRequest,
-  GraphRequestManager,
-} from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
 
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
-import i18n from '../../i18n';
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin'
+import i18n from '../../i18n'
 
-import AuthBgImage from '../assets/images/AuthChoiceBg.png';
-import ShapeBG from '../assets/images/shape.png';
+import AuthBgImage from '../assets/images/AuthChoiceBg.png'
+import ShapeBG from '../assets/images/shape.png'
 
-import { axiosInstance } from '../constants/api';
-import { fontFamily } from '../constants/fonts';
-import SkewedContainer from '../components/SkewedContainer';
-import colors from '../constants/colors';
-import getStyles from './styles';
+import { axiosInstance } from '../constants/api'
+import { fontFamily } from '../constants/fonts'
+import SkewedContainer from '../components/SkewedContainer'
+import colors from '../constants/colors'
+import getStyles from './styles'
 
 export default class AuthChoiceScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   state = {
     email: '',
     password: '',
     dimensions: {
       window: Dimensions.get('window'),
-      screen: Dimensions.get('screen'),
-    },
-  };
+      screen: Dimensions.get('screen')
+    }
+  }
 
-  user = {};
+  user = {}
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   async componentDidMount() {
-    Dimensions.addEventListener('change', this.onChange);
+    Dimensions.addEventListener('change', this.onChange)
 
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
     if (storedValue == null) {
       this.user = {
         name: '',
@@ -80,28 +70,25 @@ export default class AuthChoiceScreen extends React.Component {
         country: 0,
         language: 0,
         phone: '',
-        token: '',
-      };
+        token: ''
+      }
     } else {
-      this.user = JSON.parse(storedValue);
+      this.user = JSON.parse(storedValue)
     }
 
-    signupUser = this.props.navigation.getParam('object', {});
+    signupUser = this.props.navigation.getParam('object', {})
     if (signupUser && signupUser.email) {
-      this.setState({ email: signupUser.email });
+      this.setState({ email: signupUser.email })
     }
     if (signupUser && signupUser.password) {
-      this.setState({ password: signupUser.password });
+      this.setState({ password: signupUser.password })
     }
 
     GoogleSignin.configure({
       // It is mandatory to call this method before attempting to call signIn()
-      scopes: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-      ],
-      webClientId: '970814518409-4vl92cmc481k2kvegevsdmnju9q62ofl.apps.googleusercontent.com',
-    });
+      scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+      webClientId: '970814518409-4vl92cmc481k2kvegevsdmnju9q62ofl.apps.googleusercontent.com'
+    })
   }
 
   _authGoogle = async () => {
@@ -110,68 +97,68 @@ export default class AuthChoiceScreen extends React.Component {
       await GoogleSignin.hasPlayServices({
         // Check if device has Google Play Services installed.
         // Always resolves to true on iOS.
-        showPlayServicesUpdateDialog: true,
-      });
+        showPlayServicesUpdateDialog: true
+      })
 
-      const userInfo = await GoogleSignin.signIn();
+      const userInfo = await GoogleSignin.signIn()
 
       // alert(JSON.stringify(userInfo));
 
-      console.log('User Info --> ', userInfo);
+      console.log('User Info --> ', userInfo)
 
-      this._externalSignIn('Google', userInfo.user.id, userInfo.idToken);
+      this._externalSignIn('Google', userInfo.user.id, userInfo.idToken)
     } catch (error) {
-      console.log('Message', error.message, error.code);
+      console.log('Message', error.message, error.code)
 
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('User Cancelled the Login Flow');
+        console.log('User Cancelled the Login Flow')
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('Signing In');
+        console.log('Signing In')
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('Play Services Not Available or Outdated');
+        console.log('Play Services Not Available or Outdated')
       } else {
-        console.log('Some Other Error Happened');
+        console.log('Some Other Error Happened')
       }
     }
-  };
+  }
 
   _getCurrentUser = async () => {
     // May be called eg. in the componentDidMount of your main component.
     // This method returns the current user
     // if they already signed in and null otherwise.
     try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo });
+      const userInfo = await GoogleSignin.signInSilently()
+      this.setState({ userInfo })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   _signOut = async () => {
     // Remove user session from the device.
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      this.setState({ user: null }); // Remove the user from your app's state as well
+      await GoogleSignin.revokeAccess()
+      await GoogleSignin.signOut()
+      this.setState({ user: null }) // Remove the user from your app's state as well
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   _revokeAccess = async () => {
     // Remove your application from the user authorized applications.
     try {
-      await GoogleSignin.revokeAccess();
-      console.log('deleted');
+      await GoogleSignin.revokeAccess()
+      console.log('deleted')
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   _authFacebook = () => {
     LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       result => {
-        console.log('Facebook _authFacebook result', result);
+        console.log('Facebook _authFacebook result', result)
 
         if (result.isCancelled) {
           // alert("Login cancelled");
@@ -179,178 +166,178 @@ export default class AuthChoiceScreen extends React.Component {
           // array result.grantedPermissions
 
           AccessToken.getCurrentAccessToken().then(data => {
-            console.log('Facebook AccessToken.getCurrentAccessToken()', data);
+            console.log('Facebook AccessToken.getCurrentAccessToken()', data)
 
-            this._externalSignIn('Facebook', data.userID, data.accessToken);
+            this._externalSignIn('Facebook', data.userID, data.accessToken)
 
             // this._loadFbUser(data);
-          });
+          })
         }
       },
       error => {
-        alert(`Login fail with error: ${error}`);
+        alert(`Login fail with error: ${error}`)
       }
-    );
-  };
+    )
+  }
 
   _loadFbUser = data => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
 
     fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`, {
       method: 'GET',
-      headers,
+      headers
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log('_loadFbUser result', responseJson);
+        console.log('_loadFbUser result', responseJson)
 
         if (responseJson) {
           // .id, .name., .email
-          alert(responseJson.name);
+          alert(responseJson.name)
         }
-      });
-  };
+      })
+  }
 
   _externalSignIn = (provider, key, token) => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     // if (this.user.token && this.user.token.length > 4) headers['auth-token'] = this.user.token;
 
     const body = JSON.stringify({
       Provider: provider,
       ProviderKey: key,
-      ExternalAccessToken: token,
-    });
+      ExternalAccessToken: token
+    })
 
     // alert(body);
 
-    console.log('_externalSignIn body', body);
+    console.log('_externalSignIn body', body)
 
     fetch(`${env.api}api/account/external/signin`, {
       method: 'POST',
       headers,
-      body,
+      body
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log('_externalSignIn responseJson', responseJson);
+        console.log('_externalSignIn responseJson', responseJson)
 
         if (responseJson.Token) {
-          this.user.token = responseJson.Token;
-          this.user.name = responseJson.SignedInUser.FullName;
-          this.user.firstName = responseJson.SignedInUser.FirstName;
-          this.user.lastName = responseJson.SignedInUser.LastName;
-          this.user.email = responseJson.SignedInUser.Email;
-          this.user.country = responseJson.SignedInUser.CountryId;
-          this.user.language = responseJson.SignedInUser.LanguageId;
-          this.user.phone = responseJson.SignedInUser.Phone || null;
-          this.user.image = responseJson.SignedInUser.ImageURL || null;
-          this.user.avatar = responseJson.SignedInUser.ImageThumbURL || null;
+          this.user.token = responseJson.Token
+          this.user.name = responseJson.SignedInUser.FullName
+          this.user.firstName = responseJson.SignedInUser.FirstName
+          this.user.lastName = responseJson.SignedInUser.LastName
+          this.user.email = responseJson.SignedInUser.Email
+          this.user.country = responseJson.SignedInUser.CountryId
+          this.user.language = responseJson.SignedInUser.LanguageId
+          this.user.phone = responseJson.SignedInUser.Phone || null
+          this.user.image = responseJson.SignedInUser.ImageURL || null
+          this.user.avatar = responseJson.SignedInUser.ImageThumbURL || null
 
-          Global.user = this.user;
+          Global.user = this.user
 
-          console.log('AuthChoiceScreen Global.user', Global.user);
+          console.log('AuthChoiceScreen Global.user', Global.user)
 
-          AsyncStorage.setItem('app:user', JSON.stringify(this.user));
+          AsyncStorage.setItem('app:user', JSON.stringify(this.user))
 
           //console.log('AuthChoiceScreen this.user', this.user);
 
           //this._signIn();
 
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home')
         } else {
-          Alert.alert(responseJson.Message);
+          Alert.alert(responseJson.Message)
         }
       })
       .catch(error => {
-        console.log('error', error);
+        console.log('error', error)
         if (error && error.Message) {
-          Alert.alert(error.Message);
+          Alert.alert(error.Message)
         } else {
-          Alert.alert(error);
+          Alert.alert(error)
         }
-      });
-  };
+      })
+  }
 
   _signIn = () => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.user.token && this.user.token.length > 4) {
-      headers['auth-token'] = this.user.token;
+      headers['auth-token'] = this.user.token
     }
 
-    console.log(this.state.email);
-    console.log(this.state.password);
+    console.log(this.state.email)
+    console.log(this.state.password)
 
     axiosInstance
       .post(`${env.api}api/account/signin`, {
         Email: this.state.email,
-        Password: this.state.password,
+        Password: this.state.password
       })
       .then(({ data }) => {
         if (data.Token) {
-          this.user.token = data.Token;
-          this.user.name = data.SignedInUser.FullName;
-          this.user.firstName = data.SignedInUser.FirstName;
-          this.user.lastName = data.SignedInUser.LastName;
-          this.user.email = data.SignedInUser.Email;
-          this.user.country = data.SignedInUser.CountryId;
-          this.user.language = data.SignedInUser.LanguageId;
-          this.user.phone = data.SignedInUser.Phone;
-          this.user.image = data.SignedInUser.ImageURL || null;
-          this.user.avatar = data.SignedInUser.ImageThumbURL || null;
+          this.user.token = data.Token
+          this.user.name = data.SignedInUser.FullName
+          this.user.firstName = data.SignedInUser.FirstName
+          this.user.lastName = data.SignedInUser.LastName
+          this.user.email = data.SignedInUser.Email
+          this.user.country = data.SignedInUser.CountryId
+          this.user.language = data.SignedInUser.LanguageId
+          this.user.phone = data.SignedInUser.Phone
+          this.user.image = data.SignedInUser.ImageURL || null
+          this.user.avatar = data.SignedInUser.ImageThumbURL || null
 
-          Global.user = this.user;
+          Global.user = this.user
 
-          AsyncStorage.setItem('app:user', JSON.stringify(this.user));
+          AsyncStorage.setItem('app:user', JSON.stringify(this.user))
 
           //console.log('AuthChoiceScreen this.user', this.user);
 
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home')
         } else {
-          Alert.alert(data.Message);
+          Alert.alert(data.Message)
         }
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   _signUpFacebook = () => {
-    console.log(this.state);
+    console.log(this.state)
 
-    this.props.navigation.navigate('Home');
-  };
+    this.props.navigation.navigate('Home')
+  }
 
   _signUpGoogle = () => {
-    console.log(this.state);
+    console.log(this.state)
 
-    this.props.navigation.navigate('Home');
-  };
+    this.props.navigation.navigate('Home')
+  }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.onChange);
+    Dimensions.removeEventListener('change', this.onChange)
   }
 
   onChange = ({ window, screen }) => {
-    this.setState({ dimensions: { window, screen } });
-  };
+    this.setState({ dimensions: { window, screen } })
+  }
 
   render() {
-    const { dimensions } = this.state;
+    const { dimensions } = this.state
 
     return (
       <ImageBackground source={AuthBgImage} style={{ width: '100%', height: '100%' }}>
         <View
           style={{
             ...getStyles().choiceContainer,
-            bottom: dimensions.window.height > 736 ? 54 : dimensions.window.height > 480 ? 10 : 0,
+            bottom: dimensions.window.height > 736 ? 54 : dimensions.window.height > 480 ? 10 : 0
           }}
         >
           <Text style={getStyles().text}>{i18n.t('auth_choice.signup')}</Text>
 
           <TouchableOpacity
             style={{
-              marginTop: 8,
+              marginTop: 8
             }}
             onPress={() => {
-              this.props.navigation.navigate('SignUp', {});
+              this.props.navigation.navigate('SignUp', {})
             }}
           >
             <ImageBackground
@@ -361,7 +348,7 @@ export default class AuthChoiceScreen extends React.Component {
                 justifyContent: 'center',
                 minWidth: 178,
                 height: 34,
-                padding: 8,
+                padding: 8
               }}
             >
               <Text
@@ -369,8 +356,8 @@ export default class AuthChoiceScreen extends React.Component {
                   getStyles().text,
                   {
                     fontSize: 12,
-                    textAlign: 'center',
-                  },
+                    textAlign: 'center'
+                  }
                 ]}
               >
                 {i18n.t('auth_choice.using_email')}
@@ -385,17 +372,17 @@ export default class AuthChoiceScreen extends React.Component {
               flexDirection: 'row',
               marginTop: dimensions.window.height > 480 ? 8 : 0,
               alignItems: 'center',
-              textAlign: 'center',
+              textAlign: 'center'
             }}
           >
             <TouchableOpacity
               style={{
                 flex: 1,
                 marginRight: 2,
-                alignItems: 'flex-end',
+                alignItems: 'flex-end'
               }}
               onPress={() => {
-                this._authFacebook();
+                this._authFacebook()
               }}
             >
               <SkewedContainer backgroundColor={'#202873'} leftSkewType="asc">
@@ -407,8 +394,8 @@ export default class AuthChoiceScreen extends React.Component {
                       paddingRight: 12,
                       minWidth: 100,
                       // textAlign: 'right',
-                      textAlign: 'center',
-                    },
+                      textAlign: 'center'
+                    }
                   ]}
                 >
                   {i18n.t('auth_choice.facebook')}
@@ -419,7 +406,7 @@ export default class AuthChoiceScreen extends React.Component {
             <TouchableOpacity
               style={{ flex: 1, marginLeft: 2, alignItems: 'flex-start' }}
               onPress={() => {
-                this._authGoogle();
+                this._authGoogle()
               }}
             >
               <SkewedContainer backgroundColor={'#C30907'} rightSkewType="desc">
@@ -431,8 +418,8 @@ export default class AuthChoiceScreen extends React.Component {
                       paddingLeft: 12,
                       minWidth: 100,
                       // textAlign: 'left',
-                      textAlign: 'center',
-                    },
+                      textAlign: 'center'
+                    }
                   ]}
                 >
                   {i18n.t('auth_choice.google')}
@@ -454,24 +441,22 @@ export default class AuthChoiceScreen extends React.Component {
                   ? 16
                   : 8,
               paddingLeft: 15,
-              paddingRight: 15,
+              paddingRight: 15
             }}
           >
             <TouchableOpacity
               style={{ flex: 6, alignItems: 'flex-start' }}
               onPress={() => {
-                this.props.navigation.navigate('SignIn', {});
+                this.props.navigation.navigate('SignIn', {})
               }}
             >
-              <Text style={[getStyles().linksText]}>
-                {i18n.t('auth_choice.already_have_an_account')}
-              </Text>
+              <Text style={[getStyles().linksText]}>{i18n.t('auth_choice.already_have_an_account')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={{ flex: 4, alignItems: 'flex-end' }}
               onPress={() => {
-                this.props.navigation.navigate('Home', {});
+                this.props.navigation.navigate('Home', {})
               }}
             >
               <Text style={[getStyles().linksText]}>{i18n.t('auth_choice.skip')}</Text>
@@ -479,6 +464,6 @@ export default class AuthChoiceScreen extends React.Component {
           </View>
         </View>
       </ImageBackground>
-    );
+    )
   }
 }

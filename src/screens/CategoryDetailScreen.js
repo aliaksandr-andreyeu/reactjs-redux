@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
@@ -13,64 +13,64 @@ import {
   ActivityIndicator,
   FlatList,
   Alert,
-  Dimensions,
-} from 'react-native';
+  Dimensions
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Moment from 'moment';
-import FullWidthImage from 'react-native-fullwidth-image';
-import { NavHeaderUser } from '../components/NavHeaderUser';
-import Loading from '../components/Loading';
-import i18n from '../../i18n';
+import Moment from 'moment'
+import FullWidthImage from 'react-native-fullwidth-image'
+import { NavHeaderUser } from '../components/NavHeaderUser'
+import Loading from '../components/Loading'
+import i18n from '../../i18n'
 
-import env from '../config';
+import env from '../config'
 
-FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
 export default class CategoryDetailScreen extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
+    const { params } = navigation.state
 
     return {
       // title: params ? params.otherParam : 'A Nested Details Screen',
       headerTitle: null,
-      headerRight: <NavHeaderUser {...navigation} />,
-    };
-  };
+      headerRight: <NavHeaderUser {...navigation} />
+    }
+  }
 
   state = {
     category: {},
     user: {},
     dataSource: {
       isLoading: true,
-      results: [],
-    },
-  };
+      results: []
+    }
+  }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
   }
 
   async componentWillMount() {
     this.setState({
-      category: this.props.navigation.getParam('object', {}),
-    });
+      category: this.props.navigation.getParam('object', {})
+    })
 
-    this._getSearchResults();
+    this._getSearchResults()
   }
 
   _getSearchResults = () => {
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.state.user.token && this.state.user.token.length > 4) {
-      headers['auth-token'] = this.state.user.token;
+      headers['auth-token'] = this.state.user.token
     }
 
     fetch(
@@ -79,39 +79,39 @@ export default class CategoryDetailScreen extends React.Component {
         `&srCat=${this.props.navigation.getParam('id', {})}`,
       {
         method: 'GET',
-        headers,
+        headers
       }
     )
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.Message) {
-          Alert.alert(responseJson.Message);
-          return;
+          Alert.alert(responseJson.Message)
+          return
         }
 
         if (responseJson) {
           this.setState({
             dataSource: {
               results: responseJson,
-              isLoading: false,
-            },
-          });
+              isLoading: false
+            }
+          })
         }
       })
       .catch(error => {
         this.setState({
           dataSource: {
             results: [],
-            isLoading: false,
-          },
-        });
-      });
-  };
+            isLoading: false
+          }
+        })
+      })
+  }
 
   _renderItemSearch = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        this.props.navigation.navigate(`${item.EntityName}Detail`, { id: item.Eid, object: item });
+        this.props.navigation.navigate(`${item.EntityName}Detail`, { id: item.Eid, object: item })
       }}
       style={{ marginBottom: 15 }}
     >
@@ -129,7 +129,7 @@ export default class CategoryDetailScreen extends React.Component {
               fontFamily: FontBreeBold,
               padding: 4,
               paddingTop: 0,
-              marginBottom: 0,
+              marginBottom: 0
             }}
           >
             {item.Title}
@@ -142,7 +142,7 @@ export default class CategoryDetailScreen extends React.Component {
               fontSize: 12,
               fontFamily: FontBreeRegular,
               padding: 4,
-              marginBottom: 0,
+              marginBottom: 0
             }}
           >
             {item.Description}
@@ -150,15 +150,15 @@ export default class CategoryDetailScreen extends React.Component {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  )
 
-  _listDividerSearch = () => <View style={styles.dividerContainer} />;
+  _listDividerSearch = () => <View style={styles.dividerContainer} />
 
   render() {
-    Moment.locale('en');
+    Moment.locale('en')
 
     if (this.state.dataSource.isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -171,7 +171,7 @@ export default class CategoryDetailScreen extends React.Component {
               marginLeft: 15,
               marginRight: 15,
               flex: 1,
-              paddingBottom: 30,
+              paddingBottom: 30
             }}
           >
             <TouchableOpacity style={{ marginBottom: 15 }}>
@@ -189,7 +189,7 @@ export default class CategoryDetailScreen extends React.Component {
                       fontFamily: FontBreeBold,
                       padding: 4,
                       paddingTop: 15,
-                      marginBottom: 0,
+                      marginBottom: 0
                     }}
                   >
                     {this.state.category.NameInPrimaryLang}
@@ -220,7 +220,7 @@ export default class CategoryDetailScreen extends React.Component {
                   marginBottom: 5,
                   color: '#9E9E9B',
                   fontSize: 24,
-                  fontFamily: '',
+                  fontFamily: ''
                 }}
               >
                 {i18n.t('category.sorry_no_content')}
@@ -229,24 +229,24 @@ export default class CategoryDetailScreen extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   horizontalLine: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     marginBottom: 5,
     marginTop: 5,
-    opacity: 0.1,
+    opacity: 0.1
   },
   input: {
     alignSelf: 'stretch',
@@ -269,6 +269,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
-  },
-});
+    textAlign: 'center'
+  }
+})

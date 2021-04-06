@@ -1,44 +1,44 @@
-import React, { Component, createRef } from 'react';
-import { View, TextInput } from 'react-native';
-import propTypes from 'prop-types';
-import styles from './styles';
-import colors from '../../../../constants/colors';
-import Icon from '../../../../components/Icon';
+import React, { Component, createRef } from 'react'
+import { View, TextInput } from 'react-native'
+import propTypes from 'prop-types'
+import styles from './styles'
+import colors from '../../../../constants/colors'
+import Icon from '../../../../components/Icon'
 
 class FilterSearch extends Component {
   state = {
     inputText: '',
-    isFocused: false,
-  };
+    isFocused: false
+  }
 
-  textInputRef = React.createRef();
+  textInputRef = React.createRef()
 
   handleFocus = () => {
     this.setState({
-      isFocused: true,
-    });
-  };
+      isFocused: true
+    })
+  }
 
   handleBlur = () => {
     this.setState({
-      isFocused: false,
-    });
-  };
+      isFocused: false
+    })
+  }
 
   onChangeText = text => {
-    const { onChange } = this.props;
+    const { onChange } = this.props
 
     this.setState(
       {
-        inputText: text,
+        inputText: text
       },
       () => onChange(text)
-    );
-  };
+    )
+  }
 
   render() {
-    const { inputText, isFocused } = this.state;
-    const { placeholder } = this.props;
+    const { inputText, isFocused } = this.state
+    const { placeholder } = this.props
 
     return (
       <View style={styles.container}>
@@ -56,22 +56,22 @@ class FilterSearch extends Component {
         <View style={styles.icon}>
           {Icon.getIcon(Icon.iconLibraries.fontAwesome, 'search', {
             size: 20,
-            color: isFocused ? colors.basicText : colors.basicLightText,
+            color: isFocused ? colors.basicText : colors.basicLightText
           })}
         </View>
       </View>
-    );
+    )
   }
 }
 
 FilterSearch.propTypes = {
   placeholder: propTypes.string,
-  onChange: propTypes.func,
-};
+  onChange: propTypes.func
+}
 
 FilterSearch.defaultProps = {
   placeholder: 'Search',
-  onChange: () => false,
-};
+  onChange: () => false
+}
 
-export default FilterSearch;
+export default FilterSearch

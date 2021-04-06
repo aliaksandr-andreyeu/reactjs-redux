@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import RadioButton from '../../components/UI/RadioButton';
-import i18n from '../../../i18n';
-import styles from './styles';
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import RadioButton from '../../components/UI/RadioButton'
+import i18n from '../../../i18n'
+import styles from './styles'
 
-const radioOptions = [i18n.t('filters.today'), i18n.t('filters.upcoming'), i18n.t('filters.past')];
+const radioOptions = [i18n.t('filters.today'), i18n.t('filters.upcoming'), i18n.t('filters.past')]
 
 class MyActivitiesFilterScreen extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       category: '',
       dateRange: '',
-      selectedOption: 0,
-    };
+      selectedOption: 0
+    }
   }
 
-  handleSelect = () => {};
+  handleSelect = () => {}
 
   render() {
-    const { selectedOption, category, dateRange } = this.state;
+    const { selectedOption, category, dateRange } = this.state
 
     return (
       <View>
@@ -42,8 +42,8 @@ class MyActivitiesFilterScreen extends Component {
           />
         ))}
       </View>
-    );
+    )
   }
 }
 
-export default MyActivitiesFilterScreen;
+export default MyActivitiesFilterScreen

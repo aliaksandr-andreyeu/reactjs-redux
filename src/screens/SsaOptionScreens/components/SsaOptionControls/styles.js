@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
-import colors from '../../../../constants/colors';
+import { StyleSheet } from 'react-native'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
+import colors from '../../../../constants/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: colors.brandColorBright,
-    height: 90,
+    height: 90
   },
   button: {
     width: 177,
@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.backgroundLight,
-    borderRadius: 25,
+    borderRadius: 25
   },
   buttonText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.large + 2,
-    color: colors.brandColorBright,
-  },
-});
+    color: colors.brandColorBright
+  }
+})
 
-export default styles;
+export default styles

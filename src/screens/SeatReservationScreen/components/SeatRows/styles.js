@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 15
   },
   rowNumber: {
     width: 25,
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontFamily: fontFamily.gothamMedium,
     color: colors.basicText,
-    fontSize: fontSize.large,
-  },
-});
+    fontSize: fontSize.large
+  }
+})
 
-export default styles;
+export default styles

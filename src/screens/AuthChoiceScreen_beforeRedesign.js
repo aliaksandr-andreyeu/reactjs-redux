@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Button,
@@ -8,20 +8,20 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ImageBackground,
-} from 'react-native';
+  ImageBackground
+} from 'react-native'
 
-import AuthBgImage from '../assets/images/auth-bg.png';
+import AuthBgImage from '../assets/images/auth-bg.png'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
 export default class AuthChoiceScreen_beforeRedesign extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   render() {
     return (
@@ -32,7 +32,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
             <View style={{ flex: 6, alignItems: 'center' }}>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('SignIn', {});
+                  this.props.navigation.navigate('SignIn', {})
                 }}
                 style={styles.authButton}
               >
@@ -40,7 +40,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
                   style={{
                     fontFamily: FontBreeRegular,
                     fontSize: 14,
-                    color: '#6D6E71',
+                    color: '#6D6E71'
                   }}
                 >
                   {i18n.t('signup.sign_in')}
@@ -49,7 +49,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
 
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('SignUp', {});
+                  this.props.navigation.navigate('SignUp', {})
                 }}
                 style={styles.authButton}
               >
@@ -57,7 +57,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
                   style={{
                     fontFamily: FontBreeRegular,
                     fontSize: 14,
-                    color: '#6D6E71',
+                    color: '#6D6E71'
                   }}
                 >
                   {i18n.t('signup.sign_up')}
@@ -66,7 +66,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
 
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Home', {});
+                  this.props.navigation.navigate('Home', {})
                 }}
                 style={styles.askMeLaterButton}
               >
@@ -75,7 +75,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
                     fontFamily: 'Helvetica Neue',
                     fontWeight: 'bold',
                     fontSize: 10,
-                    color: '#F7F7F7',
+                    color: '#F7F7F7'
                   }}
                 >
                   {i18n.t('signup.ask_me_later')}
@@ -85,7 +85,7 @@ export default class AuthChoiceScreen_beforeRedesign extends React.Component {
           </View>
         </View>
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     paddingLeft: 10,
     paddingRight: 10,
-    width: 100,
+    width: 100
   },
   authButton: {
     padding: 10,
@@ -113,22 +113,22 @@ const styles = StyleSheet.create({
     paddingRight: 65,
     paddingLeft: 65,
     marginBottom: 25,
-    width: 235,
+    width: 235
   },
   container: {
     flex: 1,
     //    backgroundColor: '#fff',
     alignItems: 'center',
-    paddingTop: 30,
+    paddingTop: 30
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
-  },
-});
+    textAlign: 'center'
+  }
+})

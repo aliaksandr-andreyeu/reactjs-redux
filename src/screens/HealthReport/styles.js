@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { fontFamily } from '../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import { fontFamily } from '../../constants/fonts'
 
 export default StyleSheet.create({
   title: {
@@ -7,6 +7,6 @@ export default StyleSheet.create({
     color: '#4a4a4a',
     marginLeft: 20,
     marginVertical: 10,
-    fontSize: 16,
-  },
-});
+    fontSize: 16
+  }
+})

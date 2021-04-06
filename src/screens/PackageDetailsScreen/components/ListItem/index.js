@@ -1,19 +1,15 @@
-import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import styles from './styles';
+import React from 'react'
+import { View, Text, ImageBackground, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
+import styles from './styles'
 
 const ListItem = ({ item }) => {
-  const { ImageUrl, FacilityTitle } = item;
+  const { ImageUrl, FacilityTitle } = item
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => false}>
       <View style={styles.boxShadow} elevation={5}>
-        <ImageBackground
-          source={{ uri: ImageUrl }}
-          style={[styles.background, { zIndex: 2 }]}
-          resizeMode="cover"
-        >
+        <ImageBackground source={{ uri: ImageUrl }} style={[styles.background, { zIndex: 2 }]} resizeMode="cover">
           <View style={[styles.topSection]}>
             <View style={styles.tagContainer}>
               <Text style={styles.tag}>Buy</Text>
@@ -25,8 +21,8 @@ const ListItem = ({ item }) => {
         </ImageBackground>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 // VenueDetailsListItem.propTypes = {
 //   withDate: PropTypes.bool,
@@ -41,4 +37,4 @@ const ListItem = ({ item }) => {
 //   withDate: false,
 // };
 
-export default ListItem;
+export default ListItem

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity, ImageBackground, Text } from 'react-native';
-import propTypes from 'prop-types';
-import styles from './styles';
-import colors from '../../../../../constants/colors';
-import { fontSize } from '../../../../../constants/fonts';
-import Icon from '../../../../../components/Icon';
+import React, { Component } from 'react'
+import { View, TouchableOpacity, ImageBackground, Text } from 'react-native'
+import propTypes from 'prop-types'
+import styles from './styles'
+import colors from '../../../../../constants/colors'
+import { fontSize } from '../../../../../constants/fonts'
+import Icon from '../../../../../components/Icon'
 
 class Package extends Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
   render() {
@@ -25,25 +25,21 @@ class Package extends Component {
         Excerpt,
         OfferTitle,
         SportCategory,
-        Price,
-      },
-    } = this.props;
+        Price
+      }
+    } = this.props
 
-    const { getIcon, iconLibraries } = Icon;
+    const { getIcon, iconLibraries } = Icon
 
     const params = {
       size: fontSize.medium,
-      color: colors.basicText,
-    };
+      color: colors.basicText
+    }
 
     return (
       <View style={styles.boxShadow} elevation={5}>
         <TouchableOpacity onPress={() => handleSelect(OfferId, Price)} style={[styles.container]}>
-          <ImageBackground
-            style={styles.imageContainer}
-            source={{ uri: ImageUrl }}
-            resizeMode="cover"
-          >
+          <ImageBackground style={styles.imageContainer} source={{ uri: ImageUrl }} resizeMode="cover">
             <View style={styles.tagContainer}>
               <Text style={styles.tagText}>{SportCategory}</Text>
             </View>
@@ -54,7 +50,7 @@ class Package extends Component {
               {getIcon(iconLibraries.fontAwesome5, 'map-marker-alt', {
                 ...params,
                 size: fontSize.small,
-                color: colors.brandColorBright,
+                color: colors.brandColorBright
               })}
               <Text style={styles.locationName}>{[VenueTitle, FacilityTitle].join(' - ')}</Text>
             </View>
@@ -62,7 +58,7 @@ class Package extends Component {
               {getIcon(iconLibraries.fontAwesome, 'calendar', {
                 ...params,
                 size: fontSize.regular,
-                color: colors.basicLightText,
+                color: colors.basicLightText
               })}
               <Text style={styles.dateText}>{DateTimeInfo}</Text>
             </View>
@@ -73,7 +69,7 @@ class Package extends Component {
           </View>
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
@@ -88,8 +84,8 @@ Package.propTypes = {
     PriceText: propTypes.string.isRequired,
     Excerpt: propTypes.string.isRequired,
     OfferTitle: propTypes.string.isRequired,
-    SportCategory: propTypes.string.isRequired,
-  }).isRequired,
-};
+    SportCategory: propTypes.string.isRequired
+  }).isRequired
+}
 
-export default Package;
+export default Package

@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { withNavigation } from 'react-navigation';
-import ActivityData from '../ActivityData';
-import Wrapper from '../Wrapper';
-import styles from './styles';
-import NewButton from '../../../../components/UI/NewButtonComponent';
-import i18n from '../../../../../i18n';
+import React, { Component } from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation'
+import ActivityData from '../ActivityData'
+import Wrapper from '../Wrapper'
+import styles from './styles'
+import NewButton from '../../../../components/UI/NewButtonComponent'
+import i18n from '../../../../../i18n'
 
 class Activity extends Component {
-  state = {};
+  state = {}
 
   switchToSsa = mode => {
-    const { navigation, id, showLoading } = this.props;
+    const { navigation, id, showLoading } = this.props
 
-    const data = this.getInitParams(mode);
+    const data = this.getInitParams(mode)
 
-    navigation.navigate('CreateSsaMain', { data, id });
+    navigation.navigate('CreateSsaMain', { data, id })
 
-    showLoading();
-  };
+    showLoading()
+  }
 
   getInitParams = screenMode => {
     // end
@@ -34,8 +34,8 @@ class Activity extends Component {
       packageId,
       activityTypeNum,
       participantsLevelNum,
-      image,
-    } = this.props;
+      image
+    } = this.props
 
     switch (screenMode) {
       case 'edit':
@@ -54,8 +54,8 @@ class Activity extends Component {
           payment: 0,
           activityType: activityTypeNum,
           image,
-          screenMode,
-        };
+          screenMode
+        }
       case 'clone':
         return {
           title,
@@ -65,23 +65,15 @@ class Activity extends Component {
           numberOfParticipants,
           payment: 0,
           activityType: 0,
-          screenMode,
-        };
+          screenMode
+        }
       default:
-        return {};
+        return {}
     }
-  };
+  }
 
   render() {
-    const {
-      navigation,
-      id,
-      creatorName,
-      isCreatedByUser,
-      deleteEvent,
-      isMyActivity,
-      image,
-    } = this.props;
+    const { navigation, id, creatorName, isCreatedByUser, deleteEvent, isMyActivity, image } = this.props
 
     // console.log('this.props', this.props)
 
@@ -89,9 +81,7 @@ class Activity extends Component {
       <Wrapper>
         <TouchableOpacity
           style={{ flex: 1, flexDirection: 'row' }}
-          onPress={() =>
-            navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })
-          }
+          onPress={() => navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })}
         >
           <View>
             <Image
@@ -99,7 +89,7 @@ class Activity extends Component {
                 width: 128,
                 height: 184,
                 borderTopLeftRadius: 8,
-                borderBottomRightRadius: 0,
+                borderBottomRightRadius: 0
               }}
               resizeMode="cover"
               source={{ uri: image }}
@@ -141,9 +131,7 @@ class Activity extends Component {
                 label={isMyActivity ? 'Your join request has been approved' : 'Request to Join'}
                 disabled={isMyActivity}
                 position={'single'}
-                onPress={() =>
-                  navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })
-                }
+                onPress={() => navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })}
               />
             )}
             <NewButton
@@ -151,15 +139,13 @@ class Activity extends Component {
               textStyles={styles.cancelButtonText}
               label={i18n.t('more.view').toUpperCase()}
               position={'single'}
-              onPress={() =>
-                navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })
-              }
+              onPress={() => navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })}
             />
           </View>
         )}
       </Wrapper>
-    );
+    )
   }
 }
 
-export default withNavigation(Activity);
+export default withNavigation(Activity)

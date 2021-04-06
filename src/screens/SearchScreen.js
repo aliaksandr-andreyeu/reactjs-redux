@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
@@ -13,108 +13,103 @@ import {
   ActivityIndicator,
   FlatList,
   Alert,
-  Dimensions,
-} from 'react-native';
+  Dimensions
+} from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Moment from 'moment';
-import FullWidthImage from 'react-native-fullwidth-image';
-import { NavHeaderUser } from '../components/NavHeaderUser';
-import { NavHeaderSearch } from '../components/NavHeaderSearch';
+import Moment from 'moment'
+import FullWidthImage from 'react-native-fullwidth-image'
+import { NavHeaderUser } from '../components/NavHeaderUser'
+import { NavHeaderSearch } from '../components/NavHeaderSearch'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-import env from '../config';
+import env from '../config'
 
-FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
 export default class SearchScreen extends React.Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
+    const { params } = navigation.state
 
     return {
       // title: params ? params.otherParam : 'A Nested Details Screen',
       headerTitle: null,
-      headerRight: <NavHeaderSearch {...navigation} />,
-    };
-  };
+      headerRight: <NavHeaderSearch {...navigation} />
+    }
+  }
 
   state = {
     searchText: '',
     user: {},
     searchResults: {
       isLoading: false,
-      results: [],
-    },
-  };
+      results: []
+    }
+  }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     }
   }
 
   async componentWillMount() {
     this.setState(
       {
-        searchText: this.props.navigation.getParam('searchText', {}),
+        searchText: this.props.navigation.getParam('searchText', {})
       },
       () => {
         if (this.state.searchText.length > 0) {
-          this._getSearchResults();
+          this._getSearchResults()
         }
       }
-    );
+    )
   }
 
   _getSearchResults = () => {
     this.setState({
-      searchResults: { isLoading: true, results: [] },
-    });
+      searchResults: { isLoading: true, results: [] }
+    })
 
-    headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+    headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     if (this.state.user.token && this.state.user.token.length > 4) {
-      headers['auth-token'] = this.state.user.token;
+      headers['auth-token'] = this.state.user.token
     }
 
-    fetch(
-      `${env.api}api/search?langCode=` +
-        i18n.locale.toUpperCase() +
-        `&srQuery=${this.state.searchText}`,
-      {
-        method: 'GET',
-        headers,
-      }
-    )
+    fetch(`${env.api}api/search?langCode=` + i18n.locale.toUpperCase() + `&srQuery=${this.state.searchText}`, {
+      method: 'GET',
+      headers
+    })
       .then(response => response.json())
       .then(responseJson => {
-        console.log('resp', responseJson.Message);
+        console.log('resp', responseJson.Message)
         if (responseJson.Message) {
-          Alert.alert(responseJson.Message);
-          return;
+          Alert.alert(responseJson.Message)
+          return
         }
 
         if (responseJson) {
           this.setState({
             searchResults: {
               results: responseJson,
-              isLoading: false,
-            },
-          });
+              isLoading: false
+            }
+          })
         }
-      });
-  };
+      })
+  }
 
   _renderItemSearch = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        this.props.navigation.navigate(`${item.EntityName}Detail`, { id: item.Eid, object: item });
+        this.props.navigation.navigate(`${item.EntityName}Detail`, { id: item.Eid, object: item })
       }}
       style={{ marginBottom: 15 }}
     >
@@ -132,7 +127,7 @@ export default class SearchScreen extends React.Component {
               fontFamily: FontBreeBold,
               padding: 4,
               paddingTop: 0,
-              marginBottom: 0,
+              marginBottom: 0
             }}
           >
             {item.Title}
@@ -145,7 +140,7 @@ export default class SearchScreen extends React.Component {
               fontSize: 12,
               fontFamily: FontBreeRegular,
               padding: 4,
-              marginBottom: 0,
+              marginBottom: 0
             }}
           >
             {item.Description}
@@ -153,15 +148,15 @@ export default class SearchScreen extends React.Component {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  )
 
-  _listDividerSearch = () => <View style={styles.dividerContainer} />;
+  _listDividerSearch = () => <View style={styles.dividerContainer} />
 
   render() {
-    Moment.locale('en');
+    Moment.locale('en')
 
     if (this.state.searchResults.isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -174,7 +169,7 @@ export default class SearchScreen extends React.Component {
               marginLeft: 15,
               marginRight: 15,
               flex: 1,
-              paddingBottom: 30,
+              paddingBottom: 30
             }}
           >
             {this.state.searchText.length > 0 && (
@@ -184,7 +179,7 @@ export default class SearchScreen extends React.Component {
                   marginBottom: 10,
                   color: '#707070',
                   fontSize: 20,
-                  fontFamily: FontBreeBold,
+                  fontFamily: FontBreeBold
                 }}
               >
                 {i18n.t('search.search_results_for')} "{this.state.searchText}"
@@ -212,7 +207,7 @@ export default class SearchScreen extends React.Component {
                   marginBottom: 5,
                   color: '#9E9E9B',
                   fontSize: 24,
-                  fontFamily: FontBreeBold,
+                  fontFamily: FontBreeBold
                 }}
               >
                 {i18n.t('search.no_matches')}
@@ -227,7 +222,7 @@ export default class SearchScreen extends React.Component {
                   marginBottom: 5,
                   color: '#9E9E9B',
                   fontSize: 24,
-                  fontFamily: FontBreeBold,
+                  fontFamily: FontBreeBold
                 }}
               >
                 {i18n.t('search.please_input')}
@@ -236,24 +231,24 @@ export default class SearchScreen extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   eventItem: {
     alignSelf: 'stretch',
@@ -261,14 +256,14 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 3,
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   horizontalLine: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     marginBottom: 5,
     marginTop: 5,
-    opacity: 0.1,
+    opacity: 0.1
   },
   input: {
     alignSelf: 'stretch',
@@ -276,6 +271,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     margin: 15,
-    textAlign: 'center',
-  },
-});
+    textAlign: 'center'
+  }
+})

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
@@ -10,19 +10,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.brandColorBright,
-    marginRight: 15,
+    marginRight: 15
   },
   selectedContainer: {
-    backgroundColor: colors.brandColorBright,
+    backgroundColor: colors.brandColorBright
   },
   text: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.large - 2,
-    color: colors.basicText,
+    color: colors.basicText
   },
   selectedText: {
-    color: colors.basicLightText,
-  },
-});
+    color: colors.basicLightText
+  }
+})
 
-export default styles;
+export default styles

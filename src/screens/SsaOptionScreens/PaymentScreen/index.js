@@ -1,51 +1,51 @@
-import { connect } from 'react-redux';
-import React, { PureComponent } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import RadioButton from '../../../components/UI/RadioButton';
-import handleNumericInputBlur from '../../../helpers/handleNumericInputBlur';
-import SsaScreenTitle from '../components/SsaScreenTitle';
-import styles from './styles';
-import { paymentOptions } from './constants';
-import * as actions from '../../SsaMainScreen/actions';
-import layoutConfig from '../../../constants/layout';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import i18n from '../../../../i18n';
+import { connect } from 'react-redux'
+import React, { PureComponent } from 'react'
+import { View, Text, TextInput } from 'react-native'
+import RadioButton from '../../../components/UI/RadioButton'
+import handleNumericInputBlur from '../../../helpers/handleNumericInputBlur'
+import SsaScreenTitle from '../components/SsaScreenTitle'
+import styles from './styles'
+import { paymentOptions } from './constants'
+import * as actions from '../../SsaMainScreen/actions'
+import layoutConfig from '../../../constants/layout'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import i18n from '../../../../i18n'
 
 class PaymentScreen extends PureComponent {
   state = {
     selectedItem: this.props.payment,
-    specifiedAmount: '',
-  };
+    specifiedAmount: ''
+  }
 
   handleSelect = index => {
-    const { selectedItem } = this.state;
+    const { selectedItem } = this.state
 
     if (index !== selectedItem) {
       this.setState({
-        selectedItem: index,
-      });
+        selectedItem: index
+      })
     }
-  };
+  }
 
   handleTextChange = text => {
     if (!isNaN(+text)) {
       this.setState({
-        specifiedAmount: text,
-      });
+        specifiedAmount: text
+      })
     }
-  };
+  }
 
   handleBlur = () => {
-    const { specifiedAmount } = this.state;
+    const { specifiedAmount } = this.state
 
     this.setState({
-      specifiedAmount: handleNumericInputBlur(specifiedAmount),
-    });
-  };
+      specifiedAmount: handleNumericInputBlur(specifiedAmount)
+    })
+  }
 
   render() {
-    const { specifiedAmount, selectedItem } = this.state;
-    const { updateStore } = this.props;
+    const { specifiedAmount, selectedItem } = this.state
+    const { updateStore } = this.props
 
     return (
       <View style={styles.container}>
@@ -86,15 +86,15 @@ class PaymentScreen extends PureComponent {
           handleSave={() => updateStore({ payment: selectedItem })}
         />
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  payment: state.socialSportActivity.payment,
-});
+  payment: state.socialSportActivity.payment
+})
 const mapDispatchToProps = {
-  updateStore: actions.setData,
-};
+  updateStore: actions.setData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentScreen)

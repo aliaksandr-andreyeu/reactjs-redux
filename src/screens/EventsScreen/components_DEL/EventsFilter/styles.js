@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.brandColorBright,
+    backgroundColor: colors.brandColorBright
   },
   optionContainer: {
     height: 80,
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     borderBottomColor: colors.borderLight,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   optionText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
-    color: colors.basicLightText,
-  },
-});
+    color: colors.basicLightText
+  }
+})
 
-export default styles;
+export default styles

@@ -1,75 +1,73 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import FilterOption from '../../../components/SortAndFilter/FilterOption';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../HeaderSearchScreen/actions';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import Loading from '../../../components/Loading';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import styles from './styles'
+import FilterOption from '../../../components/SortAndFilter/FilterOption'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../HeaderSearchScreen/actions'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import Loading from '../../../components/Loading'
+import i18n from '../../../../i18n'
 
 class HeaderSearchFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      isLoading: true,
-    };
+      isLoading: true
+    }
   }
 
   componentDidMount() {
-    const requests = [
-      axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`),
-    ];
+    const requests = [axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`)]
 
     Promise.all(requests).then(([sportCategories]) => {
       this.setState({
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   mapList = (list, labelKey, idKey = 'Id') =>
     list.map(item => ({
       id: item[idKey],
-      label: item[labelKey],
-    }));
+      label: item[labelKey]
+    }))
 
   // applyFilters = () => {};
 
   handleCancel = () => {
-    const { clearFilter } = this.props;
+    const { clearFilter } = this.props
 
-    clearFilter();
-  };
+    clearFilter()
+  }
 
   applyFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update,
-    });
+      [itemKey]: update
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   applyRadioFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update.join(),
-    });
+      [itemKey]: update.join()
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   render() {
     // get data from redux store
-    const { contentType } = this.props;
-    const { isLoading } = this.state;
+    const { contentType } = this.props
+    const { isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -89,9 +87,9 @@ class HeaderSearchFilter extends Component {
                 { id: 'news', label: i18n.t('filters.news') },
                 { id: 'feature', label: i18n.t('filters.features') },
                 { id: 'activity', label: i18n.t('filters.activities') },
-                { id: 'match', label: i18n.t('filters.matches') },
+                { id: 'match', label: i18n.t('filters.matches') }
               ],
-              screenTitle: i18n.t('filters.select_type'),
+              screenTitle: i18n.t('filters.select_type')
             }}
           />
         </View>
@@ -102,18 +100,18 @@ class HeaderSearchFilter extends Component {
           cancelLabel={i18n.t('generic.buttons.reset')}
         />
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  contentType: state.headerSearch.filters.contentType,
-});
+  contentType: state.headerSearch.filters.contentType
+})
 
 const mapDispatchToProps = {
   updateStore: actions.setSearchData,
   setFilter: actions.setSearchFilter,
-  clearFilter: actions.clearSearchFilter,
-};
+  clearFilter: actions.clearSearchFilter
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchFilter)

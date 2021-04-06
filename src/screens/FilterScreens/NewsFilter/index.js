@@ -1,68 +1,68 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import FilterOption from '../../../components/SortAndFilter/FilterOption';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import * as actions from '../../NewsScreen/actions';
-import { axiosInstance, apiUrls } from '../../../constants/api';
-import { EventType } from './models';
-import { sportActivityTypes } from '../../../constants/socialSportsActivity';
-import Loading from '../../../components/Loading';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import styles from './styles'
+import FilterOption from '../../../components/SortAndFilter/FilterOption'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import * as actions from '../../NewsScreen/actions'
+import { axiosInstance, apiUrls } from '../../../constants/api'
+import { EventType } from './models'
+import { sportActivityTypes } from '../../../constants/socialSportsActivity'
+import Loading from '../../../components/Loading'
+import i18n from '../../../../i18n'
 
 class EventsFilter extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       sportCategoriesList: [],
-      isLoading: true,
-    };
+      isLoading: true
+    }
   }
 
   componentDidMount() {
     const requests = [
       axiosInstance(`${apiUrls.getSportCategories}?langCode=${i18n.locale.toUpperCase()}`),
-      axiosInstance.post(apiUrls.postVenues, {}),
-    ];
+      axiosInstance.post(apiUrls.postVenues, {})
+    ]
 
     Promise.all(requests).then(([sportCategories, venues]) => {
       this.setState({
         venuesList: this.mapList(venues.data, 'Title'),
         sportCategoriesList: this.mapList(sportCategories.data, 'NameInPrimaryLang'),
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   mapList = (list, labelKey, idKey = 'Id') =>
     list.map(item => ({
       id: item[idKey],
-      label: item[labelKey],
-    }));
+      label: item[labelKey]
+    }))
 
   handleCancel = () => {
-    const { clearFilter } = this.props;
+    const { clearFilter } = this.props
 
-    clearFilter();
-  };
+    clearFilter()
+  }
 
   applyFilter = itemKey => update => {
-    const { setFilter, navigation } = this.props;
+    const { setFilter, navigation } = this.props
 
     setFilter({
-      [itemKey]: update,
-    });
+      [itemKey]: update
+    })
 
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
   render() {
-    const { categoryOfSports, dateRange } = this.props;
-    const { sportCategoriesList, isLoading } = this.state;
+    const { categoryOfSports, dateRange } = this.props
+    const { sportCategoriesList, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
     return (
@@ -75,7 +75,7 @@ class EventsFilter extends Component {
               onApply: this.applyFilter('categoryOfSports'),
               selectedItems: categoryOfSports,
               items: sportCategoriesList,
-              screenTitle: i18n.t('filters.category_of_sports'),
+              screenTitle: i18n.t('filters.category_of_sports')
             }}
           />
           <FilterOption
@@ -84,7 +84,7 @@ class EventsFilter extends Component {
             navigationData={{
               onApply: this.applyFilter('dateRange'),
               selectedItems: dateRange,
-              screenTitle: i18n.t('filters.daterange'),
+              screenTitle: i18n.t('filters.daterange')
             }}
           />
         </View>
@@ -95,18 +95,18 @@ class EventsFilter extends Component {
           cancelLabel={i18n.t('generic.buttons.reset')}
         />
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   categoryOfSports: state.news.filters.categoryOfSports,
-  dateRange: state.news.filters.dateRange,
-});
+  dateRange: state.news.filters.dateRange
+})
 const mapDispatchToProps = {
   updateStore: actions.setNewsData,
   setFilter: actions.setNewsFilter,
-  clearFilter: actions.clearNewsFilter,
-};
+  clearFilter: actions.clearNewsFilter
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(EventsFilter)

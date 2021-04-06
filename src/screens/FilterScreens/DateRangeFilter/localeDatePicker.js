@@ -1,5 +1,5 @@
-import i18n from '../../../../i18n';
-import { LocaleConfig } from 'react-native-calendars';
+import i18n from '../../../../i18n'
+import { LocaleConfig } from 'react-native-calendars'
 
 const localeDatePicker = () => {
   return {
@@ -15,7 +15,7 @@ const localeDatePicker = () => {
       i18n.t('datePicker.monthNames.sep'),
       i18n.t('datePicker.monthNames.oct'),
       i18n.t('datePicker.monthNames.nov'),
-      i18n.t('datePicker.monthNames.dec'),
+      i18n.t('datePicker.monthNames.dec')
     ],
     monthNamesShort: [
       i18n.t('datePicker.monthNamesShort.jan'),
@@ -29,7 +29,7 @@ const localeDatePicker = () => {
       i18n.t('datePicker.monthNamesShort.sep'),
       i18n.t('datePicker.monthNamesShort.oct'),
       i18n.t('datePicker.monthNamesShort.nov'),
-      i18n.t('datePicker.monthNamesShort.dec'),
+      i18n.t('datePicker.monthNamesShort.dec')
     ],
     dayNames: [
       i18n.t('datePicker.dayNames.sun'),
@@ -38,7 +38,7 @@ const localeDatePicker = () => {
       i18n.t('datePicker.dayNames.wed'),
       i18n.t('datePicker.dayNames.thu'),
       i18n.t('datePicker.dayNames.fri'),
-      i18n.t('datePicker.dayNames.sat'),
+      i18n.t('datePicker.dayNames.sat')
     ],
     dayNamesShort: [
       i18n.t('datePicker.dayNamesShort.sun'),
@@ -47,10 +47,10 @@ const localeDatePicker = () => {
       i18n.t('datePicker.dayNamesShort.wed'),
       i18n.t('datePicker.dayNamesShort.thu'),
       i18n.t('datePicker.dayNamesShort.fri'),
-      i18n.t('datePicker.dayNamesShort.sat'),
+      i18n.t('datePicker.dayNamesShort.sat')
     ],
-    today: i18n.t('datePicker.today'),
-  };
-};
+    today: i18n.t('datePicker.today')
+  }
+}
 
-export default localeDatePicker;
+export default localeDatePicker

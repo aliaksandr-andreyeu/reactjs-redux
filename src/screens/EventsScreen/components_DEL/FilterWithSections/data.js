@@ -8,12 +8,9 @@ export default [
     DescriptionInPrimaryLang: 'Paddle Tennis',
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554137560/dxb/icyfptnzl56bco0ivp0c.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554137559/dxb/dvc0zrrnfgaorhu5lwdl.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554137558/dxb/iorlyzkqfcbxtn5quxpv.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554137560/dxb/icyfptnzl56bco0ivp0c.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554137559/dxb/dvc0zrrnfgaorhu5lwdl.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554137558/dxb/iorlyzkqfcbxtn5quxpv.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554137557/dxb/cw1pfuchc0g6bw4hkunn.png',
     Created: '2019-03-07T11:50:46.567',
@@ -25,7 +22,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -36,12 +33,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138251/dxb/yqbhwazoqw8sa4wyf9bh.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138250/dxb/endtnnsudfczjr2anuln.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138249/dxb/enwybqfxhhecuuwtmnp8.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138251/dxb/yqbhwazoqw8sa4wyf9bh.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138250/dxb/endtnnsudfczjr2anuln.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138249/dxb/enwybqfxhhecuuwtmnp8.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138248/dxb/zzoovzpueotetmllizfe.png',
     Created: '2019-02-26T10:37:18.94',
@@ -53,7 +47,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -64,12 +58,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138595/dxb/tybzq46z3doojzgfw92r.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138594/dxb/idxc4ndbtknlbwo34lrs.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138593/dxb/olmhunryf8nvnmpoxvkl.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138595/dxb/tybzq46z3doojzgfw92r.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138594/dxb/idxc4ndbtknlbwo34lrs.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138593/dxb/olmhunryf8nvnmpoxvkl.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138592/dxb/n28mvbyshcqprkqqkqp6.png',
     Created: '2019-02-20T15:36:47.137',
@@ -81,7 +72,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -92,12 +83,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138603/dxb/vhsi3g58zfeloiwyz02w.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138602/dxb/tpdnonp0dz9t7subytxi.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138601/dxb/ergapn19u0mjxl63j50n.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138603/dxb/vhsi3g58zfeloiwyz02w.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138602/dxb/tpdnonp0dz9t7subytxi.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138601/dxb/ergapn19u0mjxl63j50n.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138600/dxb/gstpupbstizmgsnxc4rb.png',
     Created: '2019-02-20T15:24:06.64',
@@ -109,7 +97,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -120,12 +108,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138610/dxb/gwjd2aqskfokgcs93jmd.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138609/dxb/tfkomflaae0nph96fu2m.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138608/dxb/yyxul0aaqie1lkgxguws.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138610/dxb/gwjd2aqskfokgcs93jmd.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138609/dxb/tfkomflaae0nph96fu2m.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138608/dxb/yyxul0aaqie1lkgxguws.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138608/dxb/qktmrszsdgiihk4m2uku.png',
     Created: '2019-02-20T15:20:11.897',
@@ -137,7 +122,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -148,12 +133,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138618/dxb/ylofub6hgwfyzydn6hq2.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138616/dxb/biscylbif8fvuzdloiio.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138616/dxb/w9ikgsczq9wmayokwony.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138618/dxb/ylofub6hgwfyzydn6hq2.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138616/dxb/biscylbif8fvuzdloiio.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138616/dxb/w9ikgsczq9wmayokwony.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138615/dxb/bouzhhrbc88p21ygpl85.png',
     Created: '2019-02-20T15:02:33.387',
@@ -165,7 +147,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -176,12 +158,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138627/dxb/syv8ggsi9siyuo6idh5g.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138626/dxb/kzt78mhbepovxkhqkyg0.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138621/dxb/ygiudj9wxo6wfimfwxag.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138627/dxb/syv8ggsi9siyuo6idh5g.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138626/dxb/kzt78mhbepovxkhqkyg0.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138621/dxb/ygiudj9wxo6wfimfwxag.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138620/dxb/atjquljgqvapkor3jjbl.png',
     Created: '2019-02-20T14:45:59.13',
@@ -193,7 +172,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -204,12 +183,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138638/dxb/gzl1k2xrv4rxck5wp3dm.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138637/dxb/yjeoj5d78wru2cc9e9cd.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138636/dxb/uhuzxpkjvreh13may93p.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138638/dxb/gzl1k2xrv4rxck5wp3dm.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138637/dxb/yjeoj5d78wru2cc9e9cd.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138636/dxb/uhuzxpkjvreh13may93p.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138635/dxb/cc3bojsz5sjhtymwj5jm.png',
     Created: '2019-02-20T14:36:41.5',
@@ -221,7 +197,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -232,12 +208,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138645/dxb/ir7ssvow5zruar0yhoi1.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138644/dxb/xvswru9a1rjgdt3dvqq2.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138643/dxb/qvazzayf7ezajflh8bkp.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138645/dxb/ir7ssvow5zruar0yhoi1.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138644/dxb/xvswru9a1rjgdt3dvqq2.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138643/dxb/qvazzayf7ezajflh8bkp.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138642/dxb/jsncim2uoby0cpljxtmv.png',
     Created: '2019-02-20T14:24:35.027',
@@ -249,7 +222,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -260,12 +233,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138653/dxb/gs2e8vdlhqgxmbbuehuq.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138651/dxb/oipgddblutfoivajpt2y.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138651/dxb/ohbxrv0npzgtejdvmkjk.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138653/dxb/gs2e8vdlhqgxmbbuehuq.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138651/dxb/oipgddblutfoivajpt2y.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138651/dxb/ohbxrv0npzgtejdvmkjk.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138650/dxb/q2x8tv0p0fr0rmd9dj6n.png',
     Created: '2019-02-20T14:16:24.333',
@@ -277,7 +247,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -288,12 +258,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138660/dxb/pbovz5109vqaepr6skdb.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138659/dxb/eqqj0ipvbaouzwvh1yqg.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138658/dxb/cufw4ezt5jhawj2dgnxs.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138660/dxb/pbovz5109vqaepr6skdb.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138659/dxb/eqqj0ipvbaouzwvh1yqg.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138658/dxb/cufw4ezt5jhawj2dgnxs.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138657/dxb/hzx9xqwbt8ix0qekkbq6.png',
     Created: '2019-02-20T14:12:33.47',
@@ -305,7 +272,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -316,12 +283,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138667/dxb/dlkxvk70sgszne8sygtp.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138666/dxb/qq2dgf1jm9bebbh7goru.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138665/dxb/or0jqzdegovctkprkrek.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138667/dxb/dlkxvk70sgszne8sygtp.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138666/dxb/qq2dgf1jm9bebbh7goru.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138665/dxb/or0jqzdegovctkprkrek.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138664/dxb/ig45izcyu7bn5barewhy.png',
     Created: '2019-02-20T12:53:35.067',
@@ -333,7 +297,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -344,12 +308,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138674/dxb/nxysup2cuw7hddggkomb.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138673/dxb/wjawsnu2tygpaytg4hxp.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138672/dxb/cynwe4byz7irvlaks9j2.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138674/dxb/nxysup2cuw7hddggkomb.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138673/dxb/wjawsnu2tygpaytg4hxp.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138672/dxb/cynwe4byz7irvlaks9j2.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138671/dxb/uljdfpgfrv8pwqxwdnfa.png',
     Created: '2019-02-20T12:50:23.45',
@@ -361,7 +322,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -372,12 +333,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138681/dxb/gqvhwppwuniyseovkk7u.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138680/dxb/anasfzhxdj4tfmhqwwb0.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138680/dxb/c6vjchj1nimb6kdqaqbe.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138681/dxb/gqvhwppwuniyseovkk7u.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138680/dxb/anasfzhxdj4tfmhqwwb0.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138680/dxb/c6vjchj1nimb6kdqaqbe.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138679/dxb/xaw9mv2tqhoc202rs8tl.png',
     Created: '2019-02-20T12:45:14.35',
@@ -389,7 +347,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -400,12 +358,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138695/dxb/f4yejmio87itlzodgf2g.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138694/dxb/qicrsp0xru07ui699uul.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138690/dxb/ued7b7zoadoe0fowxmkb.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138695/dxb/f4yejmio87itlzodgf2g.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138694/dxb/qicrsp0xru07ui699uul.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138690/dxb/ued7b7zoadoe0fowxmkb.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138689/dxb/rzmjsqvebniqdvpt7la2.png',
     Created: '2019-02-20T12:26:02.837',
@@ -417,7 +372,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -428,12 +383,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138631/dxb/pye1m4ainqi5zp8hopjc.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138629/dxb/jx674yih6mpcxmokzpeb.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138629/dxb/x8kjyft2s5ohaeo5ppgu.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138631/dxb/pye1m4ainqi5zp8hopjc.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138629/dxb/jx674yih6mpcxmokzpeb.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138629/dxb/x8kjyft2s5ohaeo5ppgu.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138628/dxb/tvjudh21jljuld9n6oy9.png',
     Created: '2019-02-20T12:13:02.743',
@@ -445,7 +397,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -456,12 +408,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138715/dxb/auopmczxisu2mhnpspc4.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138714/dxb/x3ldke8w4nfebj3jutgc.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138713/dxb/tqjolniexotaz1ytlyrd.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138715/dxb/auopmczxisu2mhnpspc4.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138714/dxb/x3ldke8w4nfebj3jutgc.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138713/dxb/tqjolniexotaz1ytlyrd.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138712/dxb/p3akxgt8fsxj4xzsyswl.png',
     Created: '2019-02-20T12:06:14.047',
@@ -473,7 +422,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -484,12 +433,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138718/dxb/hxrgx8xkomsnk2ypvazu.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138717/dxb/nhjxk5pu4njj0iiw5spi.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138717/dxb/mscvirk9s6il4bpmvoxa.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138718/dxb/hxrgx8xkomsnk2ypvazu.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138717/dxb/nhjxk5pu4njj0iiw5spi.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138717/dxb/mscvirk9s6il4bpmvoxa.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138716/dxb/ad8vhn4yqgvjfvbdkfpl.png',
     Created: '2019-02-20T12:00:02.217',
@@ -501,7 +447,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -512,12 +458,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138729/dxb/xpayb59keo79pqgfpgvi.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138728/dxb/uvklg8y0duyupqtuz6ki.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138727/dxb/zns7vfcmvrhejqepsaol.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138729/dxb/xpayb59keo79pqgfpgvi.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138728/dxb/uvklg8y0duyupqtuz6ki.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138727/dxb/zns7vfcmvrhejqepsaol.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138726/dxb/jdw0yomucmuyhlmeyauf.png',
     Created: '2019-02-20T11:39:01.607',
@@ -529,7 +472,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -540,12 +483,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138737/dxb/hmutnqcts7hwq5htyw3g.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138736/dxb/qoflwnltaswhgfwooian.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138734/dxb/cpr1gzhz18fcixa4c3fw.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138737/dxb/hmutnqcts7hwq5htyw3g.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138736/dxb/qoflwnltaswhgfwooian.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138734/dxb/cpr1gzhz18fcixa4c3fw.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138734/dxb/upb9v09dauntetuviyc6.png',
     Created: '2019-02-20T11:31:39.54',
@@ -557,7 +497,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -568,12 +508,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138743/dxb/pxaaal2kqe4elsybhxvp.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138743/dxb/nyc1gefzsjxh5nzieaxx.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138742/dxb/ufubklajqbav46aditai.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138743/dxb/pxaaal2kqe4elsybhxvp.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138743/dxb/nyc1gefzsjxh5nzieaxx.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138742/dxb/ufubklajqbav46aditai.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138741/dxb/zxuxzqfqeryi4fmz7xbf.png',
     Created: '2019-02-20T11:23:26.22',
@@ -585,7 +522,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -596,12 +533,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138750/dxb/kdwkpinqsxwdudrkn6ld.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138750/dxb/kcwmpqavvf90coxrvput.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138748/dxb/mppjuxmxd3qiurbtvsu8.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138750/dxb/kdwkpinqsxwdudrkn6ld.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138750/dxb/kcwmpqavvf90coxrvput.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138748/dxb/mppjuxmxd3qiurbtvsu8.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138748/dxb/ceze5oxkopmitap9noo4.png',
     Created: '2019-02-20T11:14:07.977',
@@ -613,7 +547,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -624,12 +558,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138759/dxb/qiw70sknlzfhuhcr21eq.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138757/dxb/ky0pg3opibr0pemj5uuq.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138756/dxb/bxvzikz567ytlyoxrqdi.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138759/dxb/qiw70sknlzfhuhcr21eq.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138757/dxb/ky0pg3opibr0pemj5uuq.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138756/dxb/bxvzikz567ytlyoxrqdi.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138755/dxb/vryokmhyvpnaqublzq5j.png',
     Created: '2019-02-20T11:07:04.087',
@@ -641,7 +572,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -652,12 +583,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138767/dxb/vsyxmlommtbg0elgzzei.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138766/dxb/ukabjqol4yltp89gwulv.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138761/dxb/kpgi4ujjlsp5u9ml3hel.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138767/dxb/vsyxmlommtbg0elgzzei.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138766/dxb/ukabjqol4yltp89gwulv.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138761/dxb/kpgi4ujjlsp5u9ml3hel.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138760/dxb/kgsygeovdg8itunkvjh8.png',
     Created: '2019-02-20T11:02:37.567',
@@ -669,7 +597,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -680,12 +608,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138775/dxb/dgoxkw7qsjjrbkqmswlp.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138774/dxb/gxldxob4tbv5gkmrcnj5.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138769/dxb/wzs3laajpt7fjdca3lu7.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138775/dxb/dgoxkw7qsjjrbkqmswlp.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138774/dxb/gxldxob4tbv5gkmrcnj5.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138769/dxb/wzs3laajpt7fjdca3lu7.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138768/dxb/tpq6xm3eu2evlbr4qdd8.png',
     Created: '2019-02-20T10:56:51.107',
@@ -697,7 +622,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -708,12 +633,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138787/dxb/loydyb4plsxe3dh0xceq.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138786/dxb/prcqomx0wpcbgszhycrz.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138785/dxb/wkefwxnzl6zr9rxq5abv.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138787/dxb/loydyb4plsxe3dh0xceq.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138786/dxb/prcqomx0wpcbgszhycrz.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138785/dxb/wkefwxnzl6zr9rxq5abv.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138784/dxb/eabcelh2mjkssy9qzs58.png',
     Created: '2019-02-20T10:47:18.893',
@@ -725,7 +647,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -736,12 +658,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138798/dxb/ggsap3frsu5qpjs1mhow.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138797/dxb/zlnbdgiayk3prf93pzzg.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138796/dxb/pxee0ibullch03vgudsq.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138798/dxb/ggsap3frsu5qpjs1mhow.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138797/dxb/zlnbdgiayk3prf93pzzg.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138796/dxb/pxee0ibullch03vgudsq.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138795/dxb/aqsbfljgrwca6pjyzqkz.png',
     Created: '2019-02-20T10:38:58.107',
@@ -753,7 +672,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -764,12 +683,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138806/dxb/jbdo3s1q5dt8x5hsg173.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138805/dxb/s7bmkl7p9reayt6hh08r.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138804/dxb/wijiwadqmyghsobat8wh.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138806/dxb/jbdo3s1q5dt8x5hsg173.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138805/dxb/s7bmkl7p9reayt6hh08r.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138804/dxb/wijiwadqmyghsobat8wh.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138803/dxb/yzrpi5nwyxdlzodp2ql7.png',
     Created: '2019-02-20T10:36:45.537',
@@ -781,7 +697,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -792,12 +708,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138815/dxb/kvgyxukg5bcqcuwcd6ge.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138813/dxb/yjhahxfeecjpuss35q1g.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138812/dxb/aw6crjefswgptwpwrfyc.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138815/dxb/kvgyxukg5bcqcuwcd6ge.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138813/dxb/yjhahxfeecjpuss35q1g.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138812/dxb/aw6crjefswgptwpwrfyc.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138811/dxb/dlwk4ivxnquver1j8glz.png',
     Created: '2019-02-20T10:27:24.037',
@@ -809,7 +722,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -820,12 +733,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138822/dxb/teuprqkfdrfwkm9zb7gb.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138821/dxb/fe4cljwijrd4ogtednzu.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138820/dxb/u6i0wxkifztwgaymobwe.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138822/dxb/teuprqkfdrfwkm9zb7gb.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138821/dxb/fe4cljwijrd4ogtednzu.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138820/dxb/u6i0wxkifztwgaymobwe.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138819/dxb/ewp8ivbmaugedqjvwlhn.png',
     Created: '2019-02-20T10:21:16.247',
@@ -837,7 +747,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -848,12 +758,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138830/dxb/d3knpy2rfepadbpt2wtu.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138829/dxb/ypqru1li35qwrmpp5blc.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138828/dxb/s8eardgm0cgbgoowxftr.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138830/dxb/d3knpy2rfepadbpt2wtu.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138829/dxb/ypqru1li35qwrmpp5blc.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138828/dxb/s8eardgm0cgbgoowxftr.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138827/dxb/wcyzuozekru0it8prgyb.png',
     Created: '2019-02-20T10:15:14.58',
@@ -865,7 +772,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -876,12 +783,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138844/dxb/wajl26sgwbqbmm0hditc.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138842/dxb/wqxqmcdgvoq2wqjra65m.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138842/dxb/r9rojs24bh2qjutmkaay.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138844/dxb/wajl26sgwbqbmm0hditc.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138842/dxb/wqxqmcdgvoq2wqjra65m.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138842/dxb/r9rojs24bh2qjutmkaay.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138841/dxb/csuqnjoseogupnkevca3.png',
     Created: '2019-02-20T09:55:05.453',
@@ -893,7 +797,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -904,12 +808,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138850/dxb/cuus9obfaeeoym9hcmff.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138849/dxb/hot6qmlqlflnusi7yw9i.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138848/dxb/dfflk5lxqb651u3b9oyb.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138850/dxb/cuus9obfaeeoym9hcmff.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138849/dxb/hot6qmlqlflnusi7yw9i.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138848/dxb/dfflk5lxqb651u3b9oyb.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138847/dxb/i5idbwtcnj8nzz5deupo.png',
     Created: '2019-02-20T09:43:52.647',
@@ -921,7 +822,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -932,12 +833,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138860/dxb/w0kt7qjtzdnp18llbrqx.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138858/dxb/nlwldv9ze54m7ayzn618.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554138857/dxb/jqywy39fch6eab0lyfps.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138860/dxb/w0kt7qjtzdnp18llbrqx.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138858/dxb/nlwldv9ze54m7ayzn618.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554138857/dxb/jqywy39fch6eab0lyfps.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554138855/dxb/dvu30gaiixslscc61wxd.png',
     Created: '2019-02-20T09:37:24.087',
@@ -949,7 +847,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -960,12 +858,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139109/dxb/t0vcqdai8dwzqfnpvopw.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139108/dxb/hw3usni1hsugrgry4gru.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139107/dxb/yql6g4mzdvg8bbre7exb.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139109/dxb/t0vcqdai8dwzqfnpvopw.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139108/dxb/hw3usni1hsugrgry4gru.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139107/dxb/yql6g4mzdvg8bbre7exb.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139106/dxb/dd3dkmdtxyxpracg8xys.png',
     Created: '2019-02-11T20:25:04.69',
@@ -977,7 +872,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -988,12 +883,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139116/dxb/smmuiskarhghootebhmv.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139115/dxb/m5yqlfte1iec1kuddh93.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139114/dxb/iuyt1d3pegspbobt8zyt.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139116/dxb/smmuiskarhghootebhmv.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139115/dxb/m5yqlfte1iec1kuddh93.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139114/dxb/iuyt1d3pegspbobt8zyt.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139113/dxb/jkjab0tbxy9pdgujjzop.png',
     Created: '2019-02-11T20:19:43.707',
@@ -1005,7 +897,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1016,12 +908,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139123/dxb/c91xngj7uuuyzc6wxwzt.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139121/dxb/ispumow5bctmsm85vddt.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139121/dxb/d8i8l1qfg49rh9cvc0vo.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139123/dxb/c91xngj7uuuyzc6wxwzt.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139121/dxb/ispumow5bctmsm85vddt.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139121/dxb/d8i8l1qfg49rh9cvc0vo.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139120/dxb/msrjuqi2brp3gbqk0lpd.png',
     Created: '2019-02-11T20:16:23.937',
@@ -1033,7 +922,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1044,12 +933,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139140/dxb/w1vramnqogena2wbpdca.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139139/dxb/entbo5rsk5lafykmsnin.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139136/dxb/ne1zvugiiq7veznwtasn.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139140/dxb/w1vramnqogena2wbpdca.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139139/dxb/entbo5rsk5lafykmsnin.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139136/dxb/ne1zvugiiq7veznwtasn.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139135/dxb/kxeeb4gmleidklx9wpew.png',
     Created: '2019-02-11T20:13:36.463',
@@ -1061,7 +947,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1072,12 +958,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139150/dxb/ux6go76qor1pkaqp6mih.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139149/dxb/chdfi4jsjjbgdr2cadtx.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139146/dxb/izcfhpwz14dzbq3jp8jx.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139150/dxb/ux6go76qor1pkaqp6mih.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139149/dxb/chdfi4jsjjbgdr2cadtx.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139146/dxb/izcfhpwz14dzbq3jp8jx.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139145/dxb/ulwpjg9k0oe6cecmr0sn.png',
     Created: '2019-02-11T20:10:04.667',
@@ -1089,7 +972,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1100,12 +983,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139160/dxb/lgsx1sas2hfdvygpbpdw.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139158/dxb/vmrsa90oam5tjnld2vsh.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139158/dxb/bag0rrafbaphtieiwmp2.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139160/dxb/lgsx1sas2hfdvygpbpdw.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139158/dxb/vmrsa90oam5tjnld2vsh.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139158/dxb/bag0rrafbaphtieiwmp2.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139157/dxb/y2leytnmnw3ni4xsgojt.png',
     Created: '2019-02-11T20:07:31.613',
@@ -1117,7 +997,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1128,12 +1008,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139177/dxb/giao2eqvpnkpc5dnwmle.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139176/dxb/aefzzmbj8h186dmqxa69.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139175/dxb/mzux4vosjc4k5tbv42rx.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139177/dxb/giao2eqvpnkpc5dnwmle.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139176/dxb/aefzzmbj8h186dmqxa69.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139175/dxb/mzux4vosjc4k5tbv42rx.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139174/dxb/lcjinnixgddwbht4u1wa.png',
     Created: '2019-02-11T19:51:26.457',
@@ -1145,7 +1022,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1156,12 +1033,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139189/dxb/vqzavverndxflktpvprr.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139188/dxb/wj1a7yq0xwqn87nvcglu.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139187/dxb/na5r6aacs5xb0b3giwzi.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139189/dxb/vqzavverndxflktpvprr.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139188/dxb/wj1a7yq0xwqn87nvcglu.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139187/dxb/na5r6aacs5xb0b3giwzi.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139186/dxb/ctxdudh6etw7mmqqhjuc.png',
     Created: '2019-02-11T19:49:10.607',
@@ -1173,7 +1047,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1184,12 +1058,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139196/dxb/obggm2s7pc26u7urb5iv.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139195/dxb/nrm7zwpg1l3snlukbujn.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139194/dxb/jsnelbvtuw10badmxvt6.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139196/dxb/obggm2s7pc26u7urb5iv.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139195/dxb/nrm7zwpg1l3snlukbujn.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139194/dxb/jsnelbvtuw10badmxvt6.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139193/dxb/axgeofgf0pzeuzpkliv6.png',
     Created: '2019-02-11T19:47:02.667',
@@ -1201,7 +1072,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1212,12 +1083,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139200/dxb/ysi2jcsqmdabix8p2qjr.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139199/dxb/qxkjillfq09in4jaf0xi.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139198/dxb/vodyxhgtb9rbblfazrqm.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139200/dxb/ysi2jcsqmdabix8p2qjr.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139199/dxb/qxkjillfq09in4jaf0xi.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139198/dxb/vodyxhgtb9rbblfazrqm.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139197/dxb/uybjzemtywymgyjykjcp.png',
     Created: '2019-02-11T19:42:31.213',
@@ -1229,7 +1097,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1240,12 +1108,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139212/dxb/wrmkncldpfuudkoaj4dp.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139211/dxb/vjiddkjngh7rwqrocfyg.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139210/dxb/fvc3ajk9c30j6csqv9wl.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139212/dxb/wrmkncldpfuudkoaj4dp.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139211/dxb/vjiddkjngh7rwqrocfyg.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139210/dxb/fvc3ajk9c30j6csqv9wl.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139209/dxb/g9zppeli5ssy44lgg2rv.png',
     Created: '2019-02-11T19:25:21.053',
@@ -1257,7 +1122,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1268,12 +1133,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139224/dxb/dyvynk7vcfxl3zhhhegx.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139223/dxb/ezcjbk5a9ye2gj2e5dwh.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139222/dxb/mhzwluppwpael0vardpv.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139224/dxb/dyvynk7vcfxl3zhhhegx.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139223/dxb/ezcjbk5a9ye2gj2e5dwh.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139222/dxb/mhzwluppwpael0vardpv.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139221/dxb/bjupmoltwx3nb9bbn80f.png',
     Created: '2019-02-11T19:21:05.043',
@@ -1285,7 +1147,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1296,12 +1158,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139232/dxb/p1eohhabemac2dq1ovpy.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139231/dxb/flceeswmeo8olzwxsrrq.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139230/dxb/oxek5kvk7nspghntlp8a.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139232/dxb/p1eohhabemac2dq1ovpy.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139231/dxb/flceeswmeo8olzwxsrrq.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139230/dxb/oxek5kvk7nspghntlp8a.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139229/dxb/jrgirljbl7pz2jbfopdv.png',
     Created: '2019-02-11T19:16:34.783',
@@ -1313,7 +1172,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1324,12 +1183,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139239/dxb/itylg8daxperpiuudpkc.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139238/dxb/mpnjzcmiglh4yubmdhp0.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139237/dxb/clii4oidsvpnmxspa3za.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139239/dxb/itylg8daxperpiuudpkc.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139238/dxb/mpnjzcmiglh4yubmdhp0.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139237/dxb/clii4oidsvpnmxspa3za.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139237/dxb/sq85o7ecvyafel7yngmz.png',
     Created: '2019-02-11T19:08:55.58',
@@ -1341,7 +1197,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1352,12 +1208,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139373/dxb/uxx2hwfcvbh3tcyl6hqq.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139372/dxb/mkmak3ag1jvhrvfadm0u.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139367/dxb/dbdykmfnlehdjwjdaxs0.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139373/dxb/uxx2hwfcvbh3tcyl6hqq.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139372/dxb/mkmak3ag1jvhrvfadm0u.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139367/dxb/dbdykmfnlehdjwjdaxs0.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139366/dxb/bzsfhahflhyfc5fi72pb.png',
     Created: '2019-02-11T15:18:55.677',
@@ -1369,7 +1222,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1380,12 +1233,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139380/dxb/c9mf7scgw7ukzuuyspwq.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139379/dxb/j1t85jbuknhxfjuofdep.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139374/dxb/uq8lso1brb1eu5dcqkv8.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139380/dxb/c9mf7scgw7ukzuuyspwq.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139379/dxb/j1t85jbuknhxfjuofdep.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139374/dxb/uq8lso1brb1eu5dcqkv8.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139373/dxb/vm8kxqycevyzqoewh1ty.png',
     Created: '2019-02-11T15:13:14.143',
@@ -1397,7 +1247,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1408,12 +1258,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139389/dxb/bwoh8iotx6afcbjkxwby.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139388/dxb/cf4dicg9ytlak4gtnsi5.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139387/dxb/qqo7lvjtqt5xcanrkjyc.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139389/dxb/bwoh8iotx6afcbjkxwby.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139388/dxb/cf4dicg9ytlak4gtnsi5.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139387/dxb/qqo7lvjtqt5xcanrkjyc.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139385/dxb/y5enkqefteow7xohndci.png',
     Created: '2019-02-11T15:10:31.793',
@@ -1425,7 +1272,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1436,12 +1283,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139406/dxb/a8ufdsokpu8lcsdl8y4w.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139405/dxb/q7wnfdfcnjmxwt5awgmr.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139403/dxb/tytr9j6vk6ggwmtkbl8q.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139406/dxb/a8ufdsokpu8lcsdl8y4w.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139405/dxb/q7wnfdfcnjmxwt5awgmr.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139403/dxb/tytr9j6vk6ggwmtkbl8q.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139403/dxb/n23xs1hxg6abmkjjgdyg.png',
     Created: '2019-02-11T15:07:37.08',
@@ -1453,7 +1297,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1464,12 +1308,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139413/dxb/mhxshgs9j7ffj7gnfpjz.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139412/dxb/nih4burrzyftco9davar.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139411/dxb/xfmndngczkn0djzpo4p3.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139413/dxb/mhxshgs9j7ffj7gnfpjz.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139412/dxb/nih4burrzyftco9davar.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139411/dxb/xfmndngczkn0djzpo4p3.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139410/dxb/wtdgetq4g9hwdtz3kusk.png',
     Created: '2019-02-11T15:03:51.003',
@@ -1481,7 +1322,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1492,12 +1333,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139425/dxb/fwifvtmvf39wdrezplud.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139424/dxb/j4tmgggtafmsfwqfkcad.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139421/dxb/dvtnbtqliedhtklk5jat.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139425/dxb/fwifvtmvf39wdrezplud.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139424/dxb/j4tmgggtafmsfwqfkcad.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139421/dxb/dvtnbtqliedhtklk5jat.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139420/dxb/jsjnpce5ic5gdlotv9gk.png',
     Created: '2019-02-11T15:00:31.16',
@@ -1509,7 +1347,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1520,12 +1358,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139438/dxb/nbx3o9ljlgwbmdvt5g7j.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139437/dxb/idm0zy1sefe2djlid1oi.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139434/dxb/gobucqfgbk0aic0pkwk5.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139438/dxb/nbx3o9ljlgwbmdvt5g7j.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139437/dxb/idm0zy1sefe2djlid1oi.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139434/dxb/gobucqfgbk0aic0pkwk5.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139434/dxb/manysotkrngcc2zfdb01.png',
     Created: '2019-02-11T14:55:50.33',
@@ -1537,7 +1372,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1548,12 +1383,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139453/dxb/hso45wdumxubvxbegagk.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139452/dxb/pvursq2klm93ankcc8o1.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139451/dxb/te0xg8mo96243kdfqco3.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139453/dxb/hso45wdumxubvxbegagk.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139452/dxb/pvursq2klm93ankcc8o1.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139451/dxb/te0xg8mo96243kdfqco3.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139450/dxb/yxl5qupht9hzhsdowmmc.png',
     Created: '2019-02-11T14:50:29.353',
@@ -1565,7 +1397,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1576,12 +1408,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139459/dxb/ze6m3dx4mra5a9gxkead.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139459/dxb/iknfddry4hhljxipr6dd.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139458/dxb/ttfv38ayzslpf7osstwn.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139459/dxb/ze6m3dx4mra5a9gxkead.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139459/dxb/iknfddry4hhljxipr6dd.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139458/dxb/ttfv38ayzslpf7osstwn.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139457/dxb/u2o7fo7cfgvy5nrv857s.png',
     Created: '2019-02-11T14:42:52.433',
@@ -1593,7 +1422,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1604,12 +1433,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139467/dxb/mznsptwxfvimdmv2oesd.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139465/dxb/cl8z9daahhujm3nbquy0.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139465/dxb/lt57cu4bglpz4jufzqt8.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139467/dxb/mznsptwxfvimdmv2oesd.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139465/dxb/cl8z9daahhujm3nbquy0.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139465/dxb/lt57cu4bglpz4jufzqt8.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139464/dxb/dnqqwhukzen5ruv6o0fz.png',
     Created: '2019-02-11T14:35:23.607',
@@ -1621,7 +1447,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1632,12 +1458,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139474/dxb/bjk3khmbf4yswvkr507v.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139473/dxb/ggy8c1cal4ebw1i9uzmq.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554139472/dxb/hgg9cyxyxx8od36sh1uk.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139474/dxb/bjk3khmbf4yswvkr507v.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139473/dxb/ggy8c1cal4ebw1i9uzmq.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554139472/dxb/hgg9cyxyxx8od36sh1uk.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554139471/dxb/zagdpkjlndkxjkvdyvmv.png',
     Created: '2019-02-11T14:20:26.337',
@@ -1649,7 +1472,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1660,12 +1483,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140864/dxb/aih7rwe6mjimwkwzwpem.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140863/dxb/ocxlsllkr7civqi2wl2c.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140862/dxb/vkqproewcu30cmlstyca.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140864/dxb/aih7rwe6mjimwkwzwpem.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140863/dxb/ocxlsllkr7civqi2wl2c.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140862/dxb/vkqproewcu30cmlstyca.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554140861/dxb/raflysoyipsux0t1kqwt.png',
     Created: '2018-12-03T15:22:07.317',
@@ -1677,7 +1497,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1688,12 +1508,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140856/dxb/iiws2bxevjzetcagqicz.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140855/dxb/sfkxgc4ffcexsaf2oybt.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140855/dxb/ygo8mnua4yyrxfsk21hr.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140856/dxb/iiws2bxevjzetcagqicz.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140855/dxb/sfkxgc4ffcexsaf2oybt.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140855/dxb/ygo8mnua4yyrxfsk21hr.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554140854/dxb/kisbnvnghprodrv5daaw.png',
     Created: '2018-12-03T12:27:34.513',
@@ -1705,7 +1522,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1716,12 +1533,9 @@ export default [
     DescriptionInPrimaryLang: 'Football',
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140870/dxb/swggygyinsu5zbaq0m1v.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140869/dxb/w8ccffkhxlz14ctzqg84.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1556022165/dxb/dsfre8cvlnyotqeqsjh2.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140870/dxb/swggygyinsu5zbaq0m1v.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140869/dxb/w8ccffkhxlz14ctzqg84.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1556022165/dxb/dsfre8cvlnyotqeqsjh2.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1556022170/dxb/isl4a3n8yv6dactd9jcy.png',
     Created: '2018-11-05T17:06:41.373',
@@ -1733,7 +1547,7 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
+    MetaCopyright: null
   },
   {
     LanguageCode: null,
@@ -1744,12 +1558,9 @@ export default [
     DescriptionInPrimaryLang: null,
     ImageURL: null,
     ImageThumbURL: null,
-    ImageSquareURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140867/dxb/iketsre6eti9e30ylmba.png',
-    ImageSquareThumbURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140866/dxb/tlel5tkc0d4akxq5zovz.png',
-    ImageLandscapeURL:
-      'https://res.cloudinary.com/sports-gate/image/upload/v1554140865/dxb/rlluqhq6btuysqrto50f.png',
+    ImageSquareURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140867/dxb/iketsre6eti9e30ylmba.png',
+    ImageSquareThumbURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140866/dxb/tlel5tkc0d4akxq5zovz.png',
+    ImageLandscapeURL: 'https://res.cloudinary.com/sports-gate/image/upload/v1554140865/dxb/rlluqhq6btuysqrto50f.png',
     ImageLandscapeThumbURL:
       'https://res.cloudinary.com/sports-gate/image/upload/v1554140865/dxb/xlufawsf3odzxum1qjx3.png',
     Created: '2018-10-10T14:59:08.503',
@@ -1761,6 +1572,6 @@ export default [
     MetaDesc: null,
     MetaKeywords: null,
     MetaAuthor: null,
-    MetaCopyright: null,
-  },
-];
+    MetaCopyright: null
+  }
+]

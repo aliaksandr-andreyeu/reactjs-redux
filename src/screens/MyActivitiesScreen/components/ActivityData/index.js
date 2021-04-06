@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { withNavigation } from 'react-navigation';
-import Icon from '../../../../components/Icon';
-import { fontSize } from '../../../../constants/fonts';
-import styles from './styles';
-import colors from '../../../../constants/colors';
-import { ssaEventActivityType } from '../../../../constants/socialSportsActivity';
-import i18n from '../../../../../i18n';
-import FA5Icons from 'react-native-vector-icons/FontAwesome5';
+import React, { Fragment } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+import { withNavigation } from 'react-navigation'
+import Icon from '../../../../components/Icon'
+import { fontSize } from '../../../../constants/fonts'
+import styles from './styles'
+import colors from '../../../../constants/colors'
+import { ssaEventActivityType } from '../../../../constants/socialSportsActivity'
+import i18n from '../../../../../i18n'
+import FA5Icons from 'react-native-vector-icons/FontAwesome5'
 
 const ActivityData = ({
   sports,
@@ -22,19 +22,19 @@ const ActivityData = ({
   date,
   isCreatedByUser,
   navigation,
-  id,
+  id
 }) => {
   const {
     getIcon,
-    iconLibraries: { fontAwesome, materialIcons, fontAwesome5 },
-  } = Icon;
+    iconLibraries: { fontAwesome, materialIcons, fontAwesome5 }
+  } = Icon
 
   const params = {
     size: 12,
-    color: colors.basicText,
-  };
+    color: colors.basicText
+  }
 
-  const formattedDate = moment(date).format('hh:mm A DD MMM YYYY');
+  const formattedDate = moment(date).format('hh:mm A DD MMM YYYY')
 
   return (
     <Fragment>
@@ -47,24 +47,18 @@ const ActivityData = ({
       </View>
 
       <View style={styles.lineContainer}>
-        <View>
-          {getIcon(fontAwesome, 'map-marker', { ...params, color: colors.brandColorBright })}
-        </View>
+        <View>{getIcon(fontAwesome, 'map-marker', { ...params, color: colors.brandColorBright })}</View>
         <Text style={[styles.lineText]}>{venue}</Text>
       </View>
       <View style={[styles.lineContainer]}>
-        <View>
-          {getIcon(fontAwesome, 'calendar', { ...params, color: colors.brandColorBright })}
-        </View>
+        <View>{getIcon(fontAwesome, 'calendar', { ...params, color: colors.brandColorBright })}</View>
         <Text style={[styles.lineText]}>{formattedDate}</Text>
       </View>
 
       {false && isCreatedByUser ? (
         <TouchableOpacity
           style={[styles.lineContainer, styles.invitationLink]}
-          onPress={() =>
-            navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })
-          }
+          onPress={() => navigation.navigate('SsaEventDetailsScreen', { params: { id, isCreatedByUser } })}
         >
           <View style={styles.linkTitleContainer}>
             <View>{getIcon(fontAwesome, 'group', params)}</View>
@@ -94,8 +88,8 @@ const ActivityData = ({
         </View>
       )}
     </Fragment>
-  );
-};
+  )
+}
 
 ActivityData.propTypes = {
   isCreatedByUser: PropTypes.bool,
@@ -107,14 +101,14 @@ ActivityData.propTypes = {
   venue: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
   }).isRequired,
-  id: PropTypes.string.isRequired,
-};
+  id: PropTypes.string.isRequired
+}
 
 ActivityData.defaultProps = {
   hasLinkToInvitation: false,
-  isCreatedByUser: false,
-};
+  isCreatedByUser: false
+}
 
-export default withNavigation(ActivityData);
+export default withNavigation(ActivityData)

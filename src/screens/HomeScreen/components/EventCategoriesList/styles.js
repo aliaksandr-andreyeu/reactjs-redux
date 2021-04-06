@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontFamily, fontSize } from '../../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontFamily, fontSize } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   itemMainBox: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 64,
+    height: 64
   },
   itemMain: {
     position: 'absolute',
@@ -17,21 +17,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 64,
-    paddingLeft: 18,
+    paddingLeft: 18
     // borderWidth: 1,
     // borderColor: "#ff0000",
   },
   buttonWrapper: {
     alignSelf: 'center',
     marginBottom: 15,
-    marginTop: 5,
+    marginTop: 5
   },
   buttonText: {
     fontSize: fontSize.regular,
     color: colors.basicLightText,
     backgroundColor: colors.themeColor,
     padding: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: 8
   },
   item: {
     backgroundColor: '#ffffff',
@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 13,
-    paddingLeft: 20,
+    paddingLeft: 20
   },
   itemText: {
     color: '#8C9091',
     fontSize: 6,
     alignSelf: 'center',
     fontFamily: fontFamily.gothamMedium,
-    marginTop: 7,
+    marginTop: 7
     // marginLeft: 8,
     // borderWidth: 1,
     // borderColor: "#ff0000",
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.regular,
     color: colors.headingBasic,
     fontFamily: fontFamily.gothamMedium,
-    paddingHorizontal: 16,
+    paddingHorizontal: 16
   },
   itemImage: {
     width: 164,
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 10,
-  },
-});
+    paddingLeft: 10
+  }
+})
 
-export default styles;
+export default styles

@@ -1,43 +1,43 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import propTypes from 'prop-types';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import styles from './styles';
-import { setData } from '../../PackageDetailsScreen/actions';
-import i18n from '../../../../i18n';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import propTypes from 'prop-types'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import styles from './styles'
+import { setData } from '../../PackageDetailsScreen/actions'
+import i18n from '../../../../i18n'
 
-import colors from '../../../constants/colors';
+import colors from '../../../constants/colors'
 
 class SsaTimeScreen extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    const { startTime, endTime, timeSlotId } = props;
+    const { startTime, endTime, timeSlotId } = props
 
     this.state = {
       startTime,
       endTime,
-      timeSlotId,
-    };
+      timeSlotId
+    }
   }
 
   selectTimeslot = timeSlot => {
     this.setState({
       startTime: timeSlot.Start,
       endTime: timeSlot.End,
-      timeSlotId: timeSlot.Id,
-    });
-  };
+      timeSlotId: timeSlot.Id
+    })
+  }
 
   renderItem = (timeSlot, index) => {
-    const { startTime, endTime } = this.state;
-    const isActive = timeSlot.Start === startTime && timeSlot.End === endTime;
+    const { startTime, endTime } = this.state
+    const isActive = timeSlot.Start === startTime && timeSlot.End === endTime
 
-    let timeValue = '';
-    timeValue += timeSlot && timeSlot.Start ? `${timeSlot.Start}` : '';
-    timeValue += timeSlot && timeSlot.Start && timeSlot.End ? ` - ${timeSlot.End}` : '';
+    let timeValue = ''
+    timeValue += timeSlot && timeSlot.Start ? `${timeSlot.Start}` : ''
+    timeValue += timeSlot && timeSlot.Start && timeSlot.End ? ` - ${timeSlot.End}` : ''
 
     return (
       <TouchableOpacity
@@ -50,35 +50,35 @@ class SsaTimeScreen extends Component {
           {timeValue}
         </Text>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   saveOption = () => {
-    const { closeModal } = this.props;
-    const { startTime, endTime, timeSlotId } = this.state;
+    const { closeModal } = this.props
+    const { startTime, endTime, timeSlotId } = this.state
 
-    const isComplete = startTime && endTime !== undefined;
+    const isComplete = startTime && endTime !== undefined
     if (isComplete && closeModal) {
-      closeModal({ startTime, endTime, timeSlotId });
+      closeModal({ startTime, endTime, timeSlotId })
     }
-  };
+  }
 
   handleCancel = () => {
-    const { closeModal } = this.props;
+    const { closeModal } = this.props
 
     if (closeModal) {
-      closeModal();
+      closeModal()
     }
-  };
+  }
 
   render() {
-    const { timeslots } = this.props;
+    const { timeslots } = this.props
 
     return (
       <ScrollView
         contentContainerStyle={{
           justifyContent: 'flex-end',
-          backgroundColor: colors.backgroundLight,
+          backgroundColor: colors.backgroundLight
         }}
       >
         <View
@@ -86,7 +86,7 @@ class SsaTimeScreen extends Component {
             paddingTop: 25,
             flex: 1,
             backgroundColor: colors.brandColorBright,
-            justifyContent: 'center',
+            justifyContent: 'center'
           }}
         >
           <View style={[styles.halfDaySection, { borderBottomWidth: 0 }]}>
@@ -103,7 +103,7 @@ class SsaTimeScreen extends Component {
           closeOnCancel={false}
         />
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -111,8 +111,8 @@ const mapStateToProps = state => ({
   startTime: state.packageDetails.startTime,
   endTime: state.packageDetails.endTime,
   packageId: state.packageDetails.packageId,
-  timeSlotId: state.packageDetails.packageId,
-});
+  timeSlotId: state.packageDetails.packageId
+})
 
 SsaTimeScreen.propTypes = {
   timeslots: propTypes.arrayOf(
@@ -121,7 +121,7 @@ SsaTimeScreen.propTypes = {
       // Start: propTypes.string.isRequired,
       // End: propTypes.string.isRequired,
       Start: propTypes.string,
-      End: propTypes.string,
+      End: propTypes.string
     })
   ).isRequired,
   // startTime: propTypes.string.isRequired,
@@ -130,7 +130,7 @@ SsaTimeScreen.propTypes = {
   endTime: propTypes.string,
   closeModal: propTypes.func.isRequired,
   // timeSlotId: propTypes.number.isRequired,
-  timeSlotId: propTypes.number,
-};
+  timeSlotId: propTypes.number
+}
 
-export default connect(mapStateToProps, { setData })(SsaTimeScreen);
+export default connect(mapStateToProps, { setData })(SsaTimeScreen)

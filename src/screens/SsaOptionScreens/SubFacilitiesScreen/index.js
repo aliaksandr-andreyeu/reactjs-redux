@@ -1,67 +1,62 @@
-import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import SsaScreenTitle from '../components/SsaScreenTitle';
-import ConfirmButtons from '../../../components/UI/ConfirmButtons';
-import styles from './styles';
-import * as actions from '../../SsaMainScreen/actions';
-import i18n from '../../../../i18n';
-import colors from '../../../constants/colors';
+import React, { Component } from 'react'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import SsaScreenTitle from '../components/SsaScreenTitle'
+import ConfirmButtons from '../../../components/UI/ConfirmButtons'
+import styles from './styles'
+import * as actions from '../../SsaMainScreen/actions'
+import i18n from '../../../../i18n'
+import colors from '../../../constants/colors'
 
 class SubFacilitiesScreen extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    const { subFacilityId } = props;
+    const { subFacilityId } = props
 
     this.state = {
-      subFacilityId,
-    };
+      subFacilityId
+    }
   }
 
   selectSubfacility = subFacilityId => {
     this.setState({
-      subFacilityId,
-    });
-  };
+      subFacilityId
+    })
+  }
 
   applyChanges = () => {
-    const { selectSubFacility } = this.props;
-    const { subFacilityId } = this.state;
+    const { selectSubFacility } = this.props
+    const { subFacilityId } = this.state
 
-    selectSubFacility({ subFacilityId });
-  };
+    selectSubFacility({ subFacilityId })
+  }
 
   render() {
-    const { navigation } = this.props;
-    const { subFacilityId } = this.state;
+    const { navigation } = this.props
+    const { subFacilityId } = this.state
 
-    const subFacilities = navigation.getParam('data', {});
+    const subFacilities = navigation.getParam('data', {})
 
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
           <View style={styles.innerWrapper}>
-            <SsaScreenTitle
-              text={i18n.t('socialSportsActivity.subfacility')}
-              styles={styles.title}
-            />
+            <SsaScreenTitle text={i18n.t('socialSportsActivity.subfacility')} styles={styles.title} />
             <FlatList
               data={subFacilities}
               extraData={this.state}
               renderItem={({ item }) => {
-                const selected = subFacilityId === item.Id;
+                const selected = subFacilityId === item.Id
                 // console.log('item', item)
                 return (
                   <TouchableOpacity
                     style={[styles.item, selected && styles.selected]}
                     onPress={() => this.selectSubfacility(item.Id)}
                   >
-                    <Text style={[styles.itemText, selected && styles.itemTextSelected]}>
-                      {item.Title}
-                    </Text>
+                    <Text style={[styles.itemText, selected && styles.itemTextSelected]}>{item.Title}</Text>
                   </TouchableOpacity>
-                );
+                )
               }}
               keyExtractor={item => item.Id}
             />
@@ -78,15 +73,15 @@ class SubFacilitiesScreen extends Component {
           />
         </View>
       </View>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
-  subFacilityId: state.socialSportActivity.subFacilityId,
-});
+  subFacilityId: state.socialSportActivity.subFacilityId
+})
 const mapDispatchToProps = {
-  selectSubFacility: actions.setData,
-};
+  selectSubFacility: actions.setData
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubFacilitiesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SubFacilitiesScreen)

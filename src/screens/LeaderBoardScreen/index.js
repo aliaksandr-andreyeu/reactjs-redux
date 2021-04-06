@@ -1,80 +1,80 @@
-import React, { Component } from 'react';
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
-import { axiosInstance, apiUrls } from '../../constants/api';
-import Tabs from '../../components/UI/Tabs';
-import { leaderBoardTabs } from './constants';
-import LeaderItem from './components/LeaderItem';
-import Loading from '../../components/Loading';
-import colors from '../../constants/colors';
-import { NavHeaderUser } from '../../components/NavHeaderUser';
-import i18n from '../../../i18n';
+import React, { Component } from 'react'
+import { View, Text, SafeAreaView, FlatList } from 'react-native'
+import { axiosInstance, apiUrls } from '../../constants/api'
+import Tabs from '../../components/UI/Tabs'
+import { leaderBoardTabs } from './constants'
+import LeaderItem from './components/LeaderItem'
+import Loading from '../../components/Loading'
+import colors from '../../constants/colors'
+import { NavHeaderUser } from '../../components/NavHeaderUser'
+import i18n from '../../../i18n'
 
 class LeaderBoardScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: <NavHeaderUser {...navigation} />,
-      title: i18n.t('more.leaderboard'),
-    };
-  };
+      title: i18n.t('more.leaderboard')
+    }
+  }
 
   state = {
     leaders: {
       week: [],
       month: [],
-      year: [],
+      year: []
     },
     isLoading: true,
-    currentTabIndex: i18n.locale.toLowerCase() == 'en' ? 0 : leaderBoardTabs().length - 1,
-  };
+    currentTabIndex: i18n.locale.toLowerCase() == 'en' ? 0 : leaderBoardTabs().length - 1
+  }
 
   componentDidMount() {
     let params = {
-      langCode: i18n.locale.toUpperCase(),
-    };
+      langCode: i18n.locale.toUpperCase()
+    }
 
     axiosInstance.get(apiUrls.getLeaderboard, { params }).then(({ data }) => {
       this.setState({
         leaders: {
           week: data.Week,
           month: data.Month,
-          year: data.Year,
+          year: data.Year
         },
-        isLoading: false,
-      });
-    });
+        isLoading: false
+      })
+    })
   }
 
   onTabClick = currentTabIndex => {
     this.setState({
-      currentTabIndex,
-    });
-  };
+      currentTabIndex
+    })
+  }
 
   getLeadersList = () => {
-    const { currentTabIndex, leaders } = this.state;
+    const { currentTabIndex, leaders } = this.state
 
     switch (currentTabIndex) {
       case 0:
-        return i18n.locale.toLowerCase() == 'en' ? leaders.week : leaders.year;
+        return i18n.locale.toLowerCase() == 'en' ? leaders.week : leaders.year
       case 1:
-        return leaders.month;
+        return leaders.month
       case 2:
-        return i18n.locale.toLowerCase() == 'en' ? leaders.year : leaders.week;
+        return i18n.locale.toLowerCase() == 'en' ? leaders.year : leaders.week
       default:
-        console.log('Invalid index has been provided.');
+        console.log('Invalid index has been provided.')
     }
 
-    return [];
-  };
+    return []
+  }
 
   render() {
-    const { currentTabIndex, isLoading } = this.state;
+    const { currentTabIndex, isLoading } = this.state
 
     if (isLoading) {
-      return <Loading />;
+      return <Loading />
     }
 
-    const leadersList = this.getLeadersList();
+    const leadersList = this.getLeadersList()
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -93,7 +93,7 @@ class LeaderBoardScreen extends Component {
               marginTop: 10,
               paddingTop: 15,
               paddingHorizontal: 15,
-              backgroundColor: '#fff',
+              backgroundColor: '#fff'
             }}
             data={leadersList}
             renderItem={({ item }) => <LeaderItem leader={item} />}
@@ -102,8 +102,8 @@ class LeaderBoardScreen extends Component {
           />
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
-export default LeaderBoardScreen;
+export default LeaderBoardScreen

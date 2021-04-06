@@ -15,7 +15,7 @@ export default [
     VenueName: 'Hamdam Sports Complex',
     VenueFullAddress: '',
     FacilityId: 51,
-    FacilityName: '',
+    FacilityName: ''
   },
   {
     TicketCode: '',
@@ -33,7 +33,7 @@ export default [
     VenueName: 'Hamdam Sports Complex',
     VenueFullAddress: '',
     FacilityId: 51,
-    FacilityName: '',
+    FacilityName: ''
   },
   {
     TicketCode: '',
@@ -51,6 +51,6 @@ export default [
     VenueName: 'Hamdam Sports Complex',
     VenueFullAddress: '',
     FacilityId: 51,
-    FacilityName: '',
-  },
-];
+    FacilityName: ''
+  }
+]

@@ -1,14 +1,11 @@
-import React from 'react';
-import moment from 'moment';
-import DataLine from '../DataLine';
-import { bookingOrderDict } from '../../../../constants/socialSportsActivity';
+import React from 'react'
+import moment from 'moment'
+import DataLine from '../DataLine'
+import { bookingOrderDict } from '../../../../constants/socialSportsActivity'
 
 const TicketData = ({ item }) => (
   <>
-    <DataLine
-      text={bookingOrderDict[item.Type]}
-      icon={{ library: 'fontAwesome5', name: 'ticket-alt' }}
-    />
+    <DataLine text={bookingOrderDict[item.Type]} icon={{ library: 'fontAwesome5', name: 'ticket-alt' }} />
     <DataLine
       text={moment(item.EventDateTime).format('MMM DD, YYYY')}
       icon={{ library: 'fontAwesome', name: 'calendar' }}
@@ -19,5 +16,5 @@ const TicketData = ({ item }) => (
       icon={{ library: 'fontAwesome5', name: 'chair' }}
     />
   </>
-);
-export default TicketData;
+)
+export default TicketData

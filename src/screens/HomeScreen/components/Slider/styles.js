@@ -1,6 +1,6 @@
-import { StyleSheet, Platform, Dimensions } from 'react-native';
-import colors from '../../../../constants/colors';
-import { fontSize, fontFamily } from '../../../../constants/fonts';
+import { StyleSheet, Platform, Dimensions } from 'react-native'
+import colors from '../../../../constants/colors'
+import { fontSize, fontFamily } from '../../../../constants/fonts'
 
 const styles = StyleSheet.create({
   dataMain: {},
@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    width: 90,
+    width: 90
   },
   leftButton: {
     flex: 1,
     width: 90,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingLeft: 8,
+    paddingLeft: 8
   },
   rightButtonBox: {
     flex: 1,
@@ -29,48 +29,48 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    width: 90,
+    width: 90
   },
   rightButton: {
     flex: 1,
     width: 90,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    paddingRight: 8,
+    paddingRight: 8
   },
   container: {
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   dataContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 13,
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   teaserText: {
     fontSize: fontSize.extraLarge + 2,
     color: colors.headingBasic,
-    fontFamily: fontFamily.gothamBold,
+    fontFamily: fontFamily.gothamBold
   },
   eventName: {
     fontSize: fontSize.medium,
     color: colors.headingBasic,
     fontFamily: fontFamily.gothamBold,
     textAlign: 'center',
-    lineHeight: 26,
+    lineHeight: 26
   },
   venueName: {
     fontSize: fontSize.small,
     fontFamily: fontFamily.gothamMedium,
-    color: '#575756',
+    color: '#575756'
   },
   date: {
     fontSize: fontSize.submedium,
     color: colors.headingBasic,
-    fontFamily: fontFamily.gothamMedium,
+    fontFamily: fontFamily.gothamMedium
   },
   buttonBox: {
-    marginTop: 5,
+    marginTop: 5
   },
   buttonText: {
     backgroundColor: colors.themeColor,
@@ -82,24 +82,24 @@ const styles = StyleSheet.create({
     paddingRight: 6,
     // marginBottom: -5,
     // marginTop: Platform.OS === 'ios' ? -8 : 0,
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
     // alignItems: "center",
     // alignSelf: "center",
   },
   dotsContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-    top: -30,
+    top: -30
   },
   dot: {
     height: 8,
     width: 8,
     borderRadius: 4,
     backgroundColor: colors.passiveElement,
-    marginRight: 8,
+    marginRight: 8
   },
   dotSelected: {
-    backgroundColor: colors.activeElement,
+    backgroundColor: colors.activeElement
   },
   triangle: {
     position: 'absolute',
@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
     borderBottomColor: '#c1c1c1',
     borderLeftColor: 'transparent',
     transform: [{ rotate: '90deg' }],
-    opacity: 0.65,
+    opacity: 0.65
   },
   line: {
     position: 'absolute',
     top: 30,
     right: -20,
-    opacity: 0.75,
-  },
-});
+    opacity: 0.75
+  }
+})
 
-export default styles;
+export default styles

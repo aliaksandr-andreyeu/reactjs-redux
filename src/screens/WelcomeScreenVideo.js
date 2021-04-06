@@ -1,118 +1,114 @@
-import React from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import React from 'react'
+import { Platform, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Video from 'react-native-video';
+import Video from 'react-native-video'
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import introVideo from '../assets/videos/intro.mp4';
-import SwipeGesture from '../components/SwipeGesture';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import introVideo from '../assets/videos/intro.mp4'
+import SwipeGesture from '../components/SwipeGesture'
 
-import i18n from '../../i18n';
+import i18n from '../../i18n'
 
-FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold';
-FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular';
+FontBreeBold = Platform.OS === 'ios' ? 'bree-bold' : 'BreeBold'
+FontBreeRegular = Platform.OS === 'ios' ? 'bree-regular' : 'BreeRegular'
 
 export default class WelcomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-  };
+    header: null
+  }
 
   state = {
     currentText: '',
     isSLiderActive: true,
     user: {},
-    slidingText: [
-      i18n.t('welcome.sliding_text_1'),
-      i18n.t('welcome.sliding_text_2'),
-      i18n.t('welcome.sliding_text_3'),
-    ],
-  };
+    slidingText: [i18n.t('welcome.sliding_text_1'), i18n.t('welcome.sliding_text_2'), i18n.t('welcome.sliding_text_3')]
+  }
 
   _handleVideoRef = component => {
-    const playbackObject = component;
-  };
+    const playbackObject = component
+  }
 
   constructor() {
-    super();
+    super()
   }
 
   onSwipePerformed = action => {
     switch (action) {
       case 'left': {
-        this._scrollSlider('left');
+        this._scrollSlider('left')
       }
       case 'right': {
-        this._scrollSlider('right');
+        this._scrollSlider('right')
       }
     }
-  };
+  }
 
   _scrollSlider(direction) {
     this.setState(
       {
-        isSLiderActive: false,
+        isSLiderActive: false
       },
       () => {
-        index = this.state.slidingText.indexOf(this.state.currentText);
-        newText = '';
+        index = this.state.slidingText.indexOf(this.state.currentText)
+        newText = ''
 
         if (direction == 'right' && this.state.slidingText[index + 1]) {
-          newText = this.state.slidingText[index + 1];
+          newText = this.state.slidingText[index + 1]
         }
         if (direction == 'right' && !this.state.slidingText[index + 1]) {
-          newText = this.state.slidingText[0];
+          newText = this.state.slidingText[0]
         }
 
         if (direction == 'left' && this.state.slidingText[index - 1]) {
-          newText = this.state.slidingText[index - 1];
+          newText = this.state.slidingText[index - 1]
         }
         if (direction == 'left' && !this.state.slidingText[index - 1]) {
-          newText = this.state.slidingText[this.state.slidingText.length - 1];
+          newText = this.state.slidingText[this.state.slidingText.length - 1]
         }
 
         // alert(direction + '/' + newText + '/'+ this.state.currentText);
 
         this.setState({
-          currentText: newText,
-        });
+          currentText: newText
+        })
       }
-    );
+    )
   }
 
   async componentWillMount() {
     if (false && __DEV__) {
       this.props.navigation.navigate('Home', {
-        isSkipped: false,
-      });
+        isSkipped: false
+      })
 
-      return true;
+      return true
     }
   }
 
   async componentDidMount() {
-    const storedValue = await AsyncStorage.getItem('app:user');
+    const storedValue = await AsyncStorage.getItem('app:user')
 
     this.setState(
       {
         slidingText: [
           i18n.t('welcome.sliding_text_1'),
           i18n.t('welcome.sliding_text_2'),
-          i18n.t('welcome.sliding_text_3'),
-        ],
+          i18n.t('welcome.sliding_text_3')
+        ]
       },
       () => {
         this.setState({
-          currentText: this.state.slidingText[0],
-        });
+          currentText: this.state.slidingText[0]
+        })
       }
-    );
+    )
 
     if (storedValue) {
       this.setState({
-        user: JSON.parse(storedValue),
-      });
+        user: JSON.parse(storedValue)
+      })
     } else {
       this.setState({
         user: {
@@ -121,9 +117,9 @@ export default class WelcomeScreen extends React.Component {
           country: 0,
           language: 0,
           phone: '',
-          token: '',
-        },
-      });
+          token: ''
+        }
+      })
     }
   }
 
@@ -131,35 +127,32 @@ export default class WelcomeScreen extends React.Component {
 
   _onPlaybackStatusUpdate = currentTime => {
     if (!this.state.isSLiderActive) {
-      return;
+      return
     }
 
     if (currentTime.currentTime * 1000 >= 0 && currentTime.currentTime * 1000 < 6000) {
       this.setState({
-        currentText: this.state.slidingText[0],
-      });
+        currentText: this.state.slidingText[0]
+      })
     }
 
     if (currentTime.currentTime * 1000 >= 6000 && currentTime.currentTime * 1000 <= 12000) {
       this.setState({
-        currentText: this.state.slidingText[1],
-      });
+        currentText: this.state.slidingText[1]
+      })
     }
 
     if (currentTime.currentTime * 1000 >= 12000) {
       this.setState({
-        currentText: this.state.slidingText[2],
-      });
+        currentText: this.state.slidingText[2]
+      })
     }
-  };
+  }
 
   render() {
     return (
       <View>
-        <SwipeGesture
-          gestureStyle={styles.swipesGestureContainer}
-          onSwipePerformed={this.onSwipePerformed}
-        >
+        <SwipeGesture gestureStyle={styles.swipesGestureContainer} onSwipePerformed={this.onSwipePerformed}>
           <View style={styles.container}>
             <Video
               ref={this._handleVideoRef}
@@ -176,7 +169,7 @@ export default class WelcomeScreen extends React.Component {
                 width: Dimensions.get('window').width,
                 height: Dimensions.get('window').height,
                 minWidth: Dimensions.get('window').width,
-                minHeight: Dimensions.get('window').height,
+                minHeight: Dimensions.get('window').height
               }}
             />
 
@@ -191,30 +184,24 @@ export default class WelcomeScreen extends React.Component {
                     flex: 1,
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'center'
                   }}
                 >
                   <FontAwesome
                     name="circle"
                     size={11}
-                    color={
-                      this.state.currentText == this.state.slidingText[0] ? '#ffffff' : '#aeadab'
-                    }
+                    color={this.state.currentText == this.state.slidingText[0] ? '#ffffff' : '#aeadab'}
                   />
                   <FontAwesome
                     name="circle"
                     size={11}
-                    color={
-                      this.state.currentText == this.state.slidingText[1] ? '#ffffff' : '#aeadab'
-                    }
+                    color={this.state.currentText == this.state.slidingText[1] ? '#ffffff' : '#aeadab'}
                     style={{ marginLeft: 10 }}
                   />
                   <FontAwesome
                     name="circle"
                     size={11}
-                    color={
-                      this.state.currentText == this.state.slidingText[2] ? '#ffffff' : '#aeadab'
-                    }
+                    color={this.state.currentText == this.state.slidingText[2] ? '#ffffff' : '#aeadab'}
                     style={{ marginLeft: 10 }}
                   />
                 </View>
@@ -227,7 +214,7 @@ export default class WelcomeScreen extends React.Component {
                   style={{
                     fontFamily: FontBreeBold,
                     fontSize: 20,
-                    color: '#F7F7F7',
+                    color: '#F7F7F7'
                   }}
                 >
                   {i18n.t('welcome.get_started')}
@@ -237,22 +224,22 @@ export default class WelcomeScreen extends React.Component {
           </View>
         </SwipeGesture>
       </View>
-    );
+    )
   }
 
   _handleGetStarted = () => {
     if (this.state.user.token) {
       this.props.navigation.navigate('Home', {
-        isSkipped: false,
-      });
+        isSkipped: false
+      })
     } else {
-      AsyncStorage.setItem('app:user', JSON.stringify(this.state.user));
+      AsyncStorage.setItem('app:user', JSON.stringify(this.state.user))
 
       this.props.navigation.navigate('AuthChoice', {
-        isSkipped: false,
-      });
+        isSkipped: false
+      })
     }
-  };
+  }
 }
 
 const styles = StyleSheet.create({
@@ -265,37 +252,37 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 70,
     paddingRight: 70,
-    flex: 1,
+    flex: 1
   },
   backgroundVideo: {
     bottom: 0,
     left: 0,
     position: 'absolute',
     right: 0,
-    top: 0,
+    top: 0
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   developmentModeText: {
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   sliderText: {
     color: '#ffffff',
     fontFamily: FontBreeBold,
     fontSize: 25,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   swipesGestureContainer: {
     height: '100%',
-    width: '100%',
-  },
-});
+    width: '100%'
+  }
+})

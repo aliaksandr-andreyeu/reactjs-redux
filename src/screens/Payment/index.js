@@ -105,7 +105,7 @@ class Payment extends Component {
   payByExistingCard = (id, balance) => {
     const paymentParams = {
       Token: id,
-      Type: Boolean(balance) ? 'dxb_wallet_balance' : 'id',
+      Type: balance ? 'dxb_wallet_balance' : 'id',
     };
 
     this.proceedToPayment(paymentParams);

@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../../constants/colors';
-import { fontFamily, fontSize } from '../../../constants/fonts';
+import { StyleSheet } from 'react-native'
+import colors from '../../../constants/colors'
+import { fontFamily, fontSize } from '../../../constants/fonts'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: colors.brandColorBright,
+    backgroundColor: colors.brandColorBright
   },
   innerWrapper: {
     flexGrow: 1,
-    padding: 15,
+    padding: 15
   },
   item: {
     height: 40,
@@ -20,22 +20,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.brandColorBright,
     marginBottom: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 15
   },
   selected: {
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundLight
   },
   itemText: {
     fontFamily: fontFamily.gothamMedium,
     fontSize: fontSize.medium,
-    color: colors.basicLightText,
+    color: colors.basicLightText
   },
   itemTextSelected: {
-    color: colors.brandColorBright,
+    color: colors.brandColorBright
   },
   title: {
-    color: colors.basicLightText,
-  },
-});
+    color: colors.basicLightText
+  }
+})
 
-export default styles;
+export default styles

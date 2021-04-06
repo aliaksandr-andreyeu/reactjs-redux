@@ -1,20 +1,20 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import moment from 'moment';
-import styles from './styles';
-import colors from '../../../../constants/colors';
+import React from 'react'
+import { View, Text } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import moment from 'moment'
+import styles from './styles'
+import colors from '../../../../constants/colors'
 
 const parseDate = ({ date }) => {
-  return moment(date).format('DD-MMM-YYYY').split('-');
-};
+  return moment(date).format('DD-MMM-YYYY').split('-')
+}
 
 const DateTag = ({ date }) => {
   if (!date) {
-    return null;
+    return null
   }
 
-  const parsedDate = parseDate(date);
+  const parsedDate = parseDate(date)
 
   return (
     <View style={styles.dateContainer}>
@@ -29,7 +29,7 @@ const DateTag = ({ date }) => {
         <Text style={styles.date}>{parsedDate[2]}</Text>
       </LinearGradient>
     </View>
-  );
-};
+  )
+}
 
-export default DateTag;
+export default DateTag
